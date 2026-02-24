@@ -2,18 +2,18 @@ import { ExpoConfig, ConfigContext } from "expo/config";
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
     ...config,
-    name: "expo-supabase-template",
-    slug: "expo-supabase-template",
+    name: "belvedere",
+    slug: "belvedere",
     version: "1.0.0",
     orientation: "portrait",
     icon: "./assets/images/icon.png",
-    scheme: "exposupabase",
+    scheme: "belvedere",
     userInterfaceStyle: "automatic",
     newArchEnabled: true,
     ios: {
         usesAppleSignIn: true,
         supportsTablet: true,
-        bundleIdentifier: "com.limonequantistico.exposupabasetemplate",
+        bundleIdentifier: "com.limonequantistico.belvedere",
     },
     android: {
         adaptiveIcon: {
@@ -21,7 +21,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
             backgroundColor: "#ffffff",
         },
         edgeToEdgeEnabled: true,
-        package: "com.limonequantistico.exposupabasetemplate",
+        package: "com.limonequantistico.belvedere",
     },
     web: {
         bundler: "metro",
@@ -43,8 +43,8 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         [
             "@react-native-google-signin/google-signin",
             {
-                iosUrlScheme: process.env.EXPO_PUBLIC_GOOGLE_IOS_URL_SCHEME,
-                iosClientId: process.env.EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID,
+                iosUrlScheme: process.env.EXPO_PUBLIC_GOOGLE_IOS_URL_SCHEME || "com.googleusercontent.apps.PLACEHOLDER",
+                iosClientId: process.env.EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID || "PLACEHOLDER",
             },
         ],
         "expo-web-browser",
@@ -55,8 +55,8 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     extra: {
         router: {},
         eas: {
-            projectId: "56c56d7d-8540-49f0-a6ae-1ca112ede0fe",
+            projectId: "ce46656a-c937-42c0-836f-ed52441a533a",
         },
     },
-    owner: "limonequantistico",
+    owner: "pythor",
 });

@@ -116,11 +116,11 @@ Edit `app.config.ts`:
 
 ### 5. Link to EAS (Expo Application Services)
 
+Update the `projectId` in `app.config.ts` → `extra.eas.projectId`.
+
 ```bash
 npx eas init --id <your-project-id>
 ```
-
-Update the `projectId` in `app.config.ts` → `extra.eas.projectId`.
 
 ### 6. Update types
 
@@ -284,6 +284,21 @@ Reference: [Latest Expo supported versions](https://docs.expo.dev/versions/lates
 ```bash
 npm install tamagui@latest @tamagui/config@latest @tamagui/babel-plugin@latest @tamagui/metro-plugin@latest @tamagui/portal@latest @tamagui/toast@latest @tamagui/sheet@latest @tamagui/progress@latest @tamagui/lucide-icons@latest
 ```
+
+> [!CAUTION]
+> **Tamagui ≥1.139 breaks static extraction on Node ≥24.**
+>
+> Versions `1.139.x` and above introduced ESM `export {}` syntax inside the `@tamagui/core` CJS bundle. Node 24's stricter ESM/CJS interop throws `Unexpected token '{'` when `esbuild-register` tries to `require()` it, causing the Tamagui static extractor to fail.
+>
+> **Symptoms:** The `🐥 [tamagui]` emoji lines disappear from the Metro output and are replaced by long `Error in Tamagui parse, skipping` stack traces. The app still bundles, but static extraction is skipped.
+>
+> **Fix:** Downgrade all Tamagui packages back to `1.138.x`:
+> ```bash
+> npx expo install @tamagui/babel-plugin@^1.138.5 @tamagui/config@^1.138.5 @tamagui/lucide-icons@^1.138.5 @tamagui/metro-plugin@^1.138.5 @tamagui/portal@^1.138.5 @tamagui/progress@^1.138.6 @tamagui/sheet@^1.138.6 @tamagui/toast@^1.138.5 tamagui@^1.138.5
+> ```
+> Then clear the cache: `rm -rf node_modules/.cache && npx expo start -c`
+>
+> **Alternative:** Downgrade Node to v22 LTS, which doesn't have the stricter ESM/CJS interop.
 
 ### General
 
