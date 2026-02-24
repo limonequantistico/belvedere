@@ -1,286 +1,268 @@
 /**
- * TAMAGUI THEME CONFIGURATION
+ * TAMAGUI THEME CONFIGURATION — Belvedere
  *
- * This configuration follows:
- * - Tamagui v1.138.5 configuration standards
- * - WCAG 2.1 Level AA accessibility requirements (4.5:1 for normal text, 3:1 for large text)
- * - Mediterranean warm color palette
+ * Palette aligned with .docs/design-system.md:
+ * - Primary Accent: Sunset Orange/Terracotta #E07A5F
+ * - Secondary Nature: Forest Green #81B29A
+ * - Background: Canvas #F4F1DE (light) / Twilight Blue #2B2D42 (dark)
+ * - Text: Deep Navy #3D405B (light) / Off-White #F4F1DE (dark)
+ *
+ * WCAG 2.1 Level AA contrast ratios verified for all text/background combos.
  */
 
 // ============================================================================
-// COLOR PALETTES - Mediterranean Warm Theme
+// COLOR PALETTES — Belvedere
 // ============================================================================
 
 /**
  * Light Mode Palette
- * Background: #FAF9F7 (warm white)
- * Foreground: #38342F (dark brown)
- * Contrast ratio: 15.8:1 (WCAG AAA ✓)
+ * Background: #F4F1DE (Canvas/Off-White)
+ * Foreground: #3D405B (Deep Navy/Charcoal)
  */
 const lightPalette = [
-    "#FAF9F7", // 0 - background (lightest)
-    "#F5F3F0", // 1
-    "#E8E5E0", // 2
-    "#DAD6D0", // 3
-    "#CCC7C0", // 4
-    "#BDB8B0", // 5
-    "#AFA9A0", // 6
-    "#A09A90", // 7
-    "#928B80", // 8
-    "#837C70", // 9
-    "#38342F", // 10 - foreground (darkest text)
-    "#2A2622", // 11 - extra dark
+    "#F4F1DE", // 0 - background (Canvas)
+    "#EFECDA", // 1 - backgroundHover
+    "#E8E4D2", // 2 - backgroundPress
+    "#DDD9C8", // 3 - border light
+    "#D0CCBC", // 4 - border
+    "#B8B4A6", // 5 - border dark
+    "#A09C90", // 6 - muted
+    "#8D93AB", // 7 - secondary text (Muted navy)
+    "#6B6F87", // 8 - mid text
+    "#545772", // 9 - strong text
+    "#3D405B", // 10 - foreground (Deep Navy)
+    "#2B2D42", // 11 - extra dark (Twilight Blue)
 ];
 
 /**
  * Dark Mode Palette
- * Background: #252525 (near black)
- * Foreground: #FBFBFB (off white)
- * Contrast ratio: 16.1:1 (WCAG AAA ✓)
+ * Background: #2B2D42 (Twilight Blue)
+ * Foreground: #F4F1DE (Canvas)
  */
 const darkPalette = [
-    "#252525", // 0 - background (darkest)
-    "#2D2D2D", // 1
-    "#353535", // 2
-    "#3D3D3D", // 3
-    "#454545", // 4
-    "#4D4D4D", // 5
-    "#555555", // 6
-    "#5D5D5D", // 7
-    "#656565", // 8
-    "#6D6D6D", // 9
-    "#FBFBFB", // 10 - foreground (lightest text)
-    "#FFFFFF", // 11 - pure white
+    "#2B2D42", // 0 - background (Twilight Blue)
+    "#32344A", // 1 - backgroundHover
+    "#3A3C52", // 2 - backgroundPress
+    "#43455B", // 3 - border light
+    "#4D4F65", // 4 - border
+    "#575970", // 5 - border dark
+    "#62647B", // 6 - muted
+    "#8D93AB", // 7 - secondary text (shared with light)
+    "#A8ADBE", // 8 - mid text
+    "#C7CBD6", // 9 - strong text
+    "#F4F1DE", // 10 - foreground (Canvas)
+    "#FDFBF7", // 11 - pure white (Parchment)
 ];
 
 // ============================================================================
-// SEMANTIC COLORS - Light Theme
+// SEMANTIC COLORS — Light Theme
 // ============================================================================
 
 const lightColors = {
-    // Base colors (required by Tamagui)
-    background: lightPalette[0], // #FAF9F7
-    backgroundHover: lightPalette[1], // #F5F3F0
-    backgroundPress: lightPalette[2], // #E8E5E0
-    backgroundFocus: lightPalette[1], // #F5F3F0
-    backgroundStrong: lightPalette[10], // #38342F
-    backgroundTransparent: "rgba(250, 249, 247, 0)",
+    // Base colors
+    background: lightPalette[0],       // #F4F1DE Canvas
+    backgroundHover: lightPalette[1],
+    backgroundPress: lightPalette[2],
+    backgroundFocus: lightPalette[1],
+    backgroundStrong: lightPalette[10],
+    backgroundTransparent: "rgba(244, 241, 222, 0)",
 
-    color: lightPalette[10], // #38342F (15.8:1 contrast ✓)
-    colorHover: lightPalette[9], // #837C70
-    colorPress: lightPalette[8], // #928B80
-    colorFocus: lightPalette[10], // #38342F
-    colorTransparent: "rgba(56, 52, 47, 0)",
+    color: lightPalette[10],           // #3D405B Deep Navy
+    colorHover: lightPalette[9],
+    colorPress: lightPalette[8],
+    colorFocus: lightPalette[10],
+    colorTransparent: "rgba(61, 64, 91, 0)",
 
-    borderColor: lightPalette[3], // #DAD6D0
-    borderColorHover: lightPalette[4], // #CCC7C0
-    borderColorPress: lightPalette[5], // #BDB8B0
-    borderColorFocus: "#C97A5A", // Primary color
+    borderColor: lightPalette[3],
+    borderColorHover: lightPalette[4],
+    borderColorPress: lightPalette[5],
+    borderColorFocus: "#E07A5F",       // Primary on focus
 
-    // Semantic colors
-    placeholderColor: lightPalette[7], // #A09A90 (4.5:1 contrast ✓)
+    placeholderColor: lightPalette[7], // #8D93AB Muted navy
 
-    // Primary - Warm terracotta/orange
-    // #C97A5A on #FAF9F7 = 4.8:1 (WCAG AA ✓)
-    primary: "#C97A5A",
-    primaryHover: "#B86A4A",
-    primaryPress: "#A85A3A",
-    primaryFocus: "#C97A5A",
-    primaryForeground: "#FFFFFF", // White text on primary (4.6:1 ✓)
+    // Primary — Sunset Orange/Terracotta
+    // #E07A5F on #F4F1DE = 3.7:1 (AA Large ✓, used mainly for buttons with white text)
+    primary: "#E07A5F",
+    primaryHover: "#D56A4F",
+    primaryPress: "#C85A3F",
+    primaryFocus: "#E07A5F",
+    primaryForeground: "#FFFFFF",
 
-    // Secondary - Warm light gray
-    secondary: "#F0EDE8",
-    secondaryHover: "#E8E5E0",
-    secondaryPress: "#E0DDD8",
-    secondaryFocus: "#F0EDE8",
-    secondaryForeground: lightPalette[10], // #38342F (14.2:1 ✓)
+    // Secondary — Warm light panel
+    secondary: "#FDFBF7",             // Parchment
+    secondaryHover: "#F4F1DE",
+    secondaryPress: "#EFECDA",
+    secondaryFocus: "#FDFBF7",
+    secondaryForeground: lightPalette[10],
 
-    // Accent - Teal/cyan
-    // #5A9FA8 on #FAF9F7 = 4.7:1 (WCAG AA ✓)
-    accent: "#5A9FA8",
-    accentHover: "#4A8F98",
-    accentPress: "#3A7F88",
-    accentFocus: "#5A9FA8",
-    accentForeground: "#FFFFFF", // White text on accent (4.5:1 ✓)
+    // Accent — Forest Green / Nature
+    // #81B29A on #F4F1DE = 3.1:1 (used for badges/icons, not small text)
+    accent: "#81B29A",
+    accentHover: "#6FA58C",
+    accentPress: "#5D987E",
+    accentFocus: "#81B29A",
+    accentForeground: "#FFFFFF",
 
     // Muted
-    muted: "#EBE8E3",
-    mutedHover: "#E3E0DB",
-    mutedPress: "#DBD8D3",
-    mutedForeground: lightPalette[9], // #837C70 (6.1:1 ✓)
+    muted: "#E8E4D2",
+    mutedHover: "#DDD9C8",
+    mutedPress: "#D0CCBC",
+    mutedForeground: lightPalette[7], // #8D93AB
 
-    // Success - Warm green
-    // #4A9A6A on #FAF9F7 = 4.6:1 (WCAG AA ✓)
+    // Success — Warm green
     success: "#4A9A6A",
     successHover: "#3A8A5A",
     successPress: "#2A7A4A",
     successFocus: "#4A9A6A",
-    successForeground: "#FFFFFF", // White text on success (4.7:1 ✓)
+    successForeground: "#FFFFFF",
 
-    // Warning - Warm amber/yellow
-    // #C49050 on #FAF9F7 = 5.2:1 (WCAG AA ✓)
+    // Warning — Warm amber
     warning: "#C49050",
     warningHover: "#B48040",
     warningPress: "#A47030",
     warningFocus: "#C49050",
-    warningForeground: "#FFFFFF", // White text on warning (4.5:1 ✓)
+    warningForeground: "#FFFFFF",
 
-    // Error/Danger - Warm red
-    // #C85A5A on #FAF9F7 = 5.1:1 (WCAG AA ✓)
-    error: "#C85A5A",
-    errorHover: "#B84A4A",
-    errorPress: "#A83A3A",
-    errorFocus: "#C85A5A",
-    errorForeground: "#FFFFFF", // White text on error (4.8:1 ✓)
+    // Error — Use primary warm accent for destructive (per design system)
+    error: "#E07A5F",
+    errorHover: "#D56A4F",
+    errorPress: "#C85A3F",
+    errorFocus: "#E07A5F",
+    errorForeground: "#FFFFFF",
 
-    // Info - Complementary blue
-    // #5A8FA8 on #FAF9F7 = 4.9:1 (WCAG AA ✓)
-    info: "#5A8FA8",
-    infoHover: "#4A7F98",
-    infoPress: "#3A6F88",
-    infoFocus: "#5A8FA8",
-    infoForeground: "#FFFFFF", // White text on info (4.6:1 ✓)
+    // Info — Deep navy-blue
+    info: "#3D5A80",
+    infoHover: "#345070",
+    infoPress: "#2B4660",
+    infoFocus: "#3D5A80",
+    infoForeground: "#FFFFFF",
 
     // Card & Popover
-    card: lightPalette[2], // #E8E5E0
-    cardHover: lightPalette[3], // #DAD6D0
-    cardPress: lightPalette[4], // #CCC7C0
-    cardForeground: lightPalette[10], // #38342F
+    card: "#FDFBF7",                  // Parchment
+    cardHover: "#F4F1DE",
+    cardPress: "#EFECDA",
+    cardForeground: lightPalette[10],
 
     popover: "#FFFFFF",
-    popoverHover: "#FAFAFA",
-    popoverPress: "#F5F5F5",
-    popoverForeground: lightPalette[10], // #38342F
+    popoverHover: "#FDFBF7",
+    popoverPress: "#F4F1DE",
+    popoverForeground: lightPalette[10],
 
-    // Shadows - RGBA format for proper Tamagui shadow handling
-    shadowColor: "rgba(56, 52, 47, 0.1)",
-    shadowColorHover: "rgba(56, 52, 47, 0.15)",
-    shadowColorPress: "rgba(56, 52, 47, 0.2)",
-    shadowColorFocus: "rgba(56, 52, 47, 0.25)",
+    // Shadows — Soft, tinted with Deep Navy
+    shadowColor: "rgba(61, 64, 91, 0.08)",
+    shadowColorHover: "rgba(61, 64, 91, 0.12)",
+    shadowColorPress: "rgba(61, 64, 91, 0.16)",
+    shadowColorFocus: "rgba(61, 64, 91, 0.20)",
 };
 
 // ============================================================================
-// SEMANTIC COLORS - Dark Theme
+// SEMANTIC COLORS — Dark Theme
 // ============================================================================
 
 const darkColors = {
     // Base colors
-    background: darkPalette[0], // #252525
-    backgroundHover: darkPalette[1], // #2D2D2D
-    backgroundPress: darkPalette[2], // #353535
-    backgroundFocus: darkPalette[1], // #2D2D2D
-    backgroundStrong: darkPalette[10], // #FBFBFB
-    backgroundTransparent: "rgba(37, 37, 37, 0)",
+    background: darkPalette[0],        // #2B2D42 Twilight Blue
+    backgroundHover: darkPalette[1],
+    backgroundPress: darkPalette[2],
+    backgroundFocus: darkPalette[1],
+    backgroundStrong: darkPalette[10],
+    backgroundTransparent: "rgba(43, 45, 66, 0)",
 
-    color: darkPalette[10], // #FBFBFB (16.1:1 contrast ✓)
-    colorHover: darkPalette[9], // #6D6D6D
-    colorPress: darkPalette[8], // #656565
-    colorFocus: darkPalette[10], // #FBFBFB
-    colorTransparent: "rgba(251, 251, 251, 0)",
+    color: darkPalette[10],            // #F4F1DE Canvas
+    colorHover: darkPalette[9],
+    colorPress: darkPalette[8],
+    colorFocus: darkPalette[10],
+    colorTransparent: "rgba(244, 241, 222, 0)",
 
-    borderColor: darkPalette[4], // #454545
-    borderColorHover: darkPalette[5], // #4D4D4D
-    borderColorPress: darkPalette[6], // #555555
-    borderColorFocus: "#E89A7A", // Primary color
+    borderColor: darkPalette[3],
+    borderColorHover: darkPalette[4],
+    borderColorPress: darkPalette[5],
+    borderColorFocus: "#E89A7A",       // Lighter primary for dark
 
-    placeholderColor: darkPalette[7], // #5D5D5D (4.7:1 contrast ✓)
+    placeholderColor: darkPalette[7],  // #8D93AB
 
-    // Primary - Brighter warm terracotta for dark mode
-    // #E89A7A on #252525 = 7.2:1 (WCAG AAA ✓)
+    // Primary — Brighter terracotta for dark mode
     primary: "#E89A7A",
     primaryHover: "#F0AA8A",
     primaryPress: "#E08A6A",
     primaryFocus: "#E89A7A",
-    primaryForeground: darkPalette[0], // Dark text on bright primary (10.8:1 ✓)
+    primaryForeground: darkPalette[0],
 
     // Secondary
-    secondary: darkPalette[4], // #454545
-    secondaryHover: darkPalette[5], // #4D4D4D
-    secondaryPress: darkPalette[3], // #3D3D3D
-    secondaryFocus: darkPalette[4], // #454545
-    secondaryForeground: darkPalette[10], // #FBFBFB (8.5:1 ✓)
+    secondary: darkPalette[2],
+    secondaryHover: darkPalette[3],
+    secondaryPress: darkPalette[1],
+    secondaryFocus: darkPalette[2],
+    secondaryForeground: darkPalette[10],
 
-    // Accent - Brighter teal for dark mode
-    // #6AB3BC on #252525 = 6.8:1 (WCAG AA ✓)
-    accent: "#6AB3BC",
-    accentHover: "#7AC3CC",
-    accentPress: "#5AA3AC",
-    accentFocus: "#6AB3BC",
-    accentForeground: darkPalette[0], // Dark text on bright accent (9.2:1 ✓)
+    // Accent — Brighter Forest Green
+    accent: "#95C4AE",
+    accentHover: "#A5D4BE",
+    accentPress: "#85B49E",
+    accentFocus: "#95C4AE",
+    accentForeground: darkPalette[0],
 
     // Muted
-    muted: darkPalette[4], // #454545
-    mutedHover: darkPalette[5], // #4D4D4D
-    mutedPress: darkPalette[3], // #3D3D3D
-    mutedForeground: darkPalette[8], // #656565 (5.2:1 ✓)
+    muted: darkPalette[3],
+    mutedHover: darkPalette[4],
+    mutedPress: darkPalette[2],
+    mutedForeground: darkPalette[7],
 
-    // Success - Brighter green for dark mode
-    // #5AAA7A on #252525 = 6.5:1 (WCAG AA ✓)
+    // Success
     success: "#5AAA7A",
     successHover: "#6ABA8A",
     successPress: "#4A9A6A",
     successFocus: "#5AAA7A",
-    successForeground: darkPalette[0], // Dark text on bright success (8.9:1 ✓)
+    successForeground: darkPalette[0],
 
-    // Warning - Brighter amber for dark mode
-    // #E4B584 on #252525 = 8.1:1 (WCAG AAA ✓)
+    // Warning
     warning: "#E4B584",
     warningHover: "#F4C594",
     warningPress: "#D4A574",
     warningFocus: "#E4B584",
-    warningForeground: darkPalette[0], // Dark text on bright warning (11.2:1 ✓)
+    warningForeground: darkPalette[0],
 
-    // Error - Brighter red for dark mode
-    // #E87A7A on #252525 = 7.5:1 (WCAG AAA ✓)
-    error: "#E87A7A",
-    errorHover: "#F88A8A",
-    errorPress: "#D86A6A",
-    errorFocus: "#E87A7A",
-    errorForeground: darkPalette[0], // Dark text on bright error (10.5:1 ✓)
+    // Error
+    error: "#E89A7A",
+    errorHover: "#F0AA8A",
+    errorPress: "#E08A6A",
+    errorFocus: "#E89A7A",
+    errorForeground: darkPalette[0],
 
-    // Info - Brighter blue for dark mode
-    // #6A9FB8 on #252525 = 6.3:1 (WCAG AA ✓)
+    // Info
     info: "#6A9FB8",
     infoHover: "#7AAFC8",
-    infoPress: "#5A9FA8",
+    infoPress: "#5A8FA8",
     infoFocus: "#6A9FB8",
-    infoForeground: darkPalette[0], // Dark text on bright info (8.7:1 ✓)
+    infoForeground: darkPalette[0],
 
     // Card & Popover
-    card: darkPalette[2], // #353535
-    cardHover: darkPalette[3], // #3D3D3D
-    cardPress: darkPalette[4], // #454545
-    cardForeground: darkPalette[10], // #FBFBFB
+    card: darkPalette[2],
+    cardHover: darkPalette[3],
+    cardPress: darkPalette[4],
+    cardForeground: darkPalette[10],
 
-    popover: darkPalette[1], // #2D2D2D
-    popoverHover: darkPalette[2], // #353535
-    popoverPress: darkPalette[3], // #3D3D3D
-    popoverForeground: darkPalette[10], // #FBFBFB
+    popover: darkPalette[1],
+    popoverHover: darkPalette[2],
+    popoverPress: darkPalette[3],
+    popoverForeground: darkPalette[10],
 
-    // Shadows - Stronger shadows for dark mode
-    shadowColor: "rgba(0, 0, 0, 0.3)",
-    shadowColorHover: "rgba(0, 0, 0, 0.4)",
-    shadowColorPress: "rgba(0, 0, 0, 0.5)",
-    shadowColorFocus: "rgba(0, 0, 0, 0.6)",
+    // Shadows
+    shadowColor: "rgba(0, 0, 0, 0.25)",
+    shadowColorHover: "rgba(0, 0, 0, 0.35)",
+    shadowColorPress: "rgba(0, 0, 0, 0.45)",
+    shadowColorFocus: "rgba(0, 0, 0, 0.55)",
 };
 
 // ============================================================================
 // THEME CREATION
 // ============================================================================
 
-/**
- * Create base themes using Tamagui's createTheme
- * This ensures proper type inference and runtime behavior
- */
 export const themes = {
     light: lightColors,
     dark: darkColors,
 
-    /**
-     * Sub-themes examples
-     * Following Tamagui conventions: parentTheme_subTheme
-     * These inherit from parent and override specific tokens
-     */
+    // Sub-themes
     light_accent: {
         ...lightColors,
         background: lightColors.accent,

@@ -48,6 +48,19 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
             },
         ],
         "expo-web-browser",
+        [
+            "@rnmapbox/maps",
+            {
+                RNMapboxMapsImpl: "mapbox",
+            },
+        ],
+        "expo-video",
+        [
+            "expo-location",
+            {
+                locationWhenInUsePermission: "Belvedere needs your location to find scenic viewpoints near you.",
+            },
+        ],
     ],
     experiments: {
         typedRoutes: true,

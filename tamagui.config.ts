@@ -1,6 +1,55 @@
 import { defaultConfig } from "@tamagui/config/v4";
-import { createTamagui } from "tamagui";
+import { createFont, createTamagui } from "tamagui";
 import { themes } from "./themes";
+
+// Nunito font family — loaded via @expo-google-fonts/nunito in _layout.tsx
+const nunitoFont = createFont({
+    family: "Nunito_400Regular",
+    size: {
+        1: 13,
+        2: 14,
+        3: 15,
+        4: 16,
+        5: 18,
+        6: 20,
+        7: 24,
+        8: 28,
+        9: 32,
+        10: 40,
+        true: 16,
+    },
+    lineHeight: {
+        1: 18,
+        2: 20,
+        3: 22,
+        4: 24,
+        5: 26,
+        6: 28,
+        7: 32,
+        8: 36,
+        9: 40,
+        10: 48,
+        true: 24,
+    },
+    weight: {
+        4: "400",  // Regular
+        5: "500",  // Medium
+        6: "600",  // SemiBold
+        7: "700",  // Bold
+        true: "400",
+    },
+    letterSpacing: {
+        4: 0,
+        5: 0,
+        true: 0,
+    },
+    face: {
+        400: { normal: "Nunito_400Regular" },
+        500: { normal: "Nunito_500Medium" },
+        600: { normal: "Nunito_600SemiBold" },
+        700: { normal: "Nunito_700Bold" },
+    },
+});
 
 /**
  * TAMAGUI CONFIGURATION
@@ -20,10 +69,17 @@ export const tamaguiConfig = createTamagui({
     // Inherit all defaults from @tamagui/config/v4
     ...defaultConfig,
 
-    // Override themes with our custom Mediterranean theme
+    // Override themes with Belvedere palette
     themes: {
         ...defaultConfig.themes,
         ...themes,
+    },
+
+    // Use Nunito as the primary font
+    fonts: {
+        ...defaultConfig.fonts,
+        body: nunitoFont,
+        heading: nunitoFont,
     },
 
     // Enhanced media queries for better responsive design

@@ -286,19 +286,15 @@ npm install tamagui@latest @tamagui/config@latest @tamagui/babel-plugin@latest @
 ```
 
 > [!CAUTION]
-> **Tamagui ≥1.139 breaks static extraction on Node ≥24.**
+> **Tamagui static extraction breaks on Node ≥24.**
 >
-> Versions `1.139.x` and above introduced ESM `export {}` syntax inside the `@tamagui/core` CJS bundle. Node 24's stricter ESM/CJS interop throws `Unexpected token '{'` when `esbuild-register` tries to `require()` it, causing the Tamagui static extractor to fail.
+> Node 24's stricter ESM/CJS interop is incompatible with `esbuild-register`, which Tamagui's static extractor uses internally. This affects **all** Tamagui versions (including `1.138.x`), not just `≥1.139`.
 >
-> **Symptoms:** The `🐥 [tamagui]` emoji lines disappear from the Metro output and are replaced by long `Error in Tamagui parse, skipping` stack traces. The app still bundles, but static extraction is skipped.
+> **Symptoms:** Long `Error in Tamagui parse, skipping Unexpected token '{'` stack traces in Metro output. The app still bundles and works, but static extraction is skipped.
 >
-> **Fix:** Downgrade all Tamagui packages back to `1.138.x`:
-> ```bash
-> npx expo install @tamagui/babel-plugin@^1.138.5 @tamagui/config@^1.138.5 @tamagui/lucide-icons@^1.138.5 @tamagui/metro-plugin@^1.138.5 @tamagui/portal@^1.138.5 @tamagui/progress@^1.138.6 @tamagui/sheet@^1.138.6 @tamagui/toast@^1.138.5 tamagui@^1.138.5
-> ```
-> Then clear the cache: `rm -rf node_modules/.cache && npx expo start -c`
+> **Fix (already applied):** `babel.config.js` detects Node ≥24 and sets `disableExtraction: true` for the `@tamagui/babel-plugin`. Static extraction is an optional CSS optimization — the app works identically without it.
 >
-> **Alternative:** Downgrade Node to v22 LTS, which doesn't have the stricter ESM/CJS interop.
+> **Alternative:** Downgrade Node to v22 LTS to keep static extraction enabled.
 
 ### General
 

@@ -2,10 +2,6 @@ import { Redirect, Stack } from "expo-router";
 
 import { useAuth } from "@/context/supabase-provider";
 
-export const unstable_settings = {
-    initialRouteName: "(tabs)",
-};
-
 export default function ProtectedLayout() {
     const { initialized, session } = useAuth();
 
@@ -23,7 +19,7 @@ export default function ProtectedLayout() {
                 headerShown: false,
             }}
         >
-            <Stack.Screen name="(tabs)" />
+            <Stack.Screen name="index" />
             <Stack.Screen
                 name="modal"
                 options={{

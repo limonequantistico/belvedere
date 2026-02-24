@@ -17,25 +17,23 @@
 
 The template is already in place (Expo + Supabase + Tamagui). This phase aligns it with Belvedere's identity and prepares the ground for feature work.
 
-- [ ] **Update CLAUDE.md** — Rewrite to reflect Belvedere (remove old food-app references, document new architecture)
-- [ ] **Install core dependencies** — Add missing packages from the tech stack:
-  - [ ] `@rnmapbox/maps` (Mapbox for React Native)
-  - [ ] `expo-location`
-  - [ ] `expo-video`
-  - [ ] `expo-image`
-  - [ ] `@tanstack/react-query` (TanStack Query v5)
-  - [ ] `zustand` (client state manager)
-- [ ] **Tamagui theming** — Apply Belvedere design system tokens to `tamagui.config.ts` and `themes.ts`:
-  - [ ] Implement color palette (Sunset Orange, Forest Green, Canvas, Parchment, text colors)
-  - [ ] Configure typography (Nunito / Quicksand font family)
-  - [ ] Set spacing, border radius, and shadow tokens per design system
-- [ ] **Setup custom fonts** — Load and register chosen font family via `expo-font`
-- [ ] **Remove tab navigation** — Replace current tab structure with a single-screen map-first layout:
-  - [ ] Full-screen map as the root protected screen
-  - [ ] Floating search bar at top-left with profile icon at top-right
-  - [ ] Bottom sheet as the primary navigation/content surface
-  - [ ] Profile accessible via the top-right avatar icon (opens as a sheet or overlay)
-- [ ] **Update app metadata** — Name, slug, scheme, splash screen, icon in `app.config.ts`
+- [x] **Update CLAUDE.md** — Rewrite to reflect Belvedere (remove old food-app references, document new architecture)
+- [x] **Install core dependencies** — Add missing packages from the tech stack:
+  - [x] `@rnmapbox/maps` (Mapbox for React Native)
+  - [x] `expo-location`
+  - [x] `expo-video`
+  - [x] `expo-image` *(was already installed)*
+  - [x] `@tanstack/react-query` (TanStack Query v5)
+  - [x] `zustand` *(was already installed)*
+- [x] **Tamagui theming** — Apply Belvedere design system tokens to `tamagui.config.ts` and `themes.ts`:
+  - [x] Implement color palette (Sunset Orange, Forest Green, Canvas, Parchment, text colors)
+  - [x] Configure typography (Nunito font family)
+  - [x] Set spacing, border radius, and shadow tokens per design system
+- [x] **Setup custom fonts** — Load and register Nunito via `@expo-google-fonts/nunito`
+- [x] **Remove tab navigation** — Replace current tab structure with a single-screen map-first layout:
+  - [x] Full-screen map placeholder as the root protected screen
+  - [x] *(Floating search bar, filter pills, bottom sheet → Phase 2)*
+- [x] **Update app metadata** — Added Mapbox, expo-video, expo-location plugins to `app.config.ts`
 
 ---
 

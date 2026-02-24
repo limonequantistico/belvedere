@@ -14,6 +14,18 @@ import { useStyledToast } from "@/hooks/useStyledToast";
 import { triggerLightImpact } from "@/services/hapticsService";
 import ThemedButton from "@/components/reusable-ui/ThemedButton";
 import { Bug } from "@tamagui/lucide-icons";
+import {
+    useFonts,
+    Nunito_400Regular,
+    Nunito_500Medium,
+    Nunito_600SemiBold,
+    Nunito_700Bold,
+} from "@expo-google-fonts/nunito";
+import * as SplashScreen from "expo-splash-screen";
+import { useEffect } from "react";
+
+// Prevent splash screen from auto-hiding until fonts are loaded
+SplashScreen.preventAutoHideAsync();
 
 function AppContent() {
     const { left, top, right } = useSafeAreaInsets();
@@ -21,7 +33,6 @@ function AppContent() {
 
     return (
         <>
-            {/*Per mostrare ora, batteria ecc*/}
             <StatusBar />
             <SafeAreaProvider>
                 <PortalProvider>
@@ -81,6 +92,24 @@ function AppContent() {
 export default function RootLayout() {
     const toast = useStyledToast();
 
+    const [fontsLoaded, fontError] = useFonts({
+        Nunito_400Regular,
+        Nunito_500Medium,
+        Nunito_600SemiBold,
+        Nunito_700Bold,
+    });
+
+    useEffect(() => {
+        if (fontsLoaded || fontError) {
+            SplashScreen.hideAsync();
+        }
+    }, [fontsLoaded, fontError]);
+
+    // Don't render until fonts are loaded
+    if (!fontsLoaded && !fontError) {
+        return null;
+    }
+
     function generateMd() {
         toast.showDefault("Debug Active", "Basic app layout is functioning.");
         triggerLightImpact();
@@ -90,7 +119,7 @@ export default function RootLayout() {
     return (
         <ManualThemeProvider>
             <AppContent />
-            {__DEV__ &&
+            {__DEV__ && (
                 <ThemedButton
                     onPress={generateMd}
                     variant="outline"
@@ -103,9 +132,8 @@ export default function RootLayout() {
                     backgroundColor="$background"
                     elevate
                     opacity={0.7}
-                >
-                </ThemedButton>
-            }
+                />
+            )}
         </ManualThemeProvider>
     );
 }
