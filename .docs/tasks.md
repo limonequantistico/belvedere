@@ -39,23 +39,21 @@ The template is already in place (Expo + Supabase + Tamagui). This phase aligns 
 
 ## Phase 1 · Backend & Database (Supabase)
 
-- [ ] **Enable PostGIS extension** on Supabase project
+- [x] **Enable PostGIS extension** on Supabase project
 - [ ] **Design and create database schema:**
-  - [ ] `viewpoints` table — id, name, description, coordinates (PostGIS `geography`), altitude, category, cover_image_url, video_url, verified (bool), created_by, created_at, updated_at
-  - [ ] `viewpoint_media` table — id, viewpoint_id (FK), media_url, media_type (image/video), sort_order, created_at
-  - [ ] `viewpoint_categories` table — id, name, icon, color
-  - [ ] `community_submissions` table — id, submitted_by, name, description, coordinates, media_urls[], status (pending/approved/rejected), reviewed_by, created_at
-  - [ ] `user_favorites` table — id, user_id, viewpoint_id, created_at
-  - [ ] `profiles` table — extend existing with display_name, avatar_url, bio
-- [ ] **Row Level Security (RLS)** — Define policies for all tables
-- [ ] **Database functions:**
-  - [ ] `nearby_viewpoints(lat, lng, radius_km)` — PostGIS proximity query
-  - [ ] `search_viewpoints(query_text)` — Full-text search
-- [ ] **Storage buckets:**
-  - [ ] `viewpoint-media` bucket for POI images/videos
-  - [ ] `avatars` bucket for user profile pictures
-  - [ ] `submissions` bucket for community submission media
-- [ ] **Seed data** — Populate initial viewpoints for development/testing
+  - [x] `viewpoints` table — id, name, description, coordinates (PostGIS `geography`), altitude, category, cover_image_url, video_url, verified (bool), created_by, created_at, updated_at
+  - [x] `viewpoint_media` table — id, viewpoint_id (FK), media_url, media_type (image/video), sort_order, created_at
+  - [x] `viewpoint_categories` table — id, name, icon, color
+  - [x] `user_favorites` table — id, user_id, viewpoint_id, created_at
+  - [x] `profiles` table — extend existing with display_name, avatar_url, bio
+- [x] **Row Level Security (RLS)** — Define policies for all tables
+- [x] **Database functions:**
+  - [x] `nearby_viewpoints(lat, lng, radius_km)` — PostGIS proximity query
+  - [x] `search_viewpoints(query_text)` — Full-text search
+- [x] **Storage buckets:**
+  - [x] `viewpoint-media` bucket for POI images/videos
+  - [x] `avatars` bucket for user profile pictures
+- [x] **Seed data** — Populate initial viewpoints for development/testing
 
 ---
 
@@ -199,6 +197,9 @@ This is the heart of the app — a single-screen, map-first layout inspired by t
 Features to revisit once the core experience is solid.
 
 ### Community Submissions
+- [ ] **Database Schema:**
+  - [ ] `community_submissions` table — id, submitted_by, name, description, coordinates, media_urls[], status (pending/approved/rejected), reviewed_by, created_at
+  - [ ] `submissions` bucket for community submission media
 - [ ] **Submission flow:**
   - [ ] "Suggest a viewpoint" button
   - [ ] Form: name, description, location (pick on map or auto-detect), upload photos/video
