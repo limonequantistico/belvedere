@@ -23,7 +23,6 @@ export function ThemeToggle() {
                 shadowColor="$shadowColor"
             >
                 {options.map(({ mode, label, icon }) => {
-                    console.log(icon);
                     const isActive = themeMode === mode;
 
                     return (
