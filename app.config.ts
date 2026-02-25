@@ -56,6 +56,14 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         ],
         "expo-video",
         [
+            "expo-build-properties",
+            {
+                ios: {
+                    deploymentTarget: "15.1"
+                }
+            }
+        ],
+        [
             "expo-location",
             {
                 locationWhenInUsePermission: "Belvedere needs your location to find scenic viewpoints near you.",

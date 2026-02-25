@@ -23,6 +23,18 @@ import {
 } from "@expo-google-fonts/nunito";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
+import { QueryClient } from "@tanstack/react-query";
+import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client';
+import { asyncStoragePersister } from "@/lib/mmkvQueryStorage";
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 60 * 24, // 24 hours
+      gcTime: 1000 * 60 * 60 * 24 * 7, // 7 days
+    },
+  },
+});
 
 // Prevent splash screen from auto-hiding until fonts are loaded
 SplashScreen.preventAutoHideAsync();
@@ -40,7 +52,7 @@ function AppContent() {
                         <LoaderProvider>
                             <ToastProvider swipeDirection="up">
                                 <StyledToast />
-                                <AuthProvider>
+                                    <AuthProvider>
                                     <Stack
                                         screenOptions={{
                                             headerShown: false,
@@ -77,7 +89,7 @@ function AppContent() {
                                             }}
                                         />
                                     </Stack>
-                                </AuthProvider>
+                                    </AuthProvider>
                                 <ToastViewport top={24 + top} left={left} right={right} />
                             </ToastProvider>
                             <GlobalLoader />
@@ -89,9 +101,33 @@ function AppContent() {
     );
 }
 
-export default function RootLayout() {
+function DebugOverlay() {
     const toast = useStyledToast();
 
+    function generateMd() {
+        toast.showDefault("Debug Active", "Basic app layout is functioning.");
+        triggerLightImpact();
+        console.log("Template Debug trigger fired");
+    }
+
+    return (
+        <ThemedButton
+            onPress={generateMd}
+            variant="outline"
+            size="$5"
+            circular
+            icon={Bug}
+            position="absolute"
+            bottom="$13"
+            right="$4"
+            backgroundColor="$background"
+            elevate
+            opacity={0.7}
+        />
+    );
+}
+
+export default function RootLayout() {
     const [fontsLoaded, fontError] = useFonts({
         Nunito_400Regular,
         Nunito_500Medium,
@@ -110,30 +146,17 @@ export default function RootLayout() {
         return null;
     }
 
-    function generateMd() {
-        toast.showDefault("Debug Active", "Basic app layout is functioning.");
-        triggerLightImpact();
-        console.log("Template Debug trigger fired");
-    }
-
     return (
-        <ManualThemeProvider>
-            <AppContent />
-            {__DEV__ && (
-                <ThemedButton
-                    onPress={generateMd}
-                    variant="outline"
-                    size="$5"
-                    circular
-                    icon={Bug}
-                    position="absolute"
-                    bottom="$13"
-                    right="$4"
-                    backgroundColor="$background"
-                    elevate
-                    opacity={0.7}
-                />
-            )}
-        </ManualThemeProvider>
+        <PersistQueryClientProvider
+            client={queryClient}
+            persistOptions={{ persister: asyncStoragePersister }}
+        >
+            <ManualThemeProvider>
+                <AppContent />
+                {__DEV__ && <DebugOverlay />}
+            </ManualThemeProvider>
+        </PersistQueryClientProvider>
     );
 }
+
+export { ErrorBoundary } from 'expo-router';

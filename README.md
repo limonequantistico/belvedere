@@ -2,6 +2,8 @@
 
 A production-ready mobile app template built with **Expo SDK 54**, **Supabase**, and **Tamagui**. Includes authentication, theming, toast notifications, haptics, and a tab-based navigation structure — all wired up and ready to go.
 
+> **Architecture Note**: Belvedere utilizes a custom Local-First synchronization model for its map POIs. See [`.docs/phases/phase-2-core-map/data-architecture.md`](.docs/phases/phase-2-core-map/data-architecture.md) for full details on how `react-native-mmkv` and Supabase RPCs achieve zero-latency map rendering.
+
 ## Tech Stack
 
 | Layer      | Technology                                                                        |
@@ -309,3 +311,17 @@ npx expo install --fix # Fix Expo compatibility issues
 ## Debug Button
 
 In development (`__DEV__`), a 🐛 bug button appears in the bottom-right corner. It triggers a test toast and haptic feedback to verify the template is wired up correctly. It is automatically hidden in production builds.
+
+---
+
+## Running with Mapbox
+
+Since Mapbox (`@rnmapbox/maps`) requires native code, you cannot use the standard Expo Go app to run this project. You must build and run a custom development client.
+
+To build and launch the app securely on the iOS Simulator, always use:
+
+```bash
+npx expo run:ios
+```
+
+*(Do not use `npm start` or just `npx expo start` to run the app for the first time, as Expo Go will crash when it encounters the Mapbox native modules).*

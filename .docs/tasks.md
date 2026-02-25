@@ -63,36 +63,38 @@ This is the heart of the app — a single-screen, map-first layout inspired by t
 
 ### 2A · Map Integration
 
-- [ ] **Mapbox setup** — Configure `@rnmapbox/maps` with API token
+- [x] **Mapbox setup** — Configure `@rnmapbox/maps` with API token
 - [ ] **Custom map style** — Create/apply a stylized Mapbox Studio style (warm, cartographic, RPG-inspired as per design system)
-- [ ] **Single-screen map layout:**
-  - [ ] Full-screen map (Z-Index 0)
-  - [ ] Floating search bar at top-left + profile avatar icon at top-right (Z-Index 10)
-  - [ ] Right-side FABs: locate me, map layers (Z-Index 10)
+- [x] **Single-screen map layout:**
+  - [x] Full-screen map (Z-Index 0)
+  - [x] Floating search bar at top-left + profile avatar icon at top-right (Z-Index 10)
+  - [x] Right-side FABs: locate me, map layers (Z-Index 10)
   - [ ] Persistent bottom sheet with curated content (Z-Index 20)
 
 ### 2B · Geolocation & POI Discovery
 
-- [ ] **User location** — Request permissions and track user position with `expo-location`
-- [ ] **Fetch nearby viewpoints** — Call `nearby_viewpoints()` Supabase function based on user coordinates
-- [ ] **Custom map markers** — Render stylized `MapMarker` components on the map (illustrated icons, not standard pins)
-  - [ ] Active / inactive / unverified variants
+- [x] **User location** — Request permissions and track user position with `expo-location`
+- [x] **Local-First Data Sync** — Synchronize viewpoints directly to device disk instead of GPS-based radius queries
+  - [x] Configure `@tanstack/react-query` global client with infinite cache time
+  - [x] Wire `react-native-mmkv` to the TanStack Persister
+  - [x] Pull data from Supabase `sync_viewpoints` differential RPC
+- [x] **Custom map markers** — Render stylized map points with dynamic sizes based on verified status
+- [x] **Marker Clustering** — Group map points seamlessly on the JS thread to maintain extreme visual performance
 - [ ] **Marker interaction** — Tapping a marker:
   - [ ] Smooth camera flight to center on POI
   - [ ] 3D pitch tilt for terrain preview
   - [ ] Open bottom content sheet with POI details
-- [ ] **Clustering** — Group nearby markers at lower zoom levels
 
 ### 2C · Search & Filters
 
-- [ ] **FloatingSearch component** — Capsule-shaped search bar, cream background, search icon
-- [ ] **Profile icon** — User avatar button at the top-right of the search bar row, tapping opens profile sheet/overlay
-- [ ] **Filter pills row** — Horizontally scrollable row of category chips directly below the search bar (as in `.docs/imgs/prototypes/image 2.png`):
-  - [ ] Categories like Natural, Urban, Historic, etc.
-  - [ ] Each pill shows an icon + label
-  - [ ] Active state: solid primary accent background; inactive: muted/outlined
+- [x] **FloatingSearch component** — Capsule-shaped search bar, cream background, search icon
+- [x] **Profile icon** — User avatar button at the top-right of the search bar row, tapping opens profile sheet/overlay
+- [x] **Filter pills row** — Horizontally scrollable row of category chips directly below the search bar (as in `.docs/imgs/prototypes/image 2.png`):
+  - [x] Categories like Natural, Urban, Historic, etc.
+  - [x] Each pill shows an icon + label
+  - [x] Active state: solid primary accent background; inactive: muted/outlined
 - [ ] **Search functionality** — Full-text search against viewpoint names/descriptions
-- [ ] **Filter logic** — Filter map markers by category, distance, verified status
+- [x] **Filter logic** — Filter map markers by category, distance, verified status
 
 ---
 
@@ -144,15 +146,15 @@ This is the heart of the app — a single-screen, map-first layout inspired by t
 
 ## Phase 6 · State Management & Data Layer
 
-- [ ] **TanStack Query setup** — Configure `QueryClient`, wrap app in `QueryClientProvider`
+- [x] **TanStack Query setup** — Configure `QueryClient`, wrap app in `QueryClientProvider`
 - [ ] **Query hooks:**
-  - [ ] `useNearbyViewpoints(lat, lng, radius)`
+  - [x] `useNearbyViewpoints(lat, lng, radius)`
   - [ ] `useViewpointDetails(id)`
   - [ ] `useSearchViewpoints(query)`
   - [ ] `useFavorites(userId)`
 - [ ] **Zustand stores:**
-  - [ ] `useMapStore` — Camera position, selected viewpoint, active filters, zoom level
-  - [ ] `useLocationStore` — User's current coordinates, location permission status
+  - [x] `useMapStore` — Camera position, selected viewpoint, active filters, zoom level
+  - [x] `useLocationStore` — User's current coordinates, location permission status
 - [ ] **Offline tolerance** — Configure TanStack Query caching for low-connectivity outdoor use
 
 ---
