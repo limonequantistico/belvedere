@@ -25,7 +25,7 @@ export const useViewpointsSync = () => {
   const queryClient = useQueryClient();
 
   return useQuery({
-    queryKey: ['viewpoints', 'global'],
+    queryKey: ['viewpoints', 'global', 'v2'], // using v2 to sidestep any previous bad cached state
     queryFn: async () => {
       // 1. Get the last time we synced the full list (or null if first launch)
       const lastSync = syncStorage.getString(LAST_SYNC_KEY) || null;
@@ -48,7 +48,7 @@ export const useViewpointsSync = () => {
       if (lastSync) {
         // If we had a previous sync, we need to merge the incoming changes
         // with the existing array of viewpoints currently preserved in the cache.
-        const oldCache: ViewpointLite[] = queryClient.getQueryData(['viewpoints', 'global']) || [];
+        const oldCache: ViewpointLite[] = queryClient.getQueryData(['viewpoints', 'global', 'v2']) || [];
         
         // Create a map of existing items for O(1) lookups
         const cacheMap = new Map(oldCache.map(vp => [vp.id, vp]));

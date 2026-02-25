@@ -1,6 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
-import { Text } from 'tamagui';
+import { View, Text } from 'react-native';
 import MapboxGL from '@rnmapbox/maps';
 
 type ClusterMarkerProps = {
@@ -15,7 +14,11 @@ export function ClusterMarker({ id, coordinate, pointCount, onPress }: ClusterMa
   const size = Math.max(40, Math.min(60, 35 + (pointCount * 2)));
 
   return (
-    <MapboxGL.MarkerView id={id} coordinate={coordinate}>
+    <MapboxGL.PointAnnotation 
+      id={id} 
+      coordinate={coordinate}
+      onSelected={onPress}
+    >
       <View
         onTouchEnd={onPress}
         style={{
@@ -29,15 +32,16 @@ export function ClusterMarker({ id, coordinate, pointCount, onPress }: ClusterMa
           borderWidth: 3,
           shadowColor: '#000',
           shadowOffset: { width: 0, height: 4 },
-          shadowOpacity: 0.5,
+          shadowOpacity: 1, // Mapbox snapshotting requires fully opaque views sometimes
           shadowRadius: 5,
           elevation: 8,
+          overflow: 'hidden',
         }}
       >
-        <Text color="white" fontWeight="bold" fontSize={size > 45 ? "$5" : "$4"}>
+        <Text style={{ color: "white", fontWeight: "bold", fontSize: size > 45 ? 16 : 14, textAlign: 'center', includeFontPadding: false }}>
           {pointCount}
         </Text>
       </View>
-    </MapboxGL.MarkerView>
+    </MapboxGL.PointAnnotation>
   );
 }
