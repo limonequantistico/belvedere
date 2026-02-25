@@ -2,7 +2,6 @@ import React from 'react';
 import { View } from 'react-native';
 import { Text } from 'tamagui';
 import MapboxGL from '@rnmapbox/maps';
-import { useMapStore } from '../../store/useMapStore';
 
 type ClusterMarkerProps = {
   id: string;

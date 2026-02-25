@@ -2,13 +2,21 @@ import React from 'react';
 import { YStack, Button } from 'tamagui';
 import { Navigation, Layers } from '@tamagui/lucide-icons';
 import { useLocationStore } from '../../store/useLocationStore';
+import { useMapStore } from '../../store/useMapStore';
 
 export function MapFABs() {
   const { requestLocation, isLoading } = useLocationStore();
+  const { setCameraPosition } = useMapStore();
 
   const handleLocateMe = async () => {
     await requestLocation();
-    // In a real app, this would also tell the map camera to fly to the new coordinates
+    const state = useLocationStore.getState();
+    if (state.location) {
+      setCameraPosition({
+        centerCoordinate: [state.location.coords.longitude, state.location.coords.latitude],
+        zoomLevel: 14,
+      });
+    }
   };
 
   return (

@@ -7,7 +7,7 @@ export const queryClientStorage = new MMKV({
 });
 
 // Create the actual persister for TanStack Query using the synchronous MMKV engine
-export const asyncStoragePersister = createSyncStoragePersister({
+export const mmkvPersister = createSyncStoragePersister({
   storage: {
     getItem: (key) => queryClientStorage.getString(key) ?? null,
     setItem: (key, value) => queryClientStorage.set(key, value),

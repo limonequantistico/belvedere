@@ -19,7 +19,11 @@ export type ViewpointLite = {
   verified: boolean;
 };
 
+import { useQueryClient } from '@tanstack/react-query';
+
 export const useViewpointsSync = () => {
+  const queryClient = useQueryClient();
+
   return useQuery({
     queryKey: ['viewpoints', 'global'],
     queryFn: async () => {
@@ -35,22 +39,27 @@ export const useViewpointsSync = () => {
         throw new Error(error.message);
       }
       
-      const newPoints = data as ViewpointLite[];
+      const newPoints = (data || []) as ViewpointLite[];
 
       // 3. Mark the new sync timestamp
       syncStorage.set(LAST_SYNC_KEY, new Date().toISOString());
 
-      // If this is a differential update, we technically need to merge it with the
-      // cached array. In a real highly-scaled app we would pull the old cache, 
-      // replace/add the new items, and return the merged array.
-      // For now, since `sync_viewpoints` returns EVERYTHING if last_sync is null,
-      // it handles the initial massive fetch.
-      // (Advanced merging logic would go here)
+      // 4. Merge true differential data
+      if (lastSync) {
+        // If we had a previous sync, we need to merge the incoming changes
+        // with the existing array of viewpoints currently preserved in the cache.
+        const oldCache: ViewpointLite[] = queryClient.getQueryData(['viewpoints', 'global']) || [];
+        
+        // Create a map of existing items for O(1) lookups
+        const cacheMap = new Map(oldCache.map(vp => [vp.id, vp]));
+        
+        // Overwrite existing or add new
+        newPoints.forEach(point => cacheMap.set(point.id, point));
+        
+        return Array.from(cacheMap.values());
+      }
       
-      // Because we are just transitioning to this architecture now,
-      // we'll treat it as a full replace every time for perfect consistency
-      // until the dataset gets truly massive.
-      
+      // If lastSync was null, newPoints represents the entire catalog.
       return newPoints;
     },
     // We want this dataset to live locally essentially forever, updating silently in background

@@ -25,7 +25,7 @@ import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import { QueryClient } from "@tanstack/react-query";
 import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client';
-import { asyncStoragePersister } from "@/lib/mmkvQueryStorage";
+import { mmkvPersister } from "@/lib/mmkvQueryStorage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -149,7 +149,7 @@ export default function RootLayout() {
     return (
         <PersistQueryClientProvider
             client={queryClient}
-            persistOptions={{ persister: asyncStoragePersister }}
+            persistOptions={{ persister: mmkvPersister }}
         >
             <ManualThemeProvider>
                 <AppContent />

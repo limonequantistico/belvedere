@@ -7,8 +7,9 @@ I've completed the foundational core map layout and data fetching for Belvedere.
 1. **State Management Layers**
    - **`useLocationStore`**: Zustand store that requests foreground location permissions and fetches the user's coordinates.
    - **`useMapStore`**: Zustand store handling the map camera's `flyTo` position, current zoom/pitch, distance radiuses, and the active filtering states.
-   - **`useNearbyViewpoints`**:### Database Migrations
-Created a lightweight payload RPC function on Supabase for differential synchronization:
+   - **`useNearbyViewpoints`**: Removed and replaced entirely by the local-first sync architecture.
+
+### Database Migrations
 ```sql
 CREATE OR REPLACE FUNCTION sync_viewpoints(last_sync TIMESTAMPTZ DEFAULT NULL)
 RETURNS TABLE (
@@ -36,7 +37,7 @@ To allow the local-first architecture to function correctly on iOS, `react-nativ
 3. **Markers, Filtering, & Clustering**
    - **CustomMapMarker**: Maps Supabase category strings ("Nature", "Urban", etc.) to illustrated emojis. Features an active/selected styling state with strong shadows and white borders for visibility.
    - **JS Clustering (`use-supercluster`)**: Introduced native Mapbox bounds detection to compute zoom-based clusters of viewpoint markers in real-time. Created a bolder Tamagui `<ClusterMarker>` component to visually display dense groups.
-   - **Extended `FilterPills`**: Tapping categories, distance radiuses (50km, 150km, 500km), or the "Verified Only" button instantly filters the visible map markers using `useMapStore`.
+   - **Extended `FilterPills`**: Tapping categories or the "Verified Only" button instantly filters the visible map markers using `useMapStore`.
    - **Performance Enhancements**: Coordinates passed to the database from the `MapCenter` state are automatically rounded to ~1.1km resolution. This ensures that camera micro-movements (like expanding a cluster) leverage React Query's `staleTime` cache instantly instead of needlessly re-fetching from Supabase.
 
 ## Next Steps

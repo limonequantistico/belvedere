@@ -42,10 +42,6 @@ This phase replaces the placeholder Map Screen with a fully functional, stylized
 #### [NEW] [store/useMapStore.ts](file:///Users/luigipiferi/CodingProjects/belvedere/store/useMapStore.ts)
 - Create a Zustand store to hold camera position, selected viewpoint, active filters, and zoom level.
 
-#### [NEW] [hooks/useNearbyViewpoints.ts](file:///Users/luigipiferi/CodingProjects/belvedere/hooks/useNearbyViewpoints.ts)
-- Create a TanStack Query hook that calls the `nearby_viewpoints()` Supabase RPC.
-- Connect this hook to the user's location coordinates array.
-
 ---
 
 ### UI Components (Overlays)
@@ -77,9 +73,9 @@ This phase replaces the placeholder Map Screen with a fully functional, stylized
 
 ### Client-Side Updates
 1. **TanStack Query Configuration**: 
-   - We will replace `useNearbyViewpoints` with a `useViewpointsSync` hook.
-   - This hook will fetch the entire lite dataset on launch and store it in the TanStack cache with an infinite `staleTime`.
-   - The hook will automatically check `sync_viewpoints` taking the last fetch timestamp.
+   - We use a `useViewpointsSync` hook to fetch the entire lite dataset on launch.
+   - It stores it in the TanStack cache with an infinite `staleTime`.
+   - The hook automatically checks `sync_viewpoints` taking the last fetch timestamp.
 2. **React Native MMKV Integration**:
    - We will configure TanStack Query's `persister` to use `react-native-mmkv`. 
    - This permanently writes the fetched viewpoints to the phone's disk. Next time the app opens, 100k points load from local disk in milliseconds before the network even wakes up.

@@ -36,6 +36,26 @@ When the map camera is moved (dragged or zoomed), we intentionally *only* update
 
 ### How the Sync Flow Works
 
+```mermaid
+sequenceDiagram
+    participant App as App Launch
+    participant MMKV as MMKV Disk Storage
+    participant TQ as TanStack Query Cache
+    participant DB as Supabase DB
+    
+    App->>MMKV: PersistQueryClientProvider requests cache
+    MMKV-->>TQ: Instantly hydrates memory with 10k+ pins
+    TQ-->>App: UI/Map renders instantly (Zero Network Latency)
+    
+    rect rgba(64, 66, 69, 1)
+        Note over TQ,DB: Background Process (Only if cache > 24h stale)
+        TQ->>DB: RPC: sync_viewpoints(last_sync)
+        DB-->>TQ: Returns only rows changed since last_sync
+        TQ->>TQ: Merges differential payload with existing cache
+        TQ->>MMKV: Auto-serializes merged state to disk
+    end
+```
+
 1. **Instant Boot (Disk-to-RAM)**:
    When the app launches, TanStack Query's `PersistQueryClientProvider` immediately hydrates its in-memory cache directly from the MMKV disk storage. This takes milliseconds. The map is instantly populated with all known viewpoints before a network request is even attempted.
 
