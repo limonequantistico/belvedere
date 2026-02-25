@@ -64,12 +64,12 @@ This is the heart of the app — a single-screen, map-first layout inspired by t
 ### 2A · Map Integration
 
 - [x] **Mapbox setup** — Configure `@rnmapbox/maps` with API token
-- [ ] **Custom map style** — Create/apply a stylized Mapbox Studio style (warm, cartographic, RPG-inspired as per design system)
+- [ ] **Custom map style** *(deferred — nice to have)* — Create/apply a stylized Mapbox Studio style (warm, cartographic, RPG-inspired as per design system)
 - [x] **Single-screen map layout:**
   - [x] Full-screen map (Z-Index 0)
   - [x] Floating search bar at top-left + profile avatar icon at top-right (Z-Index 10)
   - [x] Right-side FABs: locate me, map layers (Z-Index 10)
-  - [ ] Persistent bottom sheet with curated content (Z-Index 20)
+  - [ ] Persistent bottom sheet with curated content (Z-Index 20) *(→ Phase 3)*
 
 ### 2B · Geolocation & POI Discovery
 
@@ -80,10 +80,10 @@ This is the heart of the app — a single-screen, map-first layout inspired by t
   - [x] Pull data from Supabase `sync_viewpoints` differential RPC
 - [x] **Custom map markers** — Render stylized map points with dynamic sizes based on verified status
 - [x] **Marker Clustering** — Group map points seamlessly on the JS thread to maintain extreme visual performance
-- [ ] **Marker interaction** — Tapping a marker:
-  - [ ] Smooth camera flight to center on POI
-  - [ ] 3D pitch tilt for terrain preview
-  - [ ] Open bottom content sheet with POI details
+- [x] **Marker interaction** — Tapping a marker:
+  - [x] Smooth camera flight to center on POI
+  - [x] 3D pitch tilt for terrain preview
+  - [ ] Open bottom content sheet with POI details *(→ Phase 3)*
 
 ### 2C · Search & Filters
 
@@ -93,7 +93,7 @@ This is the heart of the app — a single-screen, map-first layout inspired by t
   - [x] Categories like Natural, Urban, Historic, etc.
   - [x] Each pill shows an icon + label
   - [x] Active state: solid primary accent background; inactive: muted/outlined
-- [ ] **Search functionality** — Full-text search against viewpoint names/descriptions
+- [x] **Search functionality** — Full-text search against viewpoint names/descriptions (via `search_viewpoints` RPC + Mapbox geocoding)
 - [x] **Filter logic** — Filter map markers by category, distance, verified status
 
 ---

@@ -118,7 +118,7 @@ export default function MapScreen() {
         styleURL={MapboxGL.StyleURL.Outdoors}
         logoEnabled={false}
         attributionEnabled={false}
-        pitchEnabled={false}
+        pitchEnabled={true}
         rotateEnabled={false}
         onMapIdle={handleRegionDidChange}
         onDidFinishLoadingMap={handleRegionDidChange}

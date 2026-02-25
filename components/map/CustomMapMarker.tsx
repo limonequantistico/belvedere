@@ -23,12 +23,23 @@ const getCategoryIcon = (category?: string) => {
 };
 
 export function CustomMapMarker({ id, coordinate, title, category }: CustomMapMarkerProps) {
-  const { selectedViewpointId, setSelectedViewpoint } = useMapStore();
+  const { selectedViewpointId, setSelectedViewpoint, setCameraPosition } = useMapStore();
   const isActive = selectedViewpointId === id;
 
   const handlePress = () => {
-    setSelectedViewpoint(isActive ? null : id);
-    // Camera flight logic will be handled by a useEffect in the map component
+    if (isActive) {
+      // Deselect: reset pitch to flat view
+      setSelectedViewpoint(null);
+      setCameraPosition({ pitch: 0 });
+    } else {
+      // Select: fly to marker with 3D pitch
+      setSelectedViewpoint(id);
+      setCameraPosition({
+        centerCoordinate: coordinate,
+        zoomLevel: 15,
+        pitch: 45,
+      });
+    }
   };
 
   return (
