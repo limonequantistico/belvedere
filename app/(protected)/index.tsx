@@ -60,6 +60,7 @@ export default function MapScreen() {
         zoomLevel: cameraPosition.zoomLevel,
         pitch: cameraPosition.pitch || 0,
         heading: cameraPosition.heading || 0,
+        padding: cameraPosition.padding || { paddingBottom: 0 },
         animationDuration: 1500,
       });
       previousCameraPosition.current = cameraPosition;

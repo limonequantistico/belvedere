@@ -84,3 +84,22 @@ export const useViewpointsSync = () => {
     gcTime: Infinity, // Never garbage collect this query from the memory cache
   });
 };
+
+export const useForceSyncViewpoints = () => {
+  const queryClient = useQueryClient();
+  const toast = useStyledToast();
+
+  const forceSync = async () => {
+    // 1. Clear the persistent cache
+    syncStorage.delete(LAST_SYNC_KEY);
+    syncStorage.delete(VIEWPOINTS_CACHE_KEY);
+
+    // 2. Invalidate the global query to trigger a fresh fetch
+    await queryClient.invalidateQueries({ queryKey: ['viewpoints', 'global'] });
+    
+    // 3. Notify the user
+    toast.showDefault("Supabase cache cleared. Fetching fresh viewpoints...");
+  };
+
+  return forceSync;
+};

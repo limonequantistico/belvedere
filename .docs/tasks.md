@@ -103,16 +103,15 @@ This is the heart of the app — a single-screen, map-first layout inspired by t
 - [x] **RichContentSheet component** — Draggable Gorhom `BottomSheet` with rounded top corners, snap points at 20% / 50% / 85%
 - [x] **"Featured Near You" list** — Default sheet content showing a scrollable list of `ViewpointCard` components
 - [x] **ViewpointCard component** — Rounded rectangle with image thumbnail, title, distance, category badge, "View" button
-- [ ] **POI Detail view** (expanded sheet or dedicated screen):
-  - [ ] **Graceful media hero area** — Handles three cases:
-    - Video available → auto-playing, looping, muted-by-default video (`expo-video`)
-    - Photo available → static cover image (`expo-image`)
-    - No media → elegant placeholder (gradient, illustration, or category-themed fallback)
-  - [ ] Viewpoint name, location, category
-  - [ ] Description / travel-journal-style text
-  - [ ] Photo gallery (swipeable `expo-image` carousel) — only shown if images exist
-  - [ ] Practical info: how to get there, what you'll see, accessibility notes
-  - [ ] "Navigate" button → deep-link to Google Maps / Apple Maps
+- [x] **POI Detail view** (expanded sheet or dedicated screen):
+  - [x] **Graceful media hero area** — Handles three cases:
+    - [x] Video available → auto-playing, looping, muted-by-default video (`expo-video`)
+    - [x] Photo available → static cover image (`expo-image`)
+    - [x] No media → elegant placeholder (gradient, illustration, or category-themed fallback)
+  - [x] Viewpoint name, location, category
+  - [x] Description / travel-journal-style text
+  - [x] Photo gallery (swipeable `expo-image` carousel) — only shown if images exist
+  - [x] "Navigate" button → deep-link to Google Maps / Apple Maps
   - [ ] Favorite / save button
   - [ ] Share button
 
@@ -155,7 +154,9 @@ This is the heart of the app — a single-screen, map-first layout inspired by t
 - [ ] **Zustand stores:**
   - [x] `useMapStore` — Camera position, selected viewpoint, active filters, zoom level
   - [x] `useLocationStore` — User's current coordinates, location permission status
-- [ ] **Offline tolerance** — Configure TanStack Query caching for low-connectivity outdoor use
+- [x] **Offline tolerance & Syncing** — Configured TanStack Query caching for low-connectivity outdoor use
+  - [x] Added `useForceSyncViewpoints` to manually invalidate MMKV cache and pull fresh data
+  - [x] Added "Force Sync" FAB in MapFABs component strictly for DEV mode testing
 
 ---
 
@@ -212,6 +213,9 @@ Features to revisit once the core experience is solid.
   - [ ] Supabase Edge Function for processing submissions
   - [ ] Admin review interface (or basic approval flow)
   - [ ] Status notification to submitter
+
+### POI Details (Expanded)
+- [ ] Practical info: how to get there, what you'll see, accessibility notes
 
 ### Discover / Feed
 - [ ] **Curated feed of viewpoints:**

@@ -1,12 +1,14 @@
 import React from 'react';
 import { YStack, Button } from 'tamagui';
-import { Navigation, Layers } from '@tamagui/lucide-icons';
+import { Navigation, Layers, RefreshCw } from '@tamagui/lucide-icons';
 import { useLocationStore } from '../../store/useLocationStore';
 import { useMapStore } from '../../store/useMapStore';
+import { useForceSyncViewpoints } from '../../hooks/useViewpointsSync';
 
 export function MapFABs() {
   const { requestLocation, isLoading } = useLocationStore();
   const { setCameraPosition } = useMapStore();
+  const forceSync = useForceSyncViewpoints();
 
   const handleLocateMe = async () => {
     await requestLocation();
@@ -27,6 +29,21 @@ export function MapFABs() {
       zIndex={10}
       gap="$3"
     >
+      {__DEV__ && (
+        <Button
+          size="$4"
+          circular
+          elevation={2}
+          shadowColor="black"
+          shadowOffset={{ width: 0, height: 2 }}
+          shadowOpacity={0.2}
+          shadowRadius={4}
+          bg="$background"
+          icon={<RefreshCw size={20} color="$warning" />}
+          onPress={forceSync}
+        />
+      )}
+      
       <Button
         size="$4"
         circular

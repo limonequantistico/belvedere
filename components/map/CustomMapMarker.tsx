@@ -1,8 +1,10 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, Dimensions } from 'react-native';
 import { Text } from 'tamagui';
 import MapboxGL from '@rnmapbox/maps';
 import { useMapStore } from '../../store/useMapStore';
+
+const { height: windowHeight } = Dimensions.get('window');
 
 type CustomMapMarkerProps = {
   id: string;
@@ -30,14 +32,15 @@ export function CustomMapMarker({ id, coordinate, title, category }: CustomMapMa
     if (isActive) {
       // Deselect: reset pitch to flat view
       setSelectedViewpoint(null);
-      setCameraPosition({ pitch: 0 });
+      setCameraPosition({ pitch: 0, padding: { paddingBottom: 0 } });
     } else {
-      // Select: fly to marker with 3D pitch
+      // Select: fly to marker with 3D pitch and padding to put it in upper half
       setSelectedViewpoint(id);
       setCameraPosition({
         centerCoordinate: coordinate,
         zoomLevel: 15,
         pitch: 45,
+        padding: { paddingBottom: windowHeight * 0.4 },
       });
     }
   };

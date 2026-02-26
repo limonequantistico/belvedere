@@ -5,6 +5,12 @@ type CameraPosition = {
   zoomLevel: number;
   pitch: number;
   heading: number;
+  padding?: {
+    paddingBottom?: number;
+    paddingTop?: number;
+    paddingLeft?: number;
+    paddingRight?: number;
+  };
 };
 
 // Initial camera position (Rome, Italy - as a fallback)
