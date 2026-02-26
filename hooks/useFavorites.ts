@@ -2,6 +2,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '../lib/supabase';
 import { useAuth } from '../context/supabase-provider';
 import { useStyledToast } from './useStyledToast';
+import { useAuthModalStore } from '../store/useAuthModalStore';
 
 export const useFavorites = () => {
   const { session } = useAuth();
@@ -9,7 +10,8 @@ export const useFavorites = () => {
   return useQuery({
     queryKey: ['favorites', session?.user?.id],
     queryFn: async () => {
-      if (!session?.user?.id) return [];
+      // @ts-ignore
+      if (!session?.user?.id || session.user.is_anonymous || session.user.app_metadata?.provider === 'anonymous') return [];
       
       const { data, error } = await supabase
         .from('user_favorites')
@@ -18,9 +20,10 @@ export const useFavorites = () => {
         
       if (error) throw new Error(error.message);
       
-      return data.map(f => f.viewpoint_id);
+      return data?.map(f => f.viewpoint_id) || [];
     },
-    enabled: !!session?.user?.id,
+    // @ts-ignore
+    enabled: !!session?.user?.id && !(session.user.is_anonymous || session.user.app_metadata?.provider === 'anonymous'),
     staleTime: 1000 * 60 * 5, // 5 minutes
   });
 };
@@ -32,8 +35,9 @@ export const useToggleFavorite = () => {
 
   return useMutation({
     mutationFn: async ({ viewpointId, isFavorite }: { viewpointId: string, isFavorite: boolean }) => {
-      if (!session?.user?.id) {
-        throw new Error('You must be logged in to save favorites.');
+      // @ts-ignore
+      if (!session?.user?.id || session.user.is_anonymous || session.user.app_metadata?.provider === 'anonymous') {
+        throw new Error('Not logged in'); // throwing standard to trigger the modal
       }
 
       if (isFavorite) {
@@ -58,8 +62,10 @@ export const useToggleFavorite = () => {
       }
     },
     onMutate: async ({ viewpointId, isFavorite }) => {
-      if (!session?.user?.id) {
-        toast.showError('Login Required', 'Please log in to save favorites.');
+      console.log('Current User Object:', JSON.stringify(session?.user, null, 2));
+      // @ts-ignore
+      if (!session?.user?.id || session.user.is_anonymous || session.user.app_metadata?.provider === 'anonymous') {
+        useAuthModalStore.getState().showModal('Please log in to save and sync your favorite viewpoints.');
         throw new Error('Not logged in');
       }
 
@@ -72,16 +78,13 @@ export const useToggleFavorite = () => {
       const previousFavorites = queryClient.getQueryData<string[]>(queryKey);
 
       // Optimistically update to the new value
-      if (previousFavorites) {
-        queryClient.setQueryData<string[]>(queryKey, (old) => {
-          if (!old) return [];
-          if (isFavorite) {
-            return old.filter(id => id !== viewpointId);
-          } else {
-            return [...old, viewpointId];
-          }
-        });
-      }
+      queryClient.setQueryData<string[]>(queryKey, (old = []) => {
+        if (isFavorite) {
+          return old.filter(id => id !== viewpointId);
+        } else {
+          return [...old, viewpointId];
+        }
+      });
 
       // Return a context object with the snapshotted value
       return { previousFavorites, queryKey };
@@ -93,7 +96,8 @@ export const useToggleFavorite = () => {
       }
       
       if (err.message !== 'Not logged in') {
-        toast.showError('Operation Failed', 'Could not update favorites. Please login and try again.');
+        console.error('Favorite Mutation Error:', err);
+        toast.showError('Operation Failed', 'Could not update favorites. Please try again.');
       }
     },
     onSettled: (data, error, variables, context) => {

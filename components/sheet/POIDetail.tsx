@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Linking, ScrollView, Dimensions, Share } from 'react-native';
-import { YStack, XStack, Text, Button } from 'tamagui';
+import { YStack, XStack, Text, Button, useThemeName } from 'tamagui';
 import { Image } from 'expo-image';
 import { useVideoPlayer, VideoView } from 'expo-video';
 import { ViewpointLite } from '../../hooks/useViewpointsSync';
@@ -50,6 +50,12 @@ export function POIDetail({ viewpoint, onClose }: POIDetailProps) {
   const { data: favorites = [] } = useFavorites();
   const { mutate: toggleFavorite } = useToggleFavorite();
   const isFavorite = favorites.includes(viewpoint.id);
+  const themeName = useThemeName();
+  const isDark = themeName.startsWith('dark');
+  
+  const iconColor = isDark ? "white" : "#1A1A1A";
+  const btnBg = isDark ? "rgba(0, 0, 0, 0.7)" : "rgba(255, 255, 255, 0.9)";
+  const btnPressBg = isDark ? "rgba(0, 0, 0, 0.9)" : "rgba(255, 255, 255, 0.7)";
 
   const handleToggleFavorite = () => {
     toggleFavorite({ viewpointId: viewpoint.id, isFavorite });
@@ -131,74 +137,74 @@ export function POIDetail({ viewpoint, onClose }: POIDetailProps) {
         <Button 
           circular
           size="$4" 
-          icon={<ArrowLeft size={20} color="#1A1A1A" />}
+          icon={<ArrowLeft size={20} color={iconColor} />}
           position="absolute"
           top="$4"
           left="$4"
-          backgroundColor="rgba(255, 255, 255, 0.9)"
+          backgroundColor={btnBg}
           onPress={onClose}
-          pressStyle={{ backgroundColor: 'rgba(255, 255, 255, 0.7)' }}
+          pressStyle={{ backgroundColor: btnPressBg }}
         />
 
         {/* Floating Favorite Button */}
         <Button 
           circular
           size="$4" 
-          icon={<Heart size={20} color={isFavorite ? "#E65100" : "#1A1A1A"} fill={isFavorite ? "#E65100" : "none"} />}
+          icon={<Heart size={20} color={isFavorite ? "#E65100" : iconColor} fill={isFavorite ? "#E65100" : "none"} />}
           position="absolute"
           top="$4"
           right="$4"
-          backgroundColor="rgba(255, 255, 255, 0.9)"
+          backgroundColor={btnBg}
           onPress={handleToggleFavorite}
-          pressStyle={{ backgroundColor: 'rgba(255, 255, 255, 0.7)' }}
+          pressStyle={{ backgroundColor: btnPressBg }}
         />
 
         {/* Floating Share Button */}
         <Button 
           circular
           size="$4" 
-          icon={<ShareIcon size={20} color="#1A1A1A" />}
+          icon={<ShareIcon size={20} color={iconColor} />}
           position="absolute"
           top="$4"
           right={64} // Place to the left of Favorite
-          backgroundColor="rgba(255, 255, 255, 0.9)"
+          backgroundColor={btnBg}
           onPress={handleShare}
-          pressStyle={{ backgroundColor: 'rgba(255, 255, 255, 0.7)' }}
+          pressStyle={{ backgroundColor: btnPressBg }}
         />
       </View>
       )}
 
       {(!videoUrl && allImages.length === 0) && (
-         <View style={{ padding: 16 }}>
+         <YStack padding="$4" backgroundColor="$background">
            <XStack justifyContent="space-between">
              <Button 
                circular
                size="$4" 
-               icon={<ArrowLeft size={20} color="#1A1A1A" />}
-               backgroundColor="rgba(0, 0, 0, 0.05)"
+               icon={<ArrowLeft size={20} color={iconColor} />}
+               backgroundColor={isDark ? "rgba(255,255,255,0.1)" : "rgba(0, 0, 0, 0.05)"}
                onPress={onClose}
-               pressStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.1)' }}
+               pressStyle={{ backgroundColor: isDark ? "rgba(255,255,255,0.2)" : "rgba(0, 0, 0, 0.1)" }}
              />
              <XStack gap="$3">
                <Button 
                  circular
                  size="$4" 
-                 icon={<ShareIcon size={20} color="#1A1A1A" />}
-                 backgroundColor="rgba(0, 0, 0, 0.05)"
+                 icon={<ShareIcon size={20} color={iconColor} />}
+                 backgroundColor={isDark ? "rgba(255,255,255,0.1)" : "rgba(0, 0, 0, 0.05)"}
                  onPress={handleShare}
-                 pressStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.1)' }}
+                 pressStyle={{ backgroundColor: isDark ? "rgba(255,255,255,0.2)" : "rgba(0, 0, 0, 0.1)" }}
                />
                <Button 
                  circular
                  size="$4" 
-                 icon={<Heart size={20} color={isFavorite ? "#E65100" : "#1A1A1A"} fill={isFavorite ? "#E65100" : "none"} />}
-                 backgroundColor="rgba(0, 0, 0, 0.05)"
+                 icon={<Heart size={20} color={isFavorite ? "#E65100" : iconColor} fill={isFavorite ? "#E65100" : "none"} />}
+                 backgroundColor={isDark ? "rgba(255,255,255,0.1)" : "rgba(0, 0, 0, 0.05)"}
                  onPress={handleToggleFavorite}
-                 pressStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.1)' }}
+                 pressStyle={{ backgroundColor: isDark ? "rgba(255,255,255,0.2)" : "rgba(0, 0, 0, 0.1)" }}
                />
              </XStack>
            </XStack>
-         </View>
+         </YStack>
       )}
 
       <YStack padding="$4" gap="$4" flex={1}>

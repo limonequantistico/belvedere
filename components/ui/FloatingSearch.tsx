@@ -4,13 +4,17 @@ import { Search, MapPin, Navigation } from '@tamagui/lucide-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useMapStore } from '../../store/useMapStore';
 import { useGlobalSearch, SearchResult } from '../../hooks/useGlobalSearch';
-import { Keyboard } from 'react-native';
+import { Keyboard, Pressable } from 'react-native';
+import { useRouter } from 'expo-router';
+import { useAuth } from '@/context/supabase-provider';
 
 export function FloatingSearch() {
   const insets = useSafeAreaInsets();
   const { setCameraPosition, setSelectedViewpoint } = useMapStore();
   const [localQuery, setLocalQuery] = useState('');
   const [isFocused, setIsFocused] = useState(false);
+  const router = useRouter();
+  const { session } = useAuth();
 
   // Hook into our custom search logic
   const { data: searchResults, isLoading } = useGlobalSearch(localQuery);
@@ -83,10 +87,15 @@ export function FloatingSearch() {
           />
         </XStack>
 
-        <Avatar circular size="$4" elevation={2}>
-          <Avatar.Image src="https://i.pravatar.cc/150?u=a042581f4e29026704d" />
-          <Avatar.Fallback bg="$primary" />
-        </Avatar>
+        <Pressable onPress={() => router.push('/profile')}>
+          <Avatar circular size="$4" elevation={2}>
+            {session?.user?.user_metadata?.avatar_url || session?.user?.user_metadata?.picture ? (
+              <Avatar.Image src={session?.user?.user_metadata?.avatar_url || session?.user?.user_metadata?.picture} />
+            ) : (
+              <Avatar.Fallback bg="$primary" />
+            )}
+          </Avatar>
+        </Pressable>
       </XStack>
 
       {/* Dropdown Results */}
@@ -111,7 +120,6 @@ export function FloatingSearch() {
                 gap="$3"
                 borderBottomWidth={1}
                 borderBottomColor="$borderColor"
-                pressTheme
                 onPress={() => handleSelect(result)}
               >
                 {result.type === 'viewpoint' ? (

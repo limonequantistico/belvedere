@@ -55,7 +55,6 @@ export default function AuthButtons() {
                 width={"80%"}
                 marginTop={16}
                 onPress={() => signInAnonymously()}
-                textAlign={""}
             >
                 Continue as Guest
             </Button>

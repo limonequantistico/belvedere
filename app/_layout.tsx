@@ -1,4 +1,5 @@
 import { GlobalLoader } from "@/components/reusable-ui/GlobalLoader";
+import { AuthRequiredModal } from "@/components/reusable-ui/AuthRequiredModal";
 import { StyledToast } from "@/components/reusable-ui/toasts/StyledToast";
 import { LoaderProvider } from "@/context/LoaderContext";
 import { ManualThemeProvider } from "@/context/ManualThemeProvider";
@@ -94,6 +95,7 @@ function AppContent() {
                                 <ToastViewport top={24 + top} left={left} right={right} />
                             </ToastProvider>
                             <GlobalLoader />
+                            <AuthRequiredModal />
                         </LoaderProvider>
                     </ThemeProvider>
                 </PortalProvider>

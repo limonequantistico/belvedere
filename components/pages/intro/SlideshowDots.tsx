@@ -31,7 +31,7 @@ export function SlideshowDots({
                     width={currentSlide === index ? size + 2 : size}
                     height={currentSlide === index ? size + 2 : size}
                     borderRadius={100}
-                    backgroundColor={currentSlide === index ? activeColor : inactiveColor}
+                    backgroundColor={(currentSlide === index ? activeColor : inactiveColor) as any}
                     scale={currentSlide === index ? 1.2 : 1}
                     opacity={currentSlide === index ? 1 : 0.6}
                     animation="quick"

@@ -12,7 +12,8 @@ import { ClusterMarker } from '../../components/map/ClusterMarker';
 import useSupercluster from 'use-supercluster';
 import { useStyledToast } from '@/hooks/useStyledToast';
 import { RichContentSheet } from '../../components/sheet/RichContentSheet';
-import { YStack } from 'tamagui';
+import { YStack, useThemeName } from 'tamagui';
+import { useAppTheme } from '@/context/ManualThemeProvider';
 
 // Set Mapbox access token
 MapboxGL.setAccessToken(process.env.EXPO_PUBLIC_MAPBOX_ACCESS_TOKEN || process.env.EXPO_PUBLIC_MAPBOX_KEY || '');
@@ -21,9 +22,17 @@ export default function MapScreen() {
   const mapRef = useRef<MapboxGL.MapView>(null);
   const cameraRef = useRef<any>(null); // Use any for MapboxGL.Camera ref
   const { location, requestLocation } = useLocationStore();
-  const { cameraPosition, activeCategory, verifiedOnly } = useMapStore();
+  const { cameraPosition, activeCategory, verifiedOnly, mapStyle } = useMapStore();
   const [hasSetInitialLocation, setHasSetInitialLocation] = useState(false);
   const previousCameraPosition = useRef(cameraPosition);
+
+  const { themeMode } = useAppTheme();
+  const tamaguiThemeName = useThemeName();
+  
+  // Decide Mapbox style based on Tamagui active theme (or explicit themeMode)
+  const isDarkMode = tamaguiThemeName.startsWith('dark');
+  const autoStyle = isDarkMode ? MapboxGL.StyleURL.TrafficNight : MapboxGL.StyleURL.Outdoors;
+  const resolvedMapStyle = (!mapStyle || mapStyle === 'auto') ? autoStyle : mapStyle;
 
   const toast = useStyledToast();
   
@@ -118,7 +127,7 @@ export default function MapScreen() {
       <MapboxGL.MapView 
         ref={mapRef}
         style={styles.map} 
-        styleURL={MapboxGL.StyleURL.Outdoors}
+        styleURL={resolvedMapStyle}
         logoEnabled={false}
         attributionEnabled={false}
         pitchEnabled={true}

@@ -42,18 +42,18 @@ export const InputField = ({
                 secureTextEntry={secureTextEntry}
                 autoCapitalize={autoCapitalize}
                 keyboardType={keyboardType}
-                backgroundColor={error ? "$red2" : "$background"}
-                color={error ? "$red12" : "$color"}
-                borderColor={error ? "$red8" : "$color7"}
+                backgroundColor={(error ? "$red2" : "$background") as any}
+                color={(error ? "$red12" : "$color") as any}
+                borderColor={(error ? "$red8" : "$color7") as any}
                 borderWidth={error ? 2 : 1}
             />
 
             {error ? (
-                <Paragraph color="$red10" size="$2">
+                <Paragraph color={"$red10" as any} size="$2">
                     {error}
                 </Paragraph>
             ) : helpText ? (
-                <Paragraph color="$gray10" size="$2">
+                <Paragraph color={"$gray10" as any} size="$2">
                     {helpText}
                 </Paragraph>
             ) : null}

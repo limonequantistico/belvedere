@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Dimensions } from 'react-native';
-import { Text } from 'tamagui';
+import { Text, useThemeName } from 'tamagui';
 import MapboxGL from '@rnmapbox/maps';
 import { useMapStore } from '../../store/useMapStore';
 
@@ -27,6 +27,11 @@ const getCategoryIcon = (category?: string) => {
 export function CustomMapMarker({ id, coordinate, title, category }: CustomMapMarkerProps) {
   const { selectedViewpointId, setSelectedViewpoint, setCameraPosition } = useMapStore();
   const isActive = selectedViewpointId === id;
+  const themeName = useThemeName();
+  const isDark = themeName.startsWith('dark');
+  
+  const markerBg = isActive ? '#E65100' : (isDark ? '#222' : 'white');
+  const markerBorder = isActive ? (isDark ? '#222' : 'white') : '#E65100';
 
   const handlePress = () => {
     if (isActive) {
@@ -52,11 +57,11 @@ export function CustomMapMarker({ id, coordinate, title, category }: CustomMapMa
         style={{
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: isActive ? '#E65100' : 'white', // $primary
+          backgroundColor: markerBg,
           borderRadius: 24,
           width: isActive ? 48 : 40,
           height: isActive ? 48 : 40,
-          borderColor: isActive ? 'white' : '#E65100',
+          borderColor: markerBorder,
           borderWidth: 3,
           shadowColor: '#000',
           shadowOffset: { width: 0, height: 4 },

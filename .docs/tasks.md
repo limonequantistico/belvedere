@@ -117,29 +117,29 @@ This is the heart of the app — a single-screen, map-first layout inspired by t
 
 ---
 
-## Phase 4 · Media & Content
+## Phase 4 · Media & Content (everything was done in previous phases)
 
-- [ ] **Video playback** — Integrate `expo-video` for viewpoint previews
-  - [ ] Autoplay on visibility
-  - [ ] Muted by default, tap to unmute
-  - [ ] Looping playback
-- [ ] **Image handling** — Use `expo-image` with caching for all viewpoint imagery
-- [ ] **Media fallback system** — Consistent placeholder/fallback for viewpoints without media
-- [ ] **AI-generated POI markers** — Design and integrate custom marker assets (illustrated eye, mountain, compass icons)
+- [x] **Video playback** — Integrate `expo-video` for viewpoint previews
+  - [x] Autoplay on visibility
+  - [x] Muted by default, tap to unmute
+  - [x] Looping playback
+- [x] **Image handling** — Use `expo-image` with caching for all viewpoint imagery
+- [x] **Media fallback system** — Consistent placeholder/fallback for viewpoints without media
+- [x] **AI-generated POI markers** — Design and integrate custom marker assets (illustrated eye, mountain, compass icons)
 
 ---
 
 ## Phase 5 · User Profile & Favorites
 
-- [ ] **Profile overlay/sheet** — Accessible from the top-right avatar icon on the map:
-  - [ ] Avatar upload (with existing `ProfileAvatar` component)
-  - [ ] Display name, bio editing
-  - [ ] List of favorite viewpoints
-  - [ ] Settings (theme toggle, logout)
-- [ ] **Favorites system:**
-  - [ ] Heart/bookmark toggle on viewpoint cards and detail views
-  - [ ] Favorites list on profile
-  - [ ] Optimistic UI updates
+- [ ] **Profile page** — Accessible from the top-right avatar icon on the map:
+  - [x] Avatar upload (with existing `ProfileAvatar` component)
+  - [x] List of favorite viewpoints
+  - [x] Settings (theme toggle, logout)
+- [x] **Favorites system:**
+  - [x] Heart/bookmark toggle on viewpoint cards and detail views
+  - [x] Favorites list on profile
+  - [x] Optimistic UI updates
+- [x] FAB Map Style change button and popup
 
 ---
 
@@ -148,9 +148,9 @@ This is the heart of the app — a single-screen, map-first layout inspired by t
 - [x] **TanStack Query setup** — Configure `QueryClient`, wrap app in `QueryClientProvider`
 - [ ] **Query hooks:**
   - [x] `useNearbyViewpoints(lat, lng, radius)`
-  - [ ] `useViewpointDetails(id)`
+  - [x] `useViewpointDetails(id)`
   - [ ] `useSearchViewpoints(query)`
-  - [ ] `useFavorites(userId)`
+  - [x] `useFavorites(userId)`
 - [ ] **Zustand stores:**
   - [x] `useMapStore` — Camera position, selected viewpoint, active filters, zoom level
   - [x] `useLocationStore` — User's current coordinates, location permission status
@@ -168,6 +168,7 @@ This is the heart of the app — a single-screen, map-first layout inspired by t
 - [ ] **Marker focus animation** — Sweeping camera flight with 3D pitch on marker tap
 - [ ] **Reduce Motion support** — Honor system accessibility setting for motion-sensitive users
 - [ ] **Haptic feedback** — Tactile response on key interactions (using existing `hapticsService`)
+- [ ] Make sure the style feels a bit like nomadslist.com (now nomads.com). Most of all the fonts. Maybe even the emojis.
 
 ---
 
@@ -227,3 +228,4 @@ Features to revisit once the core experience is solid.
 ### Profile Stats & Gamification
 - [ ] Stats: viewpoints visited, favorites count, submissions count
 - [ ] Achievement / badge system
+- [ ] Display name, bio editing

@@ -182,12 +182,14 @@ export function AuthProvider({ children }: PropsWithChildren) {
     ) => {
         // TODO: Storage policies are very permissive, should be tightened for production
         showLoader("Uploading...");
+        const formData = new FormData();
+        formData.append("file", fileBlob as any);
+
         // Upload to Supabase Storage
         const { error: uploadError } = await supabase.storage
             .from("avatars")
-            .upload(filePath, fileBlob as any, {
+            .upload(filePath, formData, {
                 upsert: true,
-                contentType: "image/jpeg",
             })
             .finally(() => hideLoader());
 

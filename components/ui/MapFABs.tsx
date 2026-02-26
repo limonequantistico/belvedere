@@ -4,6 +4,7 @@ import { Navigation, Layers, RefreshCw } from '@tamagui/lucide-icons';
 import { useLocationStore } from '../../store/useLocationStore';
 import { useMapStore } from '../../store/useMapStore';
 import { useForceSyncViewpoints } from '../../hooks/useViewpointsSync';
+import { MapStyleSelector } from './MapStyleSelector';
 
 export function MapFABs() {
   const { requestLocation, isLoading } = useLocationStore();
@@ -44,18 +45,7 @@ export function MapFABs() {
         />
       )}
       
-      <Button
-        size="$4"
-        circular
-        elevation={2}
-        shadowColor="black"
-        shadowOffset={{ width: 0, height: 2 }}
-        shadowOpacity={0.2}
-        shadowRadius={4}
-        bg="$background"
-        icon={<Layers size={20} color="$color" />}
-        onPress={() => console.log('Toggle Map Layers')}
-      />
+      <MapStyleSelector />
       
       <Button
         size="$4"

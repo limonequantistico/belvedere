@@ -1,4 +1,8 @@
 import { create } from 'zustand';
+import { persist, createJSONStorage } from 'zustand/middleware';
+import { MMKV } from 'react-native-mmkv';
+
+const storage = new MMKV({ id: 'map-preferences' });
 
 type CameraPosition = {
   centerCoordinate: [number, number];
@@ -27,6 +31,7 @@ type MapState = {
   activeCategory: string | null;
   searchQuery: string;
   verifiedOnly: boolean;
+  mapStyle?: string; // Stored persistently
   
   // Actions
   setCameraPosition: (position: Partial<CameraPosition>) => void;
@@ -34,23 +39,46 @@ type MapState = {
   setActiveCategory: (category: string | null) => void;
   setSearchQuery: (query: string) => void;
   setVerifiedOnly: (verified: boolean) => void;
+  setMapStyle: (style: string) => void;
   resetFilters: () => void;
 };
 
-export const useMapStore = create<MapState>((set) => ({
-  cameraPosition: DEFAULT_CAMERA_POSITION,
-  selectedViewpointId: null,
-  activeCategory: null,
-  searchQuery: '',
-  verifiedOnly: false,
+export const useMapStore = create<MapState>()(
+  persist(
+    (set) => ({
+      cameraPosition: DEFAULT_CAMERA_POSITION,
+      selectedViewpointId: null,
+      activeCategory: null,
+      searchQuery: '',
+      verifiedOnly: false,
+      mapStyle: undefined, // Let index.tsx fallback to theme if undefined
 
-  setCameraPosition: (position) =>
-    set((state) => ({
-      cameraPosition: { ...state.cameraPosition, ...position },
-    })),
-  setSelectedViewpoint: (id) => set({ selectedViewpointId: id }),
-  setActiveCategory: (category) => set({ activeCategory: category }),
-  setSearchQuery: (query) => set({ searchQuery: query }),
-  setVerifiedOnly: (verified) => set({ verifiedOnly: verified }),
-  resetFilters: () => set({ activeCategory: null, searchQuery: '', verifiedOnly: false }),
-}));
+      setCameraPosition: (position) =>
+        set((state) => ({
+          cameraPosition: { ...state.cameraPosition, ...position },
+        })),
+      setSelectedViewpoint: (id) => set({ selectedViewpointId: id }),
+      setActiveCategory: (category) => set({ activeCategory: category }),
+      setSearchQuery: (query) => set({ searchQuery: query }),
+      setVerifiedOnly: (verified) => set({ verifiedOnly: verified }),
+      setMapStyle: (style) => set({ mapStyle: style }),
+      resetFilters: () => set({ activeCategory: null, searchQuery: '', verifiedOnly: false }),
+    }),
+    {
+      name: 'map-storage', // key in storage
+      storage: createJSONStorage(() => ({
+        setItem: (name, value) => {
+          return storage.set(name, value);
+        },
+        getItem: (name) => {
+          const value = storage.getString(name);
+          return value ?? null;
+        },
+        removeItem: (name) => {
+          return storage.delete(name);
+        },
+      })),
+      partialize: (state) => ({ mapStyle: state.mapStyle }), // we only want to persist mapStyle
+    }
+  )
+);

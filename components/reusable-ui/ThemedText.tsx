@@ -141,8 +141,8 @@ function getVariantStyles(variant: ThemedTextVariant): Partial<TextProps> {
     switch (variant) {
         case "display":
             return {
-                fontSize: "$11", // ~44px
-                lineHeight: "$11",
+                fontSize: "$11" as any, // ~44px
+                lineHeight: "$11" as any,
                 fontWeight: "700",
                 letterSpacing: -0.5,
             };

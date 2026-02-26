@@ -1,7 +1,7 @@
 import React, { useMemo, useRef, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import BottomSheet from '@gorhom/bottom-sheet';
-import { YStack, Text } from 'tamagui';
+import { YStack, Text, useThemeName } from 'tamagui';
 import { useViewpointsSync } from '../../hooks/useViewpointsSync';
 import { FeaturedList } from './FeaturedList';
 import { POIDetail } from './POIDetail';
@@ -49,23 +49,26 @@ export function RichContentSheet() {
     }
   }, [selectedViewpointId]);
 
+  const themeName = useThemeName();
+  const isDark = themeName.startsWith('dark');
+
   return (
     <BottomSheet
       ref={sheetRef}
       index={1} // Start at 50%
       snapPoints={snapPoints}
-      backgroundStyle={styles.background}
+      backgroundStyle={[styles.background, { backgroundColor: isDark ? '#151515' : '#fff' }]}
       handleIndicatorStyle={
         selectedViewpoint
           ? [styles.indicator, { 
-              backgroundColor: 'rgba(255, 255, 255, 0.9)', 
+              backgroundColor: isDark ? 'rgba(0, 0, 0, 0.9)' : 'rgba(255, 255, 255, 0.9)', 
               shadowColor: '#000', 
               shadowOffset: { width: 0, height: 1 }, 
               shadowOpacity: 0.3, 
               shadowRadius: 2, 
               elevation: 3 
             }]
-          : styles.indicator
+          : [styles.indicator, { backgroundColor: isDark ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.2)' }]
       }
       handleStyle={
         selectedViewpoint
@@ -84,7 +87,7 @@ export function RichContentSheet() {
       ) : (
         <>
           <YStack padding="$4" gap="$2" paddingBottom="$2">
-            <Text fontSize="$6" fontWeight="bold">Featured Near You</Text>
+            <Text fontSize="$6" fontWeight="bold" color="$color">Featured Near You</Text>
             <Text color="$color">Discover viewpoints around you</Text>
           </YStack>
 
