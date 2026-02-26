@@ -47,7 +47,7 @@ export function CustomMapMarker({ id, coordinate, title, category }: CustomMapMa
         centerCoordinate: coordinate,
         zoomLevel: 15,
         pitch: 45,
-        padding: { paddingBottom: windowHeight * 0.4 },
+        padding: { paddingBottom: windowHeight * 0.35 },
       });
     }
   };

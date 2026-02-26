@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Dimensions } from 'react-native';
 import MapboxGL from '@rnmapbox/maps';
 import { useLocationStore } from '../../store/useLocationStore';
 import { useMapStore } from '../../store/useMapStore';
@@ -52,10 +52,12 @@ export default function MapScreen() {
   useEffect(() => {
     // Fly to user location *once* when it's first acquired
     if (location && !hasSetInitialLocation) {
+      const { height: windowHeight } = Dimensions.get('window');
       cameraRef.current?.setCamera({
         centerCoordinate: [location.coords.longitude, location.coords.latitude],
         zoomLevel: 12,
         animationDuration: 1500,
+        padding: { paddingBottom: windowHeight * 0.35 },
       });
       setHasSetInitialLocation(true);
     }
