@@ -1,7 +1,7 @@
 import React, { useMemo, useRef, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import BottomSheet from '@gorhom/bottom-sheet';
-import { YStack, Text, useThemeName } from 'tamagui';
+import { YStack, Text, useThemeName, useTheme } from 'tamagui';
 import { useViewpointsSync } from '../../hooks/useViewpointsSync';
 import { FeaturedList } from './FeaturedList';
 import { POIDetail } from './POIDetail';
@@ -12,6 +12,7 @@ import { useBottomSheetSpringConfigs } from '@gorhom/bottom-sheet';
 import { triggerSelection } from '../../services/hapticsService';
 
 export function RichContentSheet() {
+  const theme = useTheme();
   const sheetRef = useRef<BottomSheet>(null);
   const snapPoints = useMemo(() => ['20%', '50%', '85%'], []);
   const { data: viewpoints = [] } = useViewpointsSync();
@@ -67,7 +68,11 @@ export function RichContentSheet() {
       snapPoints={snapPoints}
       animationConfigs={animationConfigs}
       onChange={(index) => triggerSelection()}
-      backgroundStyle={[styles.background, { backgroundColor: isDark ? '#151515' : '#fff' }]}
+
+      backgroundStyle={[styles.background, {
+        backgroundColor: theme.background.val,
+        borderRadius: 24,
+      }]}
       handleIndicatorStyle={
         selectedViewpoint
           ? [styles.indicator, { 
@@ -124,11 +129,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   background: {
-    backgroundColor: '#fff',
-    borderRadius: 24,
+    // backgroundColor: '#fff',
+    // borderRadius: 24,
   },
   indicator: {
-    backgroundColor: 'rgba(0,0,0,0.2)',
+    // backgroundColor: 'rgba(0,0,0,0.2)',
     width: 40,
   },
 });

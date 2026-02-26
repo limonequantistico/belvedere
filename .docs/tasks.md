@@ -179,6 +179,8 @@ This is the heart of the app — a single-screen, map-first layout inspired by t
 - [ ] **Error handling** — Graceful fallbacks for denied location permissions, network failures, empty states
 - [ ] **Loading states** — Skeleton screens and shimmer effects for content loading
 - [ ] **Empty states** — Friendly illustrations/messages when no viewpoints found, no favorites, etc.
+- [x] **Design Consistency** — Make sure the design is consistent with the brand guidelines, and that there are no elements that look out of place.
+- [ ] Show small heart icon on the top right of POIs that are favorited
 
 ---
 
@@ -228,3 +230,7 @@ Features to revisit once the core experience is solid.
 - [ ] Stats: viewpoints visited, favorites count, submissions count
 - [ ] Achievement / badge system
 - [ ] Display name, bio editing
+
+
+- [ ] Add other info about the place, like how to get there, what you'll see, accessibility difficulty and notes, best time to visit, etc.
+- [ ] Add visible and copiable coordinates, more of a style choice than a feature. 

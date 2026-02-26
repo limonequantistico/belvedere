@@ -48,7 +48,7 @@ export function ViewpointCard({ viewpoint, onPress }: ViewpointCardProps) {
           bg="$background"
           style={{
             elevation: 2,
-            shadowColor: "black",
+            shadowColor: "$shadowColor",
             shadowOffset: { width: 0, height: 4 },
             shadowOpacity: 0.1,
             shadowRadius: 12,

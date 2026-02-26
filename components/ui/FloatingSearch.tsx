@@ -61,7 +61,7 @@ export function FloatingSearch() {
           alignItems="center"
           paddingHorizontal="$3"
           elevation={4}
-          shadowColor="black"
+          shadowColor="$shadowColor"
           shadowOffset={{ width: 0, height: 4 }}
           shadowOpacity={0.15}
           shadowRadius={12}
@@ -104,7 +104,7 @@ export function FloatingSearch() {
           bg="$background"
           borderRadius="$6"
           elevation={4}
-          shadowColor="black"
+          shadowColor="$shadowColor"
           shadowOffset={{ width: 0, height: 4 }}
           shadowOpacity={0.2}
           shadowRadius={8}

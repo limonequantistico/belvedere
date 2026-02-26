@@ -10,16 +10,22 @@ The visual foundation moves away from stark, high-contrast utility apps and embr
 Since Tamagui relies on tokens, map these directly to your `tamagui.config.ts`. The palette should feel natural, warm, and inviting.
 
 *   **Primary Accent (Sunset Orange/Terracotta):** `#E07A5F`
+    *   *Tamagui Token:* `$primary`
     *   *Usage:* Primary calls to action (e.g., "View" buttons), active active map markers, key highlights. It stands out beautifully against natural greens and blues.
 *   **Secondary/Nature Accent (Forest Green):** `#3D5A80` to `#81B29A`
+    *   *Tamagui Token:* `$accent`
     *   *Usage:* Secondary buttons, verified location badges, success states.
 *   **Background (Canvas/Off-White):** `#F4F1DE` 
+    *   *Tamagui Token:* `$background`
     *   *Usage:* Core background for light mode elements, bottom sheets, and cards. Evokes the feeling of physical paper or an old atlas. (For dark mode: a deep twilight blue `#2B2D42` rather than pure black).
 *   **Surface / Panels (Parchment/Cream):** `#FFFFFF` or a very light cream `#FDFBF7` with subtle warm tint.
+    *   *Tamagui Token:* `$secondary` or `$card`
     *   *Usage:* Bottom sheets, search bar background, cards.
 *   **Text colors:**
-    *   *Primary Text:* `#3D405B` (Deep Navy/Charcoal instead of harsh black. Creates a softer contrast).
-    *   *Secondary Text:* `#8D93AB` (Muted navy/gray for distances, category labels).
+    *   *Primary Text:* `#3D405B`
+        *   *Tamagui Token:* `$color`
+    *   *Secondary Text:* `#8D93AB`
+        *   *Tamagui Token:* `$placeholderColor` or `$mutedForeground`
 *   **Status/Destructive:** `#E07A5F` (Use the primary warm accent for destructive actions to keep the palette cohesive, or a softer coral red).
 
 ### Typography

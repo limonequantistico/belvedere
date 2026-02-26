@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Linking, ScrollView, Dimensions, Share, ActivityIndicator } from 'react-native';
-import { YStack, XStack, Text, Button, useThemeName } from 'tamagui';
+import { YStack, XStack, Text, Button, useThemeName, useTheme } from 'tamagui';
 import { Image } from 'expo-image';
 import { useVideoPlayer, VideoView } from 'expo-video';
 import { useEvent } from 'expo';
@@ -79,11 +79,13 @@ export function POIDetail({ viewpoint, onClose }: POIDetailProps) {
   const { mutate: toggleFavorite } = useToggleFavorite();
   const isFavorite = favorites.includes(viewpoint.id);
   const themeName = useThemeName();
+  const theme = useTheme();
   const isDark = themeName.startsWith('dark');
   
-  const iconColor = isDark ? "white" : "#1A1A1A";
-  const btnBg = isDark ? "rgba(0, 0, 0, 0.7)" : "rgba(255, 255, 255, 0.9)";
-  const btnPressBg = isDark ? "rgba(0, 0, 0, 0.9)" : "rgba(255, 255, 255, 0.7)";
+  const iconColor = "$color";
+  const btnBg = "$secondary";
+  const btnPressBg = "$secondaryHover";
+  const primaryColor = "$primary";
 
   const handleToggleFavorite = () => {
     toggleFavorite({ viewpointId: viewpoint.id, isFavorite });
@@ -178,7 +180,7 @@ export function POIDetail({ viewpoint, onClose }: POIDetailProps) {
         <Button 
           circular
           size="$4" 
-          icon={<Heart size={20} color={isFavorite ? "#E65100" : iconColor} fill={isFavorite ? "#E65100" : "none"} />}
+          icon={<Heart size={20} color={isFavorite ? primaryColor : iconColor} fill={isFavorite ? primaryColor : "none"} />}
           position="absolute"
           top="$4"
           right="$4"
@@ -209,26 +211,26 @@ export function POIDetail({ viewpoint, onClose }: POIDetailProps) {
                circular
                size="$4" 
                icon={<ArrowLeft size={20} color={iconColor} />}
-               backgroundColor={isDark ? "rgba(255,255,255,0.1)" : "rgba(0, 0, 0, 0.05)"}
+               backgroundColor="$secondary"
                onPress={onClose}
-               pressStyle={{ backgroundColor: isDark ? "rgba(255,255,255,0.2)" : "rgba(0, 0, 0, 0.1)" }}
+               pressStyle={{ backgroundColor: "$secondaryHover" }}
              />
              <XStack gap="$3">
                <Button 
                  circular
                  size="$4" 
                  icon={<ShareIcon size={20} color={iconColor} />}
-                 backgroundColor={isDark ? "rgba(255,255,255,0.1)" : "rgba(0, 0, 0, 0.05)"}
+                 backgroundColor="$secondary"
                  onPress={handleShare}
-                 pressStyle={{ backgroundColor: isDark ? "rgba(255,255,255,0.2)" : "rgba(0, 0, 0, 0.1)" }}
+                 pressStyle={{ backgroundColor: "$secondaryHover" }}
                />
                <Button 
                  circular
                  size="$4" 
-                 icon={<Heart size={20} color={isFavorite ? "#E65100" : iconColor} fill={isFavorite ? "#E65100" : "none"} />}
-                 backgroundColor={isDark ? "rgba(255,255,255,0.1)" : "rgba(0, 0, 0, 0.05)"}
+                 icon={<Heart size={20} color={isFavorite ? primaryColor : iconColor} fill={isFavorite ? primaryColor : "none"} />}
+                 backgroundColor="$secondary"
                  onPress={handleToggleFavorite}
-                 pressStyle={{ backgroundColor: isDark ? "rgba(255,255,255,0.2)" : "rgba(0, 0, 0, 0.1)" }}
+                 pressStyle={{ backgroundColor: "$secondaryHover" }}
                />
              </XStack>
            </XStack>
@@ -273,14 +275,14 @@ export function POIDetail({ viewpoint, onClose }: POIDetailProps) {
 
         <Button 
           size="$5"
-          backgroundColor="#E65100" 
-          color="white" 
-          icon={<Navigation size={20} color="white" />}
+          backgroundColor="$primary" 
+          color="$primaryForeground" 
+          icon={<Navigation size={20} color="$primaryForeground" />}
           onPress={handleNavigate}
           borderRadius={100}
           marginTop="$4"
           marginBottom={insets.bottom > 0 ? insets.bottom : '$4'}
-          pressStyle={{ backgroundColor: '#cc4800' }}
+          pressStyle={{ backgroundColor: '$primaryHover' }}
         >
           Navigate Here
         </Button>
