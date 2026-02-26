@@ -26,6 +26,7 @@ import { useEffect } from "react";
 import { QueryClient } from "@tanstack/react-query";
 import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client';
 import { mmkvPersister } from "@/lib/mmkvQueryStorage";
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -119,7 +120,7 @@ function DebugOverlay() {
             icon={Bug}
             position="absolute"
             bottom="$13"
-            right="$4"
+            left="$4"
             backgroundColor="$background"
             elevate
             opacity={0.7}
@@ -147,15 +148,17 @@ export default function RootLayout() {
     }
 
     return (
-        <PersistQueryClientProvider
-            client={queryClient}
-            persistOptions={{ persister: mmkvPersister }}
-        >
-            <ManualThemeProvider>
-                <AppContent />
-                {__DEV__ && <DebugOverlay />}
-            </ManualThemeProvider>
-        </PersistQueryClientProvider>
+        <GestureHandlerRootView style={{ flex: 1 }}>
+            <PersistQueryClientProvider
+                client={queryClient}
+                persistOptions={{ persister: mmkvPersister }}
+            >
+                <ManualThemeProvider>
+                    <AppContent />
+                    {__DEV__ && <DebugOverlay />}
+                </ManualThemeProvider>
+            </PersistQueryClientProvider>
+        </GestureHandlerRootView>
     );
 }
 

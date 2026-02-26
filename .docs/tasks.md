@@ -100,7 +100,7 @@ This is the heart of the app — a single-screen, map-first layout inspired by t
 
 ## Phase 3 · Rich Content Sheets (POI Details)
 
-- [ ] **RichContentSheet component** — Draggable Tamagui `Sheet` with rounded top corners, snap points at 20% / 50% / 90%
+- [x] **RichContentSheet component** — Draggable Gorhom `BottomSheet` with rounded top corners, snap points at 20% / 50% / 85%
 - [ ] **"Featured Near You" list** — Default sheet content showing a scrollable list of `ViewpointCard` components
 - [ ] **ViewpointCard component** — Rounded rectangle with image thumbnail, title, distance, category badge, "View" button
 - [ ] **POI Detail view** (expanded sheet or dedicated screen):

@@ -11,6 +11,8 @@ import { CustomMapMarker } from '../../components/map/CustomMapMarker';
 import { ClusterMarker } from '../../components/map/ClusterMarker';
 import useSupercluster from 'use-supercluster';
 import { useStyledToast } from '@/hooks/useStyledToast';
+import { RichContentSheet } from '../../components/sheet/RichContentSheet';
+import { YStack } from 'tamagui';
 
 // Set Mapbox access token
 MapboxGL.setAccessToken(process.env.EXPO_PUBLIC_MAPBOX_ACCESS_TOKEN || process.env.EXPO_PUBLIC_MAPBOX_KEY || '');
@@ -183,6 +185,9 @@ export default function MapScreen() {
       <FloatingSearch />
       <FilterPills />
       <MapFABs />
+      <YStack position="absolute" top={0} bottom={0} left={0} right={0} zIndex={100} pointerEvents="box-none">
+        <RichContentSheet />
+      </YStack>
     </View>
   );
 }

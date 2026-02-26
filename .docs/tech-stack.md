@@ -31,8 +31,11 @@ This document outlines the technical stack chosen for Belvedere. The architectur
 
 **Styling & UI Components:**
 - **UI Framework & Styling:** **Tamagui**
-  - **Justification:** A universal UI kit and styling engine for React Native and Web. Since the app targets both mobile and web, Tamagui's optimizing compiler ensures high performance across all platforms. It forces a strict design system (tokens, themes) which is ideal for maintaining the polished, unique "exploration video game" aesthetic consistently. It also includes highly customizable, accessible components out of the box, including advanced Sheet components for our "Rich Content Sheets".
+  - **Justification:** A universal UI kit and styling engine for React Native and Web. Since the app targets both mobile and web, Tamagui's optimizing compiler ensures high performance across all platforms. It forces a strict design system (tokens, themes) which is ideal for maintaining the polished, unique "exploration video game" aesthetic consistently. It also includes highly customizable, accessible components out of the box.
   - **Docs:** [https://tamagui.dev/](https://tamagui.dev/)
+- **Bottom Sheet Interaction:** **`@gorhom/bottom-sheet`**
+  - **Justification:** The industry standard for bottom sheets in React Native. It uses `react-native-reanimated` and `react-native-gesture-handler` for buttery smooth 60fps animations. Replaces Tamagui Sheet to provide superior gesture handling, multi-snap points, and scrollable content nesting.
+  - **Docs:** [https://ui.gorhom.dev/components/bottom-sheet/](https://ui.gorhom.dev/components/bottom-sheet/)
 
 ---
 
