@@ -22,7 +22,7 @@ export function MapFABs() {
   return (
     <YStack
       position="absolute"
-      bottom={120} // Above the bottom sheet
+      bottom={200} // Above the bottom sheet
       right={16}
       zIndex={10}
       gap="$3"
