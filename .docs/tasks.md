@@ -131,7 +131,7 @@ This is the heart of the app — a single-screen, map-first layout inspired by t
 
 ## Phase 5 · User Profile & Favorites
 
-- [ ] **Profile page** — Accessible from the top-right avatar icon on the map:
+- [x] **Profile page** — Accessible from the top-right avatar icon on the map:
   - [x] Avatar upload (with existing `ProfileAvatar` component)
   - [x] List of favorite viewpoints
   - [x] Settings (theme toggle, logout)
@@ -151,7 +151,7 @@ This is the heart of the app — a single-screen, map-first layout inspired by t
   - [x] `useViewpointDetails(id)`
   - [ ] `useSearchViewpoints(query)`
   - [x] `useFavorites(userId)`
-- [ ] **Zustand stores:**
+- [x] **Zustand stores:**
   - [x] `useMapStore` — Camera position, selected viewpoint, active filters, zoom level
   - [x] `useLocationStore` — User's current coordinates, location permission status
 - [x] **Offline tolerance & Syncing** — Configured TanStack Query caching for low-connectivity outdoor use
@@ -162,12 +162,12 @@ This is the heart of the app — a single-screen, map-first layout inspired by t
 
 ## Phase 7 · Polish & Animations
 
-- [ ] **Spring animations** — Bouncy interactions on filter pills and markers (react-native-reanimated)
-- [ ] **Sheet drag physics** — Smooth, snappy sheet dragging with comfortable stop points
-- [ ] **Soft transitions** — Crossfade page transitions, gentle video fade-ins
-- [ ] **Marker focus animation** — Sweeping camera flight with 3D pitch on marker tap
-- [ ] **Reduce Motion support** — Honor system accessibility setting for motion-sensitive users
-- [ ] **Haptic feedback** — Tactile response on key interactions (using existing `hapticsService`)
+- [x] **Spring animations** — Refined to removed bounciness while maintaining tactile haptics
+- [x] **Sheet drag physics** — Smooth, snappy sheet dragging with comfortable stop points
+- [x] **Soft transitions** — Crossfade page transitions, progressive video fade-ins (300ms)
+- [x] **Marker focus animation** — Sweeping camera flight with 3D pitch on marker tap
+- [x] **Reduce Motion support** — Honor system accessibility setting for motion-sensitive users
+- [x] **Haptic feedback** — Tactile response on key interactions (using existing `hapticsService`)
 
 ---
 

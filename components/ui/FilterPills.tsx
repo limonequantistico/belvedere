@@ -3,6 +3,7 @@ import { ScrollView } from 'react-native';
 import { Button, XStack, Text, View } from 'tamagui';
 import { useMapStore } from '../../store/useMapStore';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { triggerLightImpact } from '../../services/hapticsService';
 
 const CATEGORIES = [
   { id: 'Nature', label: 'Nature', icon: '🌲' },
@@ -43,6 +44,7 @@ export function FilterPills() {
           borderColor={activeCategory === null && !verifiedOnly ? '$primary' : '$borderColor'}
           borderWidth={1}
           onPress={() => {
+            triggerLightImpact();
             setActiveCategory(null);
             setVerifiedOnly(false);
           }}
@@ -72,7 +74,10 @@ export function FilterPills() {
               backgroundColor={isActive ? '$primary' : '$background'}
               borderColor={isActive ? '$primary' : '$borderColor'}
               borderWidth={1}
-              onPress={() => setActiveCategory(isActive ? null : cat.id)}
+              onPress={() => {
+                triggerLightImpact();
+                setActiveCategory(isActive ? null : cat.id);
+              }}
               paddingHorizontal="$4"
               icon={<Text>{cat.icon}</Text>}
             >

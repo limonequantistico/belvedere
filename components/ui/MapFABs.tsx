@@ -18,6 +18,8 @@ export function MapFABs() {
       setCameraPosition({
         centerCoordinate: [state.location.coords.longitude, state.location.coords.latitude],
         zoomLevel: 14,
+        pitch: 0,
+        padding: { paddingBottom: 0 }
       });
     }
   };

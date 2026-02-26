@@ -3,6 +3,7 @@ import { View, Dimensions } from 'react-native';
 import { Text, useThemeName } from 'tamagui';
 import MapboxGL from '@rnmapbox/maps';
 import { useMapStore } from '../../store/useMapStore';
+import { triggerMediumImpact } from '../../services/hapticsService';
 
 const { height: windowHeight } = Dimensions.get('window');
 
@@ -34,6 +35,7 @@ export function CustomMapMarker({ id, coordinate, title, category }: CustomMapMa
   const markerBorder = isActive ? (isDark ? '#222' : 'white') : '#E65100';
 
   const handlePress = () => {
+    triggerMediumImpact();
     if (isActive) {
       // Deselect: reset pitch to flat view
       setSelectedViewpoint(null);

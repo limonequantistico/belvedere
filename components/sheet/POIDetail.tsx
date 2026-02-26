@@ -1,8 +1,10 @@
 import React from 'react';
-import { View, StyleSheet, Linking, ScrollView, Dimensions, Share } from 'react-native';
+import { View, StyleSheet, Linking, ScrollView, Dimensions, Share, ActivityIndicator } from 'react-native';
 import { YStack, XStack, Text, Button, useThemeName } from 'tamagui';
 import { Image } from 'expo-image';
 import { useVideoPlayer, VideoView } from 'expo-video';
+import { useEvent } from 'expo';
+import Animated, { useSharedValue, useAnimatedStyle, withTiming } from 'react-native-reanimated';
 import { ViewpointLite } from '../../hooks/useViewpointsSync';
 import { useViewpointDetails } from '../../hooks/useViewpointDetails';
 import { MapPin, Navigation, ArrowLeft, Heart, Share as ShareIcon } from '@tamagui/lucide-icons';
@@ -33,10 +35,36 @@ const MediaItem = ({ item, width = '100%' }: { item: { type: string, url: string
     }
   });
 
+  const { status } = useEvent(player, 'statusChange', { status: player.status });
+  const isVideoLoading = status === 'loading';
+  const isVideoReady = status === 'readyToPlay';
+  const shouldShowVideo = isVideoReady || isVideoLoading;
+  
+  const opacity = useSharedValue(0);
+  
+  React.useEffect(() => {
+    if (shouldShowVideo) {
+      opacity.value = withTiming(1, { duration: 300 });
+    }
+  }, [shouldShowVideo]);
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    opacity: opacity.value,
+  }));
+
   return (
-    <View style={{ width, height: '100%' }}>
+    <View style={{ width, height: '100%', justifyContent: 'center', alignItems: 'center' }}>
       {item.type === 'video' ? (
-        <VideoView style={styles.heroImage} player={player} contentFit="cover" />
+        <>
+          {isVideoLoading && (
+            <View style={{ position: 'absolute', zIndex: 1 }}>
+              <ActivityIndicator size="small" color="#E65100" />
+            </View>
+          )}
+          <Animated.View style={[{ width: '100%', height: '100%' }, animatedStyle]}>
+            <VideoView style={styles.heroImage} player={player} contentFit="cover" />
+          </Animated.View>
+        </>
       ) : (
         <Image source={{ uri: item.url }} style={{ width: '100%', height: '100%' }} contentFit="cover" transition={300} />
       )}

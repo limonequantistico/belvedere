@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import MapboxGL from '@rnmapbox/maps';
+import { triggerMediumImpact } from '../../services/hapticsService';
 
 type ClusterMarkerProps = {
   id: string;
@@ -13,14 +14,19 @@ export function ClusterMarker({ id, coordinate, pointCount, onPress }: ClusterMa
   // Scale size slightly based on point count
   const size = Math.max(40, Math.min(60, 35 + (pointCount * 2)));
 
+  const handlePress = () => {
+    triggerMediumImpact();
+    onPress();
+  };
+
   return (
     <MapboxGL.PointAnnotation 
       id={id} 
       coordinate={coordinate}
-      onSelected={onPress}
+      onSelected={handlePress}
     >
       <View
-        onTouchEnd={onPress}
+        onTouchEnd={handlePress}
         style={{
           width: size,
           height: size,

@@ -8,6 +8,8 @@ import { POIDetail } from './POIDetail';
 import { useMapStore } from '../../store/useMapStore';
 import { useLocationStore } from '../../store/useLocationStore';
 import { calculateDistance } from '../../lib/locationUtils';
+import { useBottomSheetSpringConfigs } from '@gorhom/bottom-sheet';
+import { triggerSelection } from '../../services/hapticsService';
 
 export function RichContentSheet() {
   const sheetRef = useRef<BottomSheet>(null);
@@ -52,11 +54,19 @@ export function RichContentSheet() {
   const themeName = useThemeName();
   const isDark = themeName.startsWith('dark');
 
+  const animationConfigs = useBottomSheetSpringConfigs({
+    damping: 80,
+    overshootClamping: true,
+    stiffness: 500,
+  });
+
   return (
     <BottomSheet
       ref={sheetRef}
       index={1} // Start at 50%
       snapPoints={snapPoints}
+      animationConfigs={animationConfigs}
+      onChange={(index) => triggerSelection()}
       backgroundStyle={[styles.background, { backgroundColor: isDark ? '#151515' : '#fff' }]}
       handleIndicatorStyle={
         selectedViewpoint

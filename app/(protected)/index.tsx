@@ -76,15 +76,20 @@ export default function MapScreen() {
     }
   }, [cameraPosition]);
 
+  const handleRegionIsChanging = (feature: any) => {
+    // Extract zoom level during camera animations/panning for fluid cluster expansion
+    const zoomLevel = feature?.properties?.zoomLevel;
+    if (zoomLevel !== undefined && zoomLevel !== zoom) {
+      setZoom(zoomLevel);
+    }
+  };
+
   const handleRegionDidChange = async () => {
     if (!mapRef.current) return;
     try {
       const zoomLevel = await mapRef.current.getZoom();
       
-      // We consciously ONLY update zoom, not bounds.
-      // By leaving bounds as the entire world [-180, -85, 180, 85], 
-      // the markers are calculated and rendered everywhere. 
-      // When you pan the map, the pins are already there!
+      // Update zoom on idle for final precision
       setZoom(zoomLevel);
     } catch (e) {
       console.warn("Could not calculate zoom for clustering", e);
@@ -133,6 +138,7 @@ export default function MapScreen() {
         pitchEnabled={true}
         rotateEnabled={false}
         onMapIdle={handleRegionDidChange}
+        onRegionIsChanging={handleRegionIsChanging}
         onDidFinishLoadingMap={handleRegionDidChange}
       >
         <MapboxGL.Camera
@@ -172,7 +178,7 @@ export default function MapScreen() {
                    cameraRef.current?.setCamera({
                      centerCoordinate: [longitude, latitude],
                      zoomLevel: expansionZoom,
-                     animationDuration: 1000,
+                     animationDuration: 1500, // Cluster to POIs zoom animation duration
                    });
                  }}
                />
