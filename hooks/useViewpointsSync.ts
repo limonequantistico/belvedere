@@ -22,6 +22,7 @@ export type ViewpointLite = {
   category_color: string | null;
   cover_image_url: string | null;
   verified: boolean;
+  distance?: number; // Added for distance-based sorting and display
 };
 
 export const useViewpointsSync = () => {
