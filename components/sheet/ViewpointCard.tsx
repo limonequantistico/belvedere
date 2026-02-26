@@ -1,9 +1,10 @@
 import React from 'react';
 import { StyleSheet, Pressable } from 'react-native';
-import { XStack, YStack, Text, View } from 'tamagui';
+import { XStack, YStack, Text, View, Button } from 'tamagui';
 import { Image } from 'expo-image';
-import { MapPin, ArrowRight } from '@tamagui/lucide-icons';
+import { MapPin, ArrowRight, Heart } from '@tamagui/lucide-icons';
 import { ViewpointLite } from '../../hooks/useViewpointsSync';
+import { useFavorites, useToggleFavorite } from '../../hooks/useFavorites';
 import { LinearGradient } from 'expo-linear-gradient';
 
 type ViewpointCardProps = {
@@ -23,6 +24,15 @@ const getCategoryIcon = (category?: string) => {
 };
 
 export function ViewpointCard({ viewpoint, onPress }: ViewpointCardProps) {
+  const { data: favorites = [] } = useFavorites();
+  const { mutate: toggleFavorite } = useToggleFavorite();
+  const isFavorite = favorites.includes(viewpoint.id);
+
+  const handleToggleFavorite = (e: any) => {
+    if (e && e.stopPropagation) e.stopPropagation();
+    toggleFavorite({ viewpointId: viewpoint.id, isFavorite });
+  };
+
   // We use placeholder if there's no cover image
   const imageSource = viewpoint.cover_image_url
     ? { uri: viewpoint.cover_image_url }
@@ -83,6 +93,22 @@ export function ViewpointCard({ viewpoint, onPress }: ViewpointCardProps) {
                 </Text>
               </XStack>
             )}
+
+            {/* Top Left Favorite Button */}
+            <View
+              position="absolute"
+              top="$3"
+              left="$3"
+            >
+              <Button
+                circular
+                size="$3"
+                icon={<Heart size={18} color={isFavorite ? "#E65100" : "white"} fill={isFavorite ? "#E65100" : "none"} />}
+                backgroundColor="rgba(0,0,0,0.5)"
+                onPress={handleToggleFavorite}
+                pressStyle={{ backgroundColor: 'rgba(0,0,0,0.7)' }}
+              />
+            </View>
 
             {/* Bottom Content Area */}
             <YStack position="absolute" bottom={0} left={0} right={0} padding="$4" gap="$2">

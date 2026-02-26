@@ -112,8 +112,8 @@ This is the heart of the app — a single-screen, map-first layout inspired by t
   - [x] Description / travel-journal-style text
   - [x] Photo gallery (swipeable `expo-image` carousel) — only shown if images exist
   - [x] "Navigate" button → deep-link to Google Maps / Apple Maps
-  - [ ] Favorite / save button
-  - [ ] Share button
+  - [x] Favorite / save button
+  - [x] Share button
 
 ---
 

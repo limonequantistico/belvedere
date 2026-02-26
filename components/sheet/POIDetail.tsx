@@ -1,11 +1,12 @@
 import React from 'react';
-import { View, StyleSheet, Linking, ScrollView, Dimensions } from 'react-native';
+import { View, StyleSheet, Linking, ScrollView, Dimensions, Share } from 'react-native';
 import { YStack, XStack, Text, Button } from 'tamagui';
 import { Image } from 'expo-image';
 import { useVideoPlayer, VideoView } from 'expo-video';
 import { ViewpointLite } from '../../hooks/useViewpointsSync';
 import { useViewpointDetails } from '../../hooks/useViewpointDetails';
-import { MapPin, Navigation, ArrowLeft } from '@tamagui/lucide-icons';
+import { MapPin, Navigation, ArrowLeft, Heart, Share as ShareIcon } from '@tamagui/lucide-icons';
+import { useFavorites, useToggleFavorite } from '../../hooks/useFavorites';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 type POIDetailProps = {
@@ -46,6 +47,27 @@ const MediaItem = ({ item, width = '100%' }: { item: { type: string, url: string
 export function POIDetail({ viewpoint, onClose }: POIDetailProps) {
   const insets = useSafeAreaInsets();
   const { data: details, isLoading } = useViewpointDetails(viewpoint.id);
+  const { data: favorites = [] } = useFavorites();
+  const { mutate: toggleFavorite } = useToggleFavorite();
+  const isFavorite = favorites.includes(viewpoint.id);
+
+  const handleToggleFavorite = () => {
+    toggleFavorite({ viewpointId: viewpoint.id, isFavorite });
+  };
+
+  const handleShare = async () => {
+    try {
+      const mapsUrl = `https://maps.apple.com/?q=${viewpoint.lat},${viewpoint.lng}`;
+      const message = `Check out this spot: ${viewpoint.name}!\n\n${mapsUrl}`;
+      
+      await Share.share({
+        message,
+        title: viewpoint.name, // Android only title for share sheet
+      });
+    } catch (error) {
+      console.error('Error sharing viewpoint:', error);
+    }
+  };
 
   const videoUrl = details?.video_url;
   const description = details?.description;
@@ -117,19 +139,65 @@ export function POIDetail({ viewpoint, onClose }: POIDetailProps) {
           onPress={onClose}
           pressStyle={{ backgroundColor: 'rgba(255, 255, 255, 0.7)' }}
         />
+
+        {/* Floating Favorite Button */}
+        <Button 
+          circular
+          size="$4" 
+          icon={<Heart size={20} color={isFavorite ? "#E65100" : "#1A1A1A"} fill={isFavorite ? "#E65100" : "none"} />}
+          position="absolute"
+          top="$4"
+          right="$4"
+          backgroundColor="rgba(255, 255, 255, 0.9)"
+          onPress={handleToggleFavorite}
+          pressStyle={{ backgroundColor: 'rgba(255, 255, 255, 0.7)' }}
+        />
+
+        {/* Floating Share Button */}
+        <Button 
+          circular
+          size="$4" 
+          icon={<ShareIcon size={20} color="#1A1A1A" />}
+          position="absolute"
+          top="$4"
+          right={64} // Place to the left of Favorite
+          backgroundColor="rgba(255, 255, 255, 0.9)"
+          onPress={handleShare}
+          pressStyle={{ backgroundColor: 'rgba(255, 255, 255, 0.7)' }}
+        />
       </View>
       )}
 
       {(!videoUrl && allImages.length === 0) && (
          <View style={{ padding: 16 }}>
-           <Button 
-             circular
-             size="$4" 
-             icon={<ArrowLeft size={20} color="#1A1A1A" />}
-             backgroundColor="rgba(0, 0, 0, 0.05)"
-             onPress={onClose}
-             pressStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.1)' }}
-           />
+           <XStack justifyContent="space-between">
+             <Button 
+               circular
+               size="$4" 
+               icon={<ArrowLeft size={20} color="#1A1A1A" />}
+               backgroundColor="rgba(0, 0, 0, 0.05)"
+               onPress={onClose}
+               pressStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.1)' }}
+             />
+             <XStack gap="$3">
+               <Button 
+                 circular
+                 size="$4" 
+                 icon={<ShareIcon size={20} color="#1A1A1A" />}
+                 backgroundColor="rgba(0, 0, 0, 0.05)"
+                 onPress={handleShare}
+                 pressStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.1)' }}
+               />
+               <Button 
+                 circular
+                 size="$4" 
+                 icon={<Heart size={20} color={isFavorite ? "#E65100" : "#1A1A1A"} fill={isFavorite ? "#E65100" : "none"} />}
+                 backgroundColor="rgba(0, 0, 0, 0.05)"
+                 onPress={handleToggleFavorite}
+                 pressStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.1)' }}
+               />
+             </XStack>
+           </XStack>
          </View>
       )}
 
