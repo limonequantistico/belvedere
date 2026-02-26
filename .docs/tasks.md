@@ -40,7 +40,7 @@ The template is already in place (Expo + Supabase + Tamagui). This phase aligns 
 ## Phase 1 · Backend & Database (Supabase)
 
 - [x] **Enable PostGIS extension** on Supabase project
-- [ ] **Design and create database schema:**
+- [x] **Design and create database schema:**
   - [x] `viewpoints` table — id, name, description, coordinates (PostGIS `geography`), altitude, category, cover_image_url, video_url, verified (bool), created_by, created_at, updated_at
   - [x] `viewpoint_media` table — id, viewpoint_id (FK), media_url, media_type (image/video), sort_order, created_at
   - [x] `viewpoint_categories` table — id, name, icon, color
@@ -69,7 +69,7 @@ This is the heart of the app — a single-screen, map-first layout inspired by t
   - [x] Full-screen map (Z-Index 0)
   - [x] Floating search bar at top-left + profile avatar icon at top-right (Z-Index 10)
   - [x] Right-side FABs: locate me, map layers (Z-Index 10)
-  - [ ] Persistent bottom sheet with curated content (Z-Index 20) *(→ Phase 3)*
+  - [x] Persistent bottom sheet with curated content (Z-Index 20) *(→ Phase 3)*
 
 ### 2B · Geolocation & POI Discovery
 
@@ -83,7 +83,7 @@ This is the heart of the app — a single-screen, map-first layout inspired by t
 - [x] **Marker interaction** — Tapping a marker:
   - [x] Smooth camera flight to center on POI
   - [x] 3D pitch tilt for terrain preview
-  - [ ] Open bottom content sheet with POI details *(→ Phase 3)*
+  - [x] Open bottom content sheet with POI details *(→ Phase 3)*
 
 ### 2C · Search & Filters
 
