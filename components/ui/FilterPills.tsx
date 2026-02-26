@@ -3,7 +3,6 @@ import { ScrollView } from 'react-native';
 import { Button, XStack, Text, View } from 'tamagui';
 import { useMapStore } from '../../store/useMapStore';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { CheckCircle2, Navigation } from '@tamagui/lucide-icons';
 
 const CATEGORIES = [
   { id: 'Nature', label: 'Nature', icon: '🌲' },
@@ -48,32 +47,13 @@ export function FilterPills() {
             setVerifiedOnly(false);
           }}
           paddingHorizontal="$4"
+          icon={<Text>🌍</Text>}
         >
           <Text
             color={activeCategory === null && !verifiedOnly ? 'white' : '$color'}
             fontWeight={activeCategory === null && !verifiedOnly ? 'bold' : 'normal'}
           >
             All
-          </Text>
-        </Button>
-
-        {/* Verified Toggle */}
-        <Button
-          size="$3"
-          circular={false}
-          borderRadius="$8"
-          backgroundColor={verifiedOnly ? '$primary' : '$background'}
-          borderColor={verifiedOnly ? '$primary' : '$borderColor'}
-          borderWidth={1}
-          onPress={() => setVerifiedOnly(!verifiedOnly)}
-          paddingHorizontal="$4"
-          icon={<CheckCircle2 size={16} color={verifiedOnly ? "white" : "$color"} />}
-        >
-          <Text
-            color={verifiedOnly ? 'white' : '$color'}
-            fontWeight={verifiedOnly ? 'bold' : 'normal'}
-          >
-            Verified Only
           </Text>
         </Button>
 

@@ -6,15 +6,15 @@ import { StyleURL } from '@rnmapbox/maps';
 
 // Define the available styles
 const MAP_STYLES = [
-  { id: 'auto', name: 'Auto', url: 'auto' },
-  { id: 'streets', name: 'Street', url: StyleURL.Street },
-  { id: 'dark', name: 'Dark', url: StyleURL.Dark },
-  { id: 'light', name: 'Light', url: StyleURL.Light },
-  { id: 'outdoors', name: 'Outdoors', url: StyleURL.Outdoors },
-  { id: 'satellite', name: 'Satellite', url: StyleURL.Satellite },
-  { id: 'satellite-street', name: 'Satellite Street', url: StyleURL.SatelliteStreet },
-  { id: 'traffic-day', name: 'Traffic Day', url: StyleURL.TrafficDay },
-  { id: 'traffic-night', name: 'Traffic Night', url: StyleURL.TrafficNight },
+  { id: 'auto', name: '📱 Auto', url: 'auto' },
+  { id: 'streets', name: '🛣️ Street', url: StyleURL.Street },
+  { id: 'dark', name: '🌙 Dark', url: StyleURL.Dark },
+  { id: 'light', name: '☀️ Light', url: StyleURL.Light },
+  { id: 'outdoors', name: '⛰️ Outdoors', url: StyleURL.Outdoors },
+  { id: 'satellite', name: '🛰️ Satellite', url: StyleURL.Satellite },
+  { id: 'satellite-street', name: '🗺️ Satellite Street', url: StyleURL.SatelliteStreet },
+  { id: 'traffic-day', name: '🚗 Traffic Day', url: StyleURL.TrafficDay },
+  { id: 'traffic-night', name: '🚙 Traffic Night', url: StyleURL.TrafficNight },
 ];
 
 export function MapStyleSelector() {
@@ -32,7 +32,7 @@ export function MapStyleSelector() {
           shadowOpacity={0.2}
           shadowRadius={4}
           bg="$background"
-          icon={<Layers size={20} color="$color" />}
+          icon={<Text fontSize={20}>🗺️</Text>}
         />
       </Popover.Trigger>
 

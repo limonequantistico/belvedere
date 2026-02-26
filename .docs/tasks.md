@@ -168,7 +168,6 @@ This is the heart of the app — a single-screen, map-first layout inspired by t
 - [ ] **Marker focus animation** — Sweeping camera flight with 3D pitch on marker tap
 - [ ] **Reduce Motion support** — Honor system accessibility setting for motion-sensitive users
 - [ ] **Haptic feedback** — Tactile response on key interactions (using existing `hapticsService`)
-- [ ] Make sure the style feels a bit like nomadslist.com (now nomads.com). Most of all the fonts. Maybe even the emojis.
 
 ---
 
