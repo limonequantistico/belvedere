@@ -30,6 +30,12 @@ const MediaItem = ({ item, width = '100%' }: { item: { type: string, url: string
   const player = useVideoPlayer(item.type === 'video' ? item.url : null, (p) => {
     p.loop = true;
     p.muted = true;
+    // Optimize for fast start
+    p.bufferOptions = {
+      preferredForwardBufferDuration: 2, // iOS: reduce initial buffer requirement
+      waitsToMinimizeStalling: false,     // iOS: play as soon as data is available
+      minBufferForPlayback: 0.5,         // Android: allow early start
+    };
     if (item.type === 'video') {
       p.play();
     }
@@ -38,11 +44,15 @@ const MediaItem = ({ item, width = '100%' }: { item: { type: string, url: string
   const { status } = useEvent(player, 'statusChange', { status: player.status });
   const isVideoLoading = status === 'loading';
   const isVideoReady = status === 'readyToPlay';
+  
+  // Use a shared value for the "actual" first frame render for smoother transition
+  const firstFrameRendered = useSharedValue(false);
   const shouldShowVideo = isVideoReady || isVideoLoading;
   
   const opacity = useSharedValue(0);
   
   React.useEffect(() => {
+    // Trigger animation when state says ready OR when first frame renders
     if (shouldShowVideo) {
       opacity.value = withTiming(1, { duration: 300 });
     }
@@ -62,7 +72,15 @@ const MediaItem = ({ item, width = '100%' }: { item: { type: string, url: string
             </View>
           )}
           <Animated.View style={[{ width: '100%', height: '100%' }, animatedStyle]}>
-            <VideoView style={styles.heroImage} player={player} contentFit="cover" />
+            <VideoView 
+              style={styles.heroImage} 
+              player={player} 
+              contentFit="cover" 
+              onFirstFrameRender={() => {
+                firstFrameRendered.value = true;
+                opacity.value = withTiming(1, { duration: 300 });
+              }}
+            />
           </Animated.View>
         </>
       ) : (
