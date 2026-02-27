@@ -35,7 +35,7 @@ export default function AuthButtons() {
                 <Separator />
             </View>
 
-            <AppleAuthButton />
+            {/* <AppleAuthButton /> */}
 
             {/* <GoogleAuthButton /> */}
 

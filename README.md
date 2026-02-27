@@ -323,9 +323,58 @@ To build and launch the app securely on the iOS Simulator, always use:
 npx expo run:ios
 ```
 
-To build and launch the app securely on your iPhone use:
-```bash
-npx expo run:ios --device
+*(Do not use `npm start` or just `npx expo start` to run the app for the first time, as Expo Go will crash when it encounters the Mapbox native modules).*
+
+### Run on a Physical Device
+
+#### Prerequisites
+- **Xcode** — Ensure you have the latest version installed and are signed in with your Apple account
+- **iPhone** — Developer Mode enabled, connected to the same Wi-Fi network as your Mac, and trusted/linked via Xcode
+
+#### 1. Remove Apple Sign-In (requires a paid Apple Developer account)
+
+Make the following changes:
+
+- In `app.config.ts`: remove `"usesAppleSignIn": true` and `"expo-apple-authentication"` from the plugins list
+- In `components/pages/auth/AuthButtons.tsx`: remove the `AppleAuthButton` component
+- Add the following plugin to `app.config.ts` to strip the entitlement:
+```ts
+  const withRemoveAppleSignInEntitlement: ConfigPlugin = (config) => {
+    return withEntitlementsPlist(config, (config) => {
+      delete config.modResults["com.apple.developer.applesignin"];
+      return config;
+    });
+  };
+
+  // In your plugins array:
+  // @ts-ignore
+  withRemoveAppleSignInEntitlement,
 ```
 
-*(Do not use `npm start` or just `npx expo start` to run the app for the first time, as Expo Go will crash when it encounters the Mapbox native modules).*
+#### 2. Generate the Xcode Project
+```bash
+npx expo prebuild --clean -p ios
+```
+
+#### 3. Configure & Run in Xcode
+
+1. Open `belvedere.xcworkspace` in Xcode
+2. Select your physical device from the device picker at the top
+3. Click the project root in the left sidebar → go to **Signing & Capabilities**
+   - Enable **Automatically manage signing**
+   - Set **Team** to your Apple account/team
+4. Press the **Run** button (▶) to build and install the app
+
+#### 4. Trust the App on Your iPhone
+
+Go to **Settings → General → VPN & Device Management → [Your Team] → Trust [Your App]**
+
+> If the option doesn't appear, restart your iPhone and try again.
+
+#### 5. Start the Dev Server
+
+Once the app is running on your device, start the Expo development server in your IDE:
+```bash
+npx expo start
+```
+

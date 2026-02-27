@@ -30,7 +30,7 @@
         <key>CFBundleURLSchemes</key>
         <array>
           <string>belvedere</string>
-          <string>com.limonequantistico.belvedere</string>
+          <string>com.DEV.belvedere</string>
         </array>
       </dict>
       <dict>

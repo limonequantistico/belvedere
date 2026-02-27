@@ -1,4 +1,12 @@
 import { ExpoConfig, ConfigContext } from "expo/config";
+import { ConfigPlugin, withEntitlementsPlist } from "@expo/config-plugins";
+
+const withRemoveAppleSignInEntitlement: ConfigPlugin = (config) => {
+    return withEntitlementsPlist(config, (config) => {
+        delete config.modResults["com.apple.developer.applesignin"];
+        return config;
+    });
+};
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
     ...config,
@@ -11,9 +19,9 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     userInterfaceStyle: "automatic",
     newArchEnabled: true,
     ios: {
-        usesAppleSignIn: true,
+        // usesAppleSignIn: true,
         supportsTablet: true,
-        bundleIdentifier: "com.limonequantistico.belvedere",
+        bundleIdentifier: "com.DEV.belvedere", // Update before release
     },
     android: {
         adaptiveIcon: {
@@ -29,6 +37,8 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         favicon: "./assets/images/favicon.png",
     },
     plugins: [
+        // @ts-ignore
+        withRemoveAppleSignInEntitlement,
         "expo-router",
         [
             "expo-splash-screen",
@@ -39,7 +49,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
                 backgroundColor: "#F0EDE3",
             },
         ],
-        "expo-apple-authentication",
+        // "expo-apple-authentication",
         [
             "@react-native-google-signin/google-signin",
             {
