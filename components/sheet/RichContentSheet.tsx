@@ -96,7 +96,7 @@ export function RichContentSheet() {
           viewpoint={selectedViewpoint} 
           onClose={() => {
             setSelectedViewpoint(null);
-            setCameraPosition({ pitch: 0 }); // reset pitch when closing details
+            setCameraPosition({ pitch: 0, zoomLevel: 12 });
           }} 
         />
       ) : (

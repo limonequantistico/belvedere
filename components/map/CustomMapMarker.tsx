@@ -43,7 +43,7 @@ export function CustomMapMarker({ id, coordinate, title, category }: CustomMapMa
     if (isActive) {
       // Deselect: reset pitch to flat view
       setSelectedViewpoint(null);
-      setCameraPosition({ pitch: 0, padding: { paddingBottom: 0 } });
+      setCameraPosition({ pitch: 0, zoomLevel: 12});
     } else {
       // Select: fly to marker with 3D pitch and padding to put it in upper half
       setSelectedViewpoint(id);
