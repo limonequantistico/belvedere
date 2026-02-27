@@ -1,13 +1,14 @@
-import React from 'react';
-import { View, StyleSheet, Linking, ScrollView, Dimensions, Share, ActivityIndicator } from 'react-native';
+import * as React from 'react';
+import { View, StyleSheet, Linking, ScrollView, Dimensions, Share, ActivityIndicator, Pressable, Modal, StatusBar } from 'react-native';
 import { YStack, XStack, Text, Button, useThemeName, useTheme } from 'tamagui';
 import { Image } from 'expo-image';
 import { useVideoPlayer, VideoView } from 'expo-video';
 import { useEvent } from 'expo';
-import Animated, { useSharedValue, useAnimatedStyle, withTiming } from 'react-native-reanimated';
+import Animated, { useSharedValue, useAnimatedStyle, withTiming, runOnJS } from 'react-native-reanimated';
+import { GestureDetector, Gesture, GestureHandlerRootView } from 'react-native-gesture-handler';
 import { ViewpointLite } from '../../hooks/useViewpointsSync';
 import { useViewpointDetails } from '../../hooks/useViewpointDetails';
-import { MapPin, Navigation, ArrowLeft, Heart, Share as ShareIcon } from '@tamagui/lucide-icons';
+import { MapPin, Navigation, ArrowLeft, Heart, Share as ShareIcon, Volume2, VolumeX } from '@tamagui/lucide-icons';
 import { useFavorites, useToggleFavorite } from '../../hooks/useFavorites';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -27,6 +28,9 @@ const getCategoryIcon = (category?: string) => {
 };
 
 const MediaItem = ({ item, width = '100%' }: { item: { type: string, url: string }, width?: number | `${number}%` }) => {
+  const [isFullscreen, setIsFullscreen] = React.useState(false);
+  const insets = useSafeAreaInsets();
+  
   const player = useVideoPlayer(item.type === 'video' ? item.url : null, (p) => {
     p.loop = true;
     p.muted = true;
@@ -42,12 +46,22 @@ const MediaItem = ({ item, width = '100%' }: { item: { type: string, url: string
   });
 
   const { status } = useEvent(player, 'statusChange', { status: player.status });
+  const { muted } = useEvent(player, 'mutedChange', { muted: player.muted });
   const isVideoLoading = status === 'loading';
   const isVideoReady = status === 'readyToPlay';
   
   // Use a shared value for the "actual" first frame render for smoother transition
   const firstFrameRendered = useSharedValue(false);
   const shouldShowVideo = isVideoReady || isVideoLoading;
+
+  // Swipe down to close gesture
+  const swipeDownGesture = Gesture.Pan()
+    .onUpdate((event) => {
+      if (event.translationY > 100) {
+        runOnJS(setIsFullscreen)(false);
+      }
+    })
+    .runOnJS(true);
   
   const opacity = useSharedValue(0);
   
@@ -72,15 +86,80 @@ const MediaItem = ({ item, width = '100%' }: { item: { type: string, url: string
             </View>
           )}
           <Animated.View style={[{ width: '100%', height: '100%' }, animatedStyle]}>
-            <VideoView 
-              style={styles.heroImage} 
-              player={player} 
-              contentFit="cover" 
-              onFirstFrameRender={() => {
-                firstFrameRendered.value = true;
-                opacity.value = withTiming(1, { duration: 300 });
-              }}
-            />
+            <View style={{ flex: 1, position: 'relative' }}>
+              <Pressable 
+                onPress={() => setIsFullscreen(true)} 
+                style={{ flex: 1 }}
+                accessibilityLabel="Enter fullscreen video"
+              >
+                <VideoView 
+                  style={styles.heroImage} 
+                  player={player} 
+                  contentFit="cover" 
+                  nativeControls={false}
+                  onFirstFrameRender={() => {
+                    firstFrameRendered.value = true;
+                    opacity.value = withTiming(1, { duration: 300 });
+                  }}
+                />
+              </Pressable>
+
+              {/* Volume Toggle */}
+              <Button 
+                circular
+                size="$3"
+                position="absolute"
+                bottom="$3"
+                right="$3"
+                backgroundColor="rgba(0,0,0,0.5)"
+                pressStyle={{ backgroundColor: 'rgba(0,0,0,0.7)' }}
+                icon={muted ? <VolumeX size={18} color="white" /> : <Volume2 size={18} color="white" />}
+                onPress={() => player.muted = !player.muted}
+                zIndex={10}
+              />
+            </View>
+
+            {/* Custom Fullscreen Modal */}
+            <Modal
+              visible={isFullscreen}
+              transparent={false}
+              animationType="fade"
+              onRequestClose={() => setIsFullscreen(false)}
+              supportedOrientations={['portrait', 'landscape']} // Allow rotation in fullscreen
+            >
+              <StatusBar hidden={isFullscreen} />
+              <GestureHandlerRootView style={{ flex: 1, backgroundColor: 'black' }}>
+                <GestureDetector gesture={swipeDownGesture}>
+                  <Pressable 
+                    onPress={() => setIsFullscreen(false)} 
+                    style={{ flex: 1, justifyContent: 'center' }}
+                  >
+                    <VideoView
+                      player={player}
+                      style={StyleSheet.absoluteFill}
+                      contentFit="contain" // Keep "contain" so the whole video is visible
+                      nativeControls={false}
+                    />
+                    
+                    {/* Fullscreen Volume Toggle */}
+                    <Button 
+                      circular
+                      size="$4"
+                      position="absolute"
+                      top={insets.top > 0 ? insets.top + 10 : 20} // Handle safe area
+                      right={20}
+                      backgroundColor="rgba(0,0,0,0.3)"
+                      icon={muted ? <VolumeX size={20} color="white" /> : <Volume2 size={20} color="white" />}
+                      onPress={() => player.muted = !player.muted}
+                    />
+                    
+                    <View style={{ position: 'absolute', bottom: insets.bottom > 0 ? insets.bottom + 20 : 40, width: '100%', alignItems: 'center' }}>
+                      <Text color="white" fontSize="$2" opacity={0.6}>Tap or swipe down to exit</Text>
+                    </View>
+                  </Pressable>
+                </GestureDetector>
+              </GestureHandlerRootView>
+            </Modal>
           </Animated.View>
         </>
       ) : (
