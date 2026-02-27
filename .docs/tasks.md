@@ -180,12 +180,11 @@ This is the heart of the app — a single-screen, map-first layout inspired by t
 - [x] **Loading states** — Skeleton screens and shimmer effects for content loading
 - [x] **Empty states** — Friendly illustrations/messages when no viewpoints found, no favorites, etc.
 - [x] **Design Consistency** — Make sure the design is consistent with the brand guidelines, and that there are no elements that look out of place.
-- [ ] Show small heart icon on the top right of POIs that are favorited
+- [x] Show small heart icon on the top right of POIs that are favorited
 
 ---
 
 - [ ] General Review: most of the tasks are completed, let's check the vibe, if the colors are ok. The rest of the tasks below is just to launch the app and extend it.
-- [ ] Cliccando sui preferiti nella pagina del profilo non parte l'animazione e non viene centrato il POI sulla mappa.
 
 ---
 

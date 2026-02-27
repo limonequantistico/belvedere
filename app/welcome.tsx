@@ -4,7 +4,7 @@ import { ThemedText } from "@/components/reusable-ui/ThemedText";
 import { Asset } from "expo-asset";
 import React, { useEffect, useRef, useState } from "react";
 import { Dimensions, ImageBackground, NativeScrollEvent, NativeSyntheticEvent } from "react-native";
-import { Image, ScrollView, View, YStack } from "tamagui";
+import { Image, ScrollView, View, YStack, Theme } from "tamagui";
 
 const { width, height } = Dimensions.get("window");
 const slidesCount = 4;
@@ -90,16 +90,18 @@ export default function WelcomeSlideshow() {
                                 borderRadius={12}
                                 marginBottom="$4"
                             />
-                            {/* Text is always white since the background is dark */}
-                            <ThemedText
-                                variant="h1"
-                                marginBottom="$2"
-                                color={"white"}
-                                textAlign="center"
-                            >
-                                {slide.title}
-                            </ThemedText>
-                            <ThemedText variant="caption">{slide.description}</ThemedText>
+                            <Theme name="dark">
+                                {/* Text is always white since the background is dark */}
+                                <ThemedText
+                                    variant="h1"
+                                    marginBottom="$2"
+                                    color="$color"
+                                    textAlign="center"
+                                >
+                                    {slide.title}
+                                </ThemedText>
+                                <ThemedText variant="caption" color="$color">{slide.description}</ThemedText>
+                            </Theme>
                         </YStack>
                     </ImageBackground>
                 ))}

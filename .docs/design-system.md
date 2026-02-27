@@ -9,24 +9,24 @@ The visual foundation moves away from stark, high-contrast utility apps and embr
 ### Colors
 Since Tamagui relies on tokens, map these directly to your `tamagui.config.ts`. The palette should feel natural, warm, and inviting.
 
-*   **Primary Accent (Sunset Orange/Terracotta):** `#E07A5F`
+*   **Primary Accent (Sunset Orange/Terracotta):** `#B94735` (Light) / `#E89A7A` (Dark)
     *   *Tamagui Token:* `$primary`
-    *   *Usage:* Primary calls to action (e.g., "View" buttons), active active map markers, key highlights. It stands out beautifully against natural greens and blues.
-*   **Secondary/Nature Accent (Forest Green):** `#3D5A80` to `#81B29A`
+    *   *Usage:* Primary calls to action (e.g., "View" buttons), active map markers, key highlights. It stands out beautifully against natural greens and blues.
+*   **Secondary/Nature Accent (Forest Green):** `#4A7C66` (Light) / `#95C4AE` (Dark)
     *   *Tamagui Token:* `$accent`
     *   *Usage:* Secondary buttons, verified location badges, success states.
-*   **Background (Canvas/Off-White):** `#F4F1DE` 
+*   **Background (Canvas/Dark Peat):** `#F0EDE3` (Light) / `#272822` (Dark)
     *   *Tamagui Token:* `$background`
-    *   *Usage:* Core background for light mode elements, bottom sheets, and cards. Evokes the feeling of physical paper or an old atlas. (For dark mode: a deep twilight blue `#2B2D42` rather than pure black).
-*   **Surface / Panels (Parchment/Cream):** `#FFFFFF` or a very light cream `#FDFBF7` with subtle warm tint.
+    *   *Usage:* Core background for light mode elements, bottom sheets, and cards. Evokes the feeling of physical paper or an old atlas. (For dark mode: a rich soil/peat rather than pure black or cold blue).
+*   **Surface / Panels (Parchment/Dark Wood):** `#FDFBF7` (Light) / `#363630` (Dark)
     *   *Tamagui Token:* `$secondary` or `$card`
     *   *Usage:* Bottom sheets, search bar background, cards.
 *   **Text colors:**
-    *   *Primary Text:* `#3D405B`
+    *   *Primary Text:* `#3D405B` (Light) / `#F0EDE3` (Dark)
         *   *Tamagui Token:* `$color`
-    *   *Secondary Text:* `#8D93AB`
+    *   *Secondary Text:* `#545772` (Light) / `#918F82` (Dark)
         *   *Tamagui Token:* `$placeholderColor` or `$mutedForeground`
-*   **Status/Destructive:** `#E07A5F` (Use the primary warm accent for destructive actions to keep the palette cohesive, or a softer coral red).
+*   **Status/Destructive:** `#B94735` (Light) / `#E89A7A` (Dark) (Same family as primary to keep the palette cohesive).
 
 ### Typography
 To achieve the relaxing, stylized aesthetic, the typography should feel friendly and slightly organic, stepping away from purely tech-focused geometric sans-serifs.
@@ -62,7 +62,7 @@ Based on the UX patterns and the seed document, here are the key components to d
 2.  **Filter Pill (`FilterPill`)**
     *   *Style:* Capsule-shaped button. 
     *   *Variants:*
-        *   `active`: Solid primary accent (`#E07A5F`) background, white text.
+        *   `active`: Solid primary accent (`#B94735`) background, white text.
         *   `inactive`: Cream background, deep navy text, subtle border.
 3.  **Floating Search Bar (`FloatingSearch`)**
     *   *Style:* Full-width capsule input floating at the top of the map. Cream background with a subtle border and soft shadow. Left aligned search icon, right aligned voice/filter icon.
@@ -76,7 +76,7 @@ Based on the UX patterns and the seed document, here are the key components to d
     *   *Style:* Circular buttons floating on the right edge. Cream background, navy icons, soft shadow.
 7.  **Bottom Navigation Bar (`BottomNav`)**
     *   *Style:* 4 or 5 icon layout. Background matches the main surface color.
-    *   *Active State:* Primary accent color (`#E07A5F`) icon and text, perhaps with a cute small dot or underline indicator.
+    *   *Active State:* Primary accent color (`#B94735` / `#E89A7A`) icon and text, perhaps with a cute small dot or underline indicator.
 
 ---
 
@@ -105,7 +105,7 @@ Based on the UX patterns and the seed document, here are the key components to d
 
 ## 5. Accessibility Checklist
 
-- [ ] **Contrast Ratios:** Ensure the deep navy text against the cream background meets WCAG standards. The muted text `#8D93AB` must be tested against `#F4F1DE` for legibility.
+- [x] **Contrast Ratios:** WCAG 2.1 Level AA contrast ratios are verified for all text/background combos.
 - [ ] **Touch Targets:** Maintain large, 44x44 point minimum touch targets for the friendly, accessible feel.
 - [ ] **Screen Readers:** Map markers and video elements must have descriptive, story-like accessibility labels.
 - [ ] **Motion Sensitivity:** Implement a `Reduce Motion` check to disable the camera flights and spring bounces for users who prefer static transitions.

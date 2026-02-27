@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Pressable } from 'react-native';
-import { XStack, YStack, Text, View, Button } from 'tamagui';
+import { XStack, YStack, Text, View, Button, Theme } from 'tamagui';
 import { Image } from 'expo-image';
 import { MapPin, ArrowRight, Heart } from '@tamagui/lucide-icons';
 import { ViewpointLite } from '../../hooks/useViewpointsSync';
@@ -77,59 +77,61 @@ export function ViewpointCard({ viewpoint, onPress }: ViewpointCardProps) {
               style={StyleSheet.absoluteFillObject}
             />
             
-            {/* Top Right Distance Badge */}
-            {viewpoint.distance !== undefined && (
-              <XStack 
+            <Theme name="dark">
+              {/* Top Right Distance Badge */}
+              {viewpoint.distance !== undefined && (
+                <XStack 
+                  position="absolute"
+                  top="$3"
+                  right="$3"
+                  bg="rgba(0,0,0,0.5)"
+                  paddingHorizontal="$2"
+                  paddingVertical="$1"
+                  borderRadius="$4"
+                  alignItems="center"
+                  gap="$1"
+                  backdropFilter="blur(4px)" // Web only, native ignores gracefully
+                >
+                  <MapPin size={12} color="$color" />
+                  <Text color="$color" fontSize="$2" fontWeight="600">
+                    {viewpoint.distance < 1 
+                      ? `${Math.round(viewpoint.distance * 1000)}m` 
+                      : `${viewpoint.distance.toFixed(1)}km`}
+                  </Text>
+                </XStack>
+              )}
+
+              {/* Top Left Favorite Button */}
+              <View
                 position="absolute"
                 top="$3"
-                right="$3"
-                bg="rgba(0,0,0,0.5)"
-                paddingHorizontal="$2"
-                paddingVertical="$1"
-                borderRadius="$4"
-                alignItems="center"
-                gap="$1"
-                backdropFilter="blur(4px)" // Web only, native ignores gracefully
+                left="$3"
               >
-                <MapPin size={12} color="white" />
-                <Text color="white" fontSize="$2" fontWeight="600">
-                  {viewpoint.distance < 1 
-                    ? `${Math.round(viewpoint.distance * 1000)}m` 
-                    : `${viewpoint.distance.toFixed(1)}km`}
-                </Text>
-              </XStack>
-            )}
+                <Button
+                  circular
+                  size="$3"
+                  accessibilityLabel={isFavorite ? "Remove from favorites" : "Add to favorites"}
+                  icon={<Heart size={18} color={isFavorite ? "$primary" : "$color"} fill={isFavorite ? "$primary" : "none"} />}
+                  backgroundColor="rgba(0,0,0,0.5)"
+                  onPress={handleToggleFavorite}
+                  pressStyle={{ backgroundColor: 'rgba(0,0,0,0.7)' }}
+                />
+              </View>
 
-            {/* Top Left Favorite Button */}
-            <View
-              position="absolute"
-              top="$3"
-              left="$3"
-            >
-              <Button
-                circular
-                size="$3"
-                accessibilityLabel={isFavorite ? "Remove from favorites" : "Add to favorites"}
-                icon={<Heart size={18} color={isFavorite ? "#E65100" : "white"} fill={isFavorite ? "#E65100" : "none"} />}
-                backgroundColor="rgba(0,0,0,0.5)"
-                onPress={handleToggleFavorite}
-                pressStyle={{ backgroundColor: 'rgba(0,0,0,0.7)' }}
-              />
-            </View>
-
-            {/* Bottom Content Area */}
-            <YStack position="absolute" bottom={0} left={0} right={0} padding="$4" gap="$2">
-              <XStack alignItems="center" gap="$2">
-                <Text color="white" fontSize="$2">{getCategoryIcon(viewpoint.category_name)}</Text>
-                <Text color="white" fontSize="$2" fontWeight="bold" textTransform="uppercase" letterSpacing={1}>
-                  {viewpoint.category_name || 'Spot'}
+              {/* Bottom Content Area */}
+              <YStack position="absolute" bottom={0} left={0} right={0} padding="$4" gap="$2">
+                <XStack alignItems="center" gap="$2">
+                  <Text color="$color" fontSize="$2">{getCategoryIcon(viewpoint.category_name)}</Text>
+                  <Text color="$color" fontSize="$2" fontWeight="bold" textTransform="uppercase" letterSpacing={1}>
+                    {viewpoint.category_name || 'Spot'}
+                  </Text>
+                </XStack>
+                
+                <Text color="$color" fontSize="$7" fontWeight="900" numberOfLines={2}>
+                  {viewpoint.name}
                 </Text>
-              </XStack>
-              
-              <Text color="white" fontSize="$7" fontWeight="900" numberOfLines={2}>
-                {viewpoint.name}
-              </Text>
-            </YStack>
+              </YStack>
+            </Theme>
           </View>
         </View>
       )}

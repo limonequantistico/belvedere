@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { View, StyleSheet, Linking, ScrollView, Dimensions, Share, ActivityIndicator, Pressable, Modal, StatusBar } from 'react-native';
-import { YStack, XStack, Text, Button, useThemeName, useTheme } from 'tamagui';
+import { YStack, XStack, Text, Button, useThemeName, useTheme, Theme } from 'tamagui';
 import { Image } from 'expo-image';
 import { useVideoPlayer, VideoView } from 'expo-video';
 import { useEvent } from 'expo';
@@ -30,6 +30,7 @@ const getCategoryIcon = (category?: string) => {
 const MediaItem = ({ item, width = '100%' }: { item: { type: string, url: string }, width?: number | `${number}%` }) => {
   const [isFullscreen, setIsFullscreen] = React.useState(false);
   const insets = useSafeAreaInsets();
+  const theme = useTheme();
   
   const player = useVideoPlayer(item.type === 'video' ? item.url : null, (p) => {
     p.loop = true;
@@ -82,7 +83,7 @@ const MediaItem = ({ item, width = '100%' }: { item: { type: string, url: string
         <>
           {isVideoLoading && (
             <View style={{ position: 'absolute', zIndex: 1 }}>
-              <ActivityIndicator size="small" color="#E65100" />
+              <ActivityIndicator size="small" color={theme.primary?.get() as string} />
             </View>
           )}
           <Animated.View style={[{ width: '100%', height: '100%' }, animatedStyle]}>
@@ -105,18 +106,20 @@ const MediaItem = ({ item, width = '100%' }: { item: { type: string, url: string
               </Pressable>
 
               {/* Volume Toggle */}
-              <Button 
-                circular
-                size="$3"
-                position="absolute"
-                bottom="$3"
-                right="$3"
-                backgroundColor="rgba(0,0,0,0.5)"
-                pressStyle={{ backgroundColor: 'rgba(0,0,0,0.7)' }}
-                icon={muted ? <VolumeX size={18} color="white" /> : <Volume2 size={18} color="white" />}
-                onPress={() => player.muted = !player.muted}
-                zIndex={10}
-              />
+              <Theme name="dark">
+                <Button 
+                  circular
+                  size="$3"
+                  position="absolute"
+                  bottom="$3"
+                  right="$3"
+                  backgroundColor="rgba(0,0,0,0.5)"
+                  pressStyle={{ backgroundColor: 'rgba(0,0,0,0.7)' }}
+                  icon={muted ? <VolumeX size={18} color="$color" /> : <Volume2 size={18} color="$color" />}
+                  onPress={() => player.muted = !player.muted}
+                  zIndex={10}
+                />
+              </Theme>
             </View>
 
             {/* Custom Fullscreen Modal */}
@@ -141,21 +144,23 @@ const MediaItem = ({ item, width = '100%' }: { item: { type: string, url: string
                       nativeControls={false}
                     />
                     
-                    {/* Fullscreen Volume Toggle */}
-                    <Button 
-                      circular
-                      size="$4"
-                      position="absolute"
-                      top={insets.top > 0 ? insets.top + 10 : 20} // Handle safe area
-                      right={20}
-                      backgroundColor="rgba(0,0,0,0.3)"
-                      icon={muted ? <VolumeX size={20} color="white" /> : <Volume2 size={20} color="white" />}
-                      onPress={() => player.muted = !player.muted}
-                    />
-                    
-                    <View style={{ position: 'absolute', bottom: insets.bottom > 0 ? insets.bottom + 20 : 40, width: '100%', alignItems: 'center' }}>
-                      <Text color="white" fontSize="$2" opacity={0.6}>Tap or swipe down to exit</Text>
-                    </View>
+                    <Theme name="dark">
+                      {/* Fullscreen Volume Toggle */}
+                      <Button 
+                        circular
+                        size="$4"
+                        position="absolute"
+                        top={insets.top > 0 ? insets.top + 10 : 20} // Handle safe area
+                        right={20}
+                        backgroundColor="rgba(0,0,0,0.3)"
+                        icon={muted ? <VolumeX size={20} color="$color" /> : <Volume2 size={20} color="$color" />}
+                        onPress={() => player.muted = !player.muted}
+                      />
+                      
+                      <View style={{ position: 'absolute', bottom: insets.bottom > 0 ? insets.bottom + 20 : 40, width: '100%', alignItems: 'center' }}>
+                        <Text color="$color" fontSize="$2" opacity={0.6}>Tap or swipe down to exit</Text>
+                      </View>
+                    </Theme>
                   </Pressable>
                 </GestureDetector>
               </GestureHandlerRootView>
@@ -180,8 +185,8 @@ export function POIDetail({ viewpoint, onClose }: POIDetailProps) {
   const isDark = themeName.startsWith('dark');
   
   const iconColor = "$color";
-  const btnBg = "$secondary";
-  const btnPressBg = "$secondaryHover";
+  const btnBg = "$background";
+  const btnPressBg = "$backgroundHover";
   const primaryColor = "$primary";
 
   const handleToggleFavorite = () => {

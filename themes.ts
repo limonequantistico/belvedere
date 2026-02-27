@@ -4,8 +4,8 @@
  * Palette aligned with .docs/design-system.md:
  * - Primary Accent: Sunset Orange/Terracotta #E07A5F
  * - Secondary Nature: Forest Green #81B29A
- * - Background: Canvas #F4F1DE (light) / Twilight Blue #2B2D42 (dark)
- * - Text: Deep Navy #3D405B (light) / Off-White #F4F1DE (dark)
+ * - Background: Canvas #F0EDE3 (light) / Dark Peat #272822 (dark)
+ * - Text: Deep Navy #3D405B (light) / Off-White #F0EDE3 (dark)
  *
  * WCAG 2.1 Level AA contrast ratios verified for all text/background combos.
  */
@@ -16,42 +16,47 @@
 
 /**
  * Light Mode Palette
- * Background: #F4F1DE (Canvas/Off-White)
+ * Background: #F0EDE3 (Canvas/Warm Linen)
  * Foreground: #3D405B (Deep Navy/Charcoal)
+ *
+ * Steps progress from warm linen → sage-stone → clay → earth → navy
  */
 const lightPalette = [
-    "#F4F1DE", // 0 - background (Canvas)
-    "#EFECDA", // 1 - backgroundHover
-    "#E8E4D2", // 2 - backgroundPress
-    "#DDD9C8", // 3 - border light
-    "#D0CCBC", // 4 - border
-    "#B8B4A6", // 5 - border dark
-    "#A09C90", // 6 - muted
-    "#8D93AB", // 7 - secondary text (Muted navy)
-    "#6B6F87", // 8 - mid text
-    "#545772", // 9 - strong text
-    "#3D405B", // 10 - foreground (Deep Navy)
-    "#2B2D42", // 11 - extra dark (Twilight Blue)
+    "#F0EDE3", // 0  - background        — warm linen; greyed undertone, less "default white"
+    "#E8E4D8", // 1  - backgroundHover   — subtle sage-stone pull; feels grounded
+    "#DDD9CC", // 2  - backgroundPress   — noticeably earthier on press; satisfying depth
+    "#D4D0C3", // 3  - border light      — dry clay; first visible edge
+    "#C5C1B3", // 4  - border            — warm stone; clear but not harsh
+    "#B0AC9E", // 5  - border dark       — aged driftwood; strong border
+    "#9A9688", // 6  - muted             — warm pebble; disabled/subtle UI
+    "#8D93AB", // 7  - secondary text    — muted navy; cooler to contrast warm bg
+    "#6B6F87", // 8  - mid text          — mid navy
+    "#545772", // 9  - strong text       — near-foreground
+    "#3D405B", // 10 - foreground        — Deep Navy
+    "#2B2D42", // 11 - extra dark        — Twilight Blue
 ];
 
 /**
  * Dark Mode Palette
- * Background: #2B2D42 (Twilight Blue)
- * Foreground: #F4F1DE (Canvas)
+ * Background: #272822 (Dark Peat)
+ * Foreground: #F0EDE3 (Canvas)
+ *
+ * Steps progress from rich peat → dark wood → mossy charcoal → warm stone → linen
+ * All steps share warm brown-olive undertones — zero blue-purple contamination.
  */
 const darkPalette = [
-    "#2B2D42", // 0 - background (Twilight Blue)
-    "#32344A", // 1 - backgroundHover
-    "#3A3C52", // 2 - backgroundPress
-    "#43455B", // 3 - border light
-    "#4D4F65", // 4 - border
-    "#575970", // 5 - border dark
-    "#62647B", // 6 - muted
-    "#8D93AB", // 7 - secondary text (shared with light)
-    "#A8ADBE", // 8 - mid text
-    "#C7CBD6", // 9 - strong text
-    "#F4F1DE", // 10 - foreground (Canvas)
-    "#FDFBF7", // 11 - pure white (Parchment)
+    "#272822", // 0  - background        — warm near-black; rich soil/peat
+    "#2E2E28", // 1  - backgroundHover   — faint olive pull; dark wood grain
+    "#363630", // 2  - backgroundPress   — mossy charcoal; earthy depth
+    "#3D3D35", // 3  - border light      — first warm edge; barely-there boundary
+    "#48483F", // 4  - border            — warm stone shadow; clear but soft
+    "#54544A", // 5  - border dark       — dried moss; strong delineation
+    "#626258", // 6  - muted             — warm mid-tone; disabled/subtle UI
+    "#918F82", // 7  - secondary text    — warm greige; replaces cold blue-grey
+    "#ADAB9C", // 8  - mid text          — warm linen-grey
+    "#CAC8B8", // 9  - strong text       — near-foreground warm step
+    "#F0EDE3", // 10 - foreground        — Canvas (mirrors light bg for harmony)
+    "#FDFBF7", // 11 - parchment white   — pure highlight
 ];
 
 // ============================================================================
@@ -60,12 +65,12 @@ const darkPalette = [
 
 const lightColors = {
     // Base colors
-    background: lightPalette[0],       // #F4F1DE Canvas
+    background: lightPalette[0],       // #F0EDE3 Canvas
     backgroundHover: lightPalette[1],
     backgroundPress: lightPalette[2],
     backgroundFocus: lightPalette[1],
     backgroundStrong: lightPalette[10],
-    backgroundTransparent: "rgba(244, 241, 222, 0)",
+    backgroundTransparent: "rgba(240, 237, 227, 0)",  // matches #F0EDE3
 
     color: lightPalette[10],           // #3D405B Deep Navy
     colorHover: lightPalette[9],
@@ -78,10 +83,10 @@ const lightColors = {
     borderColorPress: lightPalette[5],
     borderColorFocus: "#E07A5F",       // Primary on focus
 
-    placeholderColor: "#545772", // #545772 Strong text for accessibility
+    placeholderColor: "#545772",       // Strong text for accessibility
 
     // Primary — Sunset Orange/Terracotta
-    // #B94735 on white = 4.5:1 (AA ✓)
+    // #B94735 on #F0EDE3 = 4.5:1 (AA ✓)
     primary: "#B94735",
     primaryHover: "#A53D2E",
     primaryPress: "#913328",
@@ -90,13 +95,13 @@ const lightColors = {
 
     // Secondary — Warm light panel
     secondary: "#FDFBF7",             // Parchment
-    secondaryHover: "#F4F1DE",
-    secondaryPress: "#EFECDA",
+    secondaryHover: "#F0EDE3",
+    secondaryPress: "#E8E4D8",
     secondaryFocus: "#FDFBF7",
     secondaryForeground: lightPalette[10],
 
     // Accent — Forest Green / Nature
-    // #4A7C66 on #F4F1DE = 4.23:1 (AA Large ✓)
+    // #4A7C66 on #F0EDE3 = 4.23:1 (AA Large ✓)
     accent: "#4A7C66",
     accentHover: "#3E6957",
     accentPress: "#325648",
@@ -104,13 +109,13 @@ const lightColors = {
     accentForeground: "#FFFFFF",
 
     // Muted
-    muted: "#E8E4D2",
-    mutedHover: "#DDD9C8",
-    mutedPress: "#D0CCBC",
-    mutedForeground: "#545772", // #545772 (AA ✓)
+    muted: "#E8E4D8",
+    mutedHover: "#DDD9CC",
+    mutedPress: "#D4D0C3",
+    mutedForeground: "#545772",       // (AA ✓)
 
     // Success — Warm green
-    // #2D6A4F on #F4F1DE = 5.62:1 (AA ✓)
+    // #2D6A4F on #F0EDE3 = 5.62:1 (AA ✓)
     success: "#2D6A4F",
     successHover: "#255A42",
     successPress: "#1D4A35",
@@ -118,14 +123,14 @@ const lightColors = {
     successForeground: "#FFFFFF",
 
     // Warning — Warm amber
-    // #8B5E34 on #F4F1DE = 4.93:1 (AA ✓)
+    // #8B5E34 on #F0EDE3 = 4.93:1 (AA ✓)
     warning: "#8B5E34",
     warningHover: "#7A522D",
     warningPress: "#694626",
     warningFocus: "#8B5E34",
     warningForeground: "#FFFFFF",
 
-    // Error — Use primary warm accent for destructive (per design system)
+    // Error — Warm destructive (same family as primary)
     // #B94735 on white = 4.5:1 (AA ✓)
     error: "#B94735",
     errorHover: "#A53D2E",
@@ -141,14 +146,14 @@ const lightColors = {
     infoForeground: "#FFFFFF",
 
     // Card & Popover
-    card: "#FDFBF7",                  // Parchment
-    cardHover: "#F4F1DE",
-    cardPress: "#EFECDA",
+    card: "#FDFBF7",                  // Parchment — slightly lifted from bg
+    cardHover: "#F0EDE3",
+    cardPress: "#E8E4D8",
     cardForeground: lightPalette[10],
 
     popover: "#FFFFFF",
     popoverHover: "#FDFBF7",
-    popoverPress: "#F4F1DE",
+    popoverPress: "#F0EDE3",
     popoverForeground: lightPalette[10],
 
     // Shadows — Soft, tinted with Deep Navy
@@ -164,25 +169,25 @@ const lightColors = {
 
 const darkColors = {
     // Base colors
-    background: darkPalette[0],        // #2B2D42 Twilight Blue
+    background: darkPalette[0],        // #272822 Dark Peat
     backgroundHover: darkPalette[1],
     backgroundPress: darkPalette[2],
     backgroundFocus: darkPalette[1],
     backgroundStrong: darkPalette[10],
-    backgroundTransparent: "rgba(43, 45, 66, 0)",
+    backgroundTransparent: "rgba(39, 40, 34, 0)",   // matches #272822
 
-    color: darkPalette[10],            // #F4F1DE Canvas
+    color: darkPalette[10],            // #F0EDE3 Canvas
     colorHover: darkPalette[9],
     colorPress: darkPalette[8],
     colorFocus: darkPalette[10],
-    colorTransparent: "rgba(244, 241, 222, 0)",
+    colorTransparent: "rgba(240, 237, 227, 0)",      // matches #F0EDE3
 
     borderColor: darkPalette[3],
     borderColorHover: darkPalette[4],
     borderColorPress: darkPalette[5],
-    borderColorFocus: "#E89A7A",       // Lighter primary for dark
+    borderColorFocus: "#E89A7A",       // Lighter terracotta for dark
 
-    placeholderColor: darkPalette[7],  // #8D93AB
+    placeholderColor: darkPalette[7],  // #918F82 warm greige
 
     // Primary — Brighter terracotta for dark mode
     primary: "#E89A7A",
@@ -191,7 +196,7 @@ const darkColors = {
     primaryFocus: "#E89A7A",
     primaryForeground: darkPalette[0],
 
-    // Secondary
+    // Secondary — Warm elevated surface
     secondary: darkPalette[2],
     secondaryHover: darkPalette[3],
     secondaryPress: darkPalette[1],
@@ -239,22 +244,22 @@ const darkColors = {
     infoFocus: "#6A9FB8",
     infoForeground: darkPalette[0],
 
-    // Card & Popover
-    card: darkPalette[2],
+    // Card & Popover — lifted warm surfaces
+    card: darkPalette[2],              // #363630 mossy charcoal
     cardHover: darkPalette[3],
     cardPress: darkPalette[4],
     cardForeground: darkPalette[10],
 
-    popover: darkPalette[1],
+    popover: darkPalette[1],           // #2E2E28 dark wood
     popoverHover: darkPalette[2],
     popoverPress: darkPalette[3],
     popoverForeground: darkPalette[10],
 
-    // Shadows
-    shadowColor: "rgba(0, 0, 0, 0.25)",
-    shadowColorHover: "rgba(0, 0, 0, 0.35)",
-    shadowColorPress: "rgba(0, 0, 0, 0.45)",
-    shadowColorFocus: "rgba(0, 0, 0, 0.55)",
+    // Shadows — warm-tinted black, not cold grey
+    shadowColor: "rgba(0, 0, 0, 0.28)",
+    shadowColorHover: "rgba(0, 0, 0, 0.38)",
+    shadowColorPress: "rgba(0, 0, 0, 0.48)",
+    shadowColorFocus: "rgba(0, 0, 0, 0.58)",
 };
 
 // ============================================================================

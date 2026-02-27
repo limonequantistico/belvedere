@@ -12,7 +12,7 @@ import { ClusterMarker } from '../../components/map/ClusterMarker';
 import useSupercluster from 'use-supercluster';
 import { useStyledToast } from '@/hooks/useStyledToast';
 import { RichContentSheet } from '../../components/sheet/RichContentSheet';
-import { YStack, useThemeName } from 'tamagui';
+import { YStack, useThemeName, useTheme } from 'tamagui';
 import { useAppTheme } from '@/context/ManualThemeProvider';
 
 // Set Mapbox access token
@@ -28,6 +28,7 @@ export default function MapScreen() {
 
   const { themeMode } = useAppTheme();
   const tamaguiThemeName = useThemeName();
+  const theme = useTheme();
   
   // Decide Mapbox style based on Tamagui active theme (or explicit themeMode)
   const isDarkMode = tamaguiThemeName.startsWith('dark');
@@ -130,7 +131,7 @@ export default function MapScreen() {
   });
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: theme.background?.get() as string }]}>
       <MapboxGL.MapView 
         ref={mapRef}
         style={styles.map} 
@@ -213,7 +214,6 @@ export default function MapScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
   },
   map: {
     flex: 1,

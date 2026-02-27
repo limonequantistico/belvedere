@@ -36,7 +36,11 @@ export function SkeletonViewpointCard() {
       bg="$background"
       height={200}
       width="100%"
-      style={styles.card}
+      style={{ elevation: 2 }}
+      shadowColor="$shadowColor"
+      shadowOffset={{ width: 0, height: 4 }}
+      shadowOpacity={0.05}
+      shadowRadius={12}
     >
       <View style={StyleSheet.absoluteFill}>
         {/* Base Background */}
@@ -68,12 +72,4 @@ export function SkeletonViewpointCard() {
   );
 }
 
-const styles = StyleSheet.create({
-  card: {
-    elevation: 2,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.05,
-    shadowRadius: 12,
-  },
-});
+const styles = StyleSheet.create({});

@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Dimensions } from 'react-native';
-import { Text, useThemeName } from 'tamagui';
+import { Text, useThemeName, useTheme } from 'tamagui';
 import MapboxGL from '@rnmapbox/maps';
 import { useMapStore } from '../../store/useMapStore';
 import { triggerMediumImpact } from '../../services/hapticsService';
@@ -32,11 +32,12 @@ export function CustomMapMarker({ id, coordinate, title, category }: CustomMapMa
   const { data: favorites = [] } = useFavorites();
   const isActive = selectedViewpointId === id;
   const isFavorite = favorites.includes(id);
+  const theme = useTheme();
   const themeName = useThemeName();
   const isDark = themeName.startsWith('dark');
   
-  const markerBg = isActive ? '#E65100' : (isDark ? '#222' : 'white');
-  const markerBorder = isActive ? (isDark ? '#222' : 'white') : '#E65100';
+  const markerBg = isActive ? theme.primary?.get() as string : theme.background?.get() as string;
+  const markerBorder = isActive ? theme.background?.get() as string : theme.primary?.get() as string;
 
   const handlePress = () => {
     triggerMediumImpact();
@@ -73,7 +74,7 @@ export function CustomMapMarker({ id, coordinate, title, category }: CustomMapMa
           height: isActive ? 48 : 44, // Increased from 40 to 44
           borderColor: markerBorder,
           borderWidth: 3,
-          shadowColor: '#000',
+          shadowColor: theme.shadowColor?.get() as string,
           shadowOffset: { width: 0, height: 4 },
           shadowOpacity: 0.5,
           shadowRadius: 5,
@@ -95,14 +96,14 @@ export function CustomMapMarker({ id, coordinate, title, category }: CustomMapMa
               justifyContent: 'center',
               borderColor: markerBorder,
               borderWidth: 2,
-              shadowColor: '#000',
+              shadowColor: theme.shadowColor?.get() as string,
               shadowOffset: { width: 0, height: 2 },
               shadowOpacity: 0.3,
               shadowRadius: 2,
               elevation: 4,
             }}
           >
-            <Heart size={12} color={isActive ? "white" : "#E65100"} fill={isActive ? "white" : "#E65100"} />
+            <Heart size={12} color={isActive ? "$background" : "$primary"} fill={isActive ? "$background" : "$primary"} />
           </View>
         )}
       </View>

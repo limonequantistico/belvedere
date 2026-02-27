@@ -18,7 +18,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     android: {
         adaptiveIcon: {
             foregroundImage: "./assets/images/adaptive-icon.png",
-            backgroundColor: "#ffffff",
+            backgroundColor: "#F0EDE3",
         },
         edgeToEdgeEnabled: true,
         package: "com.limonequantistico.belvedere",
@@ -36,7 +36,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
                 image: "./assets/images/splash-icon.png",
                 imageWidth: 200,
                 resizeMode: "contain",
-                backgroundColor: "#ffffff",
+                backgroundColor: "#F0EDE3",
             },
         ],
         "expo-apple-authentication",

@@ -52,7 +52,7 @@ export function FilterPills() {
           icon={<Text>🌍</Text>}
         >
           <Text
-            color={activeCategory === null && !verifiedOnly ? 'white' : '$color'}
+            color={activeCategory === null && !verifiedOnly ? '$primaryForeground' : '$color'}
             fontWeight={activeCategory === null && !verifiedOnly ? 'bold' : 'normal'}
           >
             All
@@ -82,7 +82,7 @@ export function FilterPills() {
               icon={<Text>{cat.icon}</Text>}
             >
               <Text
-                color={isActive ? 'white' : '$color'}
+                color={isActive ? '$primaryForeground' : '$color'}
                 fontWeight={isActive ? 'bold' : 'normal'}
               >
                 {cat.label}

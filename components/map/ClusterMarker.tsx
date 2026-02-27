@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text } from 'react-native';
+import { useTheme } from 'tamagui';
 import MapboxGL from '@rnmapbox/maps';
 import { triggerMediumImpact } from '../../services/hapticsService';
 
@@ -11,6 +12,7 @@ type ClusterMarkerProps = {
 };
 
 export function ClusterMarker({ id, coordinate, pointCount, onPress }: ClusterMarkerProps) {
+  const theme = useTheme();
   // Scale size slightly based on point count
   const size = Math.max(40, Math.min(60, 35 + (pointCount * 2)));
 
@@ -31,12 +33,12 @@ export function ClusterMarker({ id, coordinate, pointCount, onPress }: ClusterMa
           width: size,
           height: size,
           borderRadius: size / 2,
-          backgroundColor: '#E65100', // Primary mapped
+          backgroundColor: theme.primary?.get() as string, // Primary mapped
           justifyContent: 'center',
           alignItems: 'center',
-          borderColor: 'white',
+          borderColor: theme.background?.get() as string,
           borderWidth: 3,
-          shadowColor: '#000',
+          shadowColor: theme.shadowColor?.get() as string,
           shadowOffset: { width: 0, height: 4 },
           shadowOpacity: 1, // Mapbox snapshotting requires fully opaque views sometimes
           shadowRadius: 5,
@@ -44,7 +46,7 @@ export function ClusterMarker({ id, coordinate, pointCount, onPress }: ClusterMa
           overflow: 'hidden',
         }}
       >
-        <Text style={{ color: "white", fontWeight: "bold", fontSize: size > 45 ? 16 : 14, textAlign: 'center', includeFontPadding: false }}>
+        <Text style={{ color: theme.background?.get() as string, fontWeight: "bold", fontSize: size > 45 ? 16 : 14, textAlign: 'center', includeFontPadding: false }}>
           {pointCount}
         </Text>
       </View>
