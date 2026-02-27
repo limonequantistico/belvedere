@@ -279,7 +279,7 @@ export function POIDetail({ viewpoint, onClose }: POIDetailProps) {
           circular
           size="$4" 
           accessibilityLabel={isFavorite ? "Remove from favorites" : "Add to favorites"}
-          icon={<Heart size={20} color={isFavorite ? primaryColor : iconColor} fill={isFavorite ? primaryColor : "none"} />}
+          icon={<Heart size={20} color={isFavorite ? primaryColor : iconColor} fill={isFavorite ? theme.primary?.get() as string : "none"} />}
           position="absolute"
           top="$4"
           right="$4"
@@ -330,7 +330,7 @@ export function POIDetail({ viewpoint, onClose }: POIDetailProps) {
                  circular
                  size="$4" 
                  accessibilityLabel={isFavorite ? "Remove from favorites" : "Add to favorites"}
-                 icon={<Heart size={20} color={isFavorite ? primaryColor : iconColor} fill={isFavorite ? primaryColor : "none"} />}
+                 icon={<Heart size={20} color={isFavorite ? primaryColor : iconColor} fill={isFavorite ? theme.primary?.get() as string : "none"} />}
                  backgroundColor="$secondary"
                  onPress={handleToggleFavorite}
                  pressStyle={{ backgroundColor: "$secondaryHover" }}

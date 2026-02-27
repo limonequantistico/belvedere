@@ -4,6 +4,8 @@ import { Text, useThemeName } from 'tamagui';
 import MapboxGL from '@rnmapbox/maps';
 import { useMapStore } from '../../store/useMapStore';
 import { triggerMediumImpact } from '../../services/hapticsService';
+import { Heart } from '@tamagui/lucide-icons';
+import { useFavorites } from '../../hooks/useFavorites';
 
 const { height: windowHeight } = Dimensions.get('window');
 
@@ -27,7 +29,9 @@ const getCategoryIcon = (category?: string) => {
 
 export function CustomMapMarker({ id, coordinate, title, category }: CustomMapMarkerProps) {
   const { selectedViewpointId, setSelectedViewpoint, setCameraPosition } = useMapStore();
+  const { data: favorites = [] } = useFavorites();
   const isActive = selectedViewpointId === id;
+  const isFavorite = favorites.includes(id);
   const themeName = useThemeName();
   const isDark = themeName.startsWith('dark');
   
@@ -77,6 +81,30 @@ export function CustomMapMarker({ id, coordinate, title, category }: CustomMapMa
         }}
       >
         <Text fontSize={isActive ? "$6" : "$5"}>{getCategoryIcon(category)}</Text>
+        {isFavorite && (
+          <View
+            style={{
+              position: 'absolute',
+              top: -6,
+              right: -6,
+              backgroundColor: markerBg,
+              borderRadius: 12,
+              width: 24,
+              height: 24,
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderColor: markerBorder,
+              borderWidth: 2,
+              shadowColor: '#000',
+              shadowOffset: { width: 0, height: 2 },
+              shadowOpacity: 0.3,
+              shadowRadius: 2,
+              elevation: 4,
+            }}
+          >
+            <Heart size={12} color={isActive ? "white" : "#E65100"} fill={isActive ? "white" : "#E65100"} />
+          </View>
+        )}
       </View>
     </MapboxGL.MarkerView>
   );
