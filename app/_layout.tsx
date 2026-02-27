@@ -10,7 +10,7 @@ import { ToastProvider, ToastViewport } from "@tamagui/toast";
 import { Stack } from "expo-router";
 import { SafeAreaProvider, useSafeAreaInsets } from "react-native-safe-area-context";
 import { useReactNavigationTheme } from "@/hooks/useReactNavigationTheme";
-import { StatusBar } from "react-native";
+import { StatusBar, LogBox } from "react-native";
 import { useStyledToast } from "@/hooks/useStyledToast";
 import { triggerLightImpact } from "@/services/hapticsService";
 import ThemedButton from "@/components/reusable-ui/ThemedButton";
@@ -28,6 +28,14 @@ import { QueryClient } from "@tanstack/react-query";
 import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client';
 import { mmkvPersister } from "@/lib/mmkvQueryStorage";
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+
+// Ignore specific warnings that are known and harmless
+LogBox.ignoreLogs([
+  // Warning from React Native's NativeAnimatedModule when using Reanimated 3 with Gorhom BottomSheet
+  "Sending \`onAnimatedValueUpdate\` with no listeners registered",
+  // Mapbox core logs this occasionally during initial render before dimensions are resolved
+  "Invalid size is used for setting the map view",
+]);
 
 const queryClient = new QueryClient({
   defaultOptions: {

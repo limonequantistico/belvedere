@@ -1,5 +1,5 @@
 import React from 'react';
-import { YStack, Button } from 'tamagui';
+import { YStack, Button, useTheme } from 'tamagui';
 import { Navigation, Layers, RefreshCw } from '@tamagui/lucide-icons';
 import { useLocationStore } from '../../store/useLocationStore';
 import { useMapStore } from '../../store/useMapStore';

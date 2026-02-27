@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Pressable } from 'react-native';
-import { XStack, YStack, Text, View, Button, Theme } from 'tamagui';
+import { XStack, YStack, Text, View, Button, Theme, useTheme } from 'tamagui';
 import { Image } from 'expo-image';
 import { MapPin, ArrowRight, Heart } from '@tamagui/lucide-icons';
 import { ViewpointLite } from '../../hooks/useViewpointsSync';
@@ -27,6 +27,7 @@ export function ViewpointCard({ viewpoint, onPress }: ViewpointCardProps) {
   const { data: favorites = [] } = useFavorites();
   const { mutate: toggleFavorite } = useToggleFavorite();
   const isFavorite = favorites.includes(viewpoint.id);
+  const theme = useTheme();
 
   const handleToggleFavorite = (e: any) => {
     if (e && e.stopPropagation) e.stopPropagation();
@@ -111,7 +112,7 @@ export function ViewpointCard({ viewpoint, onPress }: ViewpointCardProps) {
                   circular
                   size="$3"
                   accessibilityLabel={isFavorite ? "Remove from favorites" : "Add to favorites"}
-                  icon={<Heart size={18} color={isFavorite ? "$primary" : "$color"} fill={isFavorite ? "$primary" : "none"} />}
+                  icon={<Heart size={18} color={isFavorite ? "$primary" : "$color"} fill={isFavorite ? (theme.primary?.get() as string) : "none"} />}
                   backgroundColor="rgba(0,0,0,0.5)"
                   onPress={handleToggleFavorite}
                   pressStyle={{ backgroundColor: 'rgba(0,0,0,0.7)' }}

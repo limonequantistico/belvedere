@@ -184,7 +184,7 @@ This is the heart of the app — a single-screen, map-first layout inspired by t
 
 ---
 
-- [ ] General Review: most of the tasks are completed, let's check the vibe, if the colors are ok. The rest of the tasks below is just to launch the app and extend it.
+- [x] General Review: most of the tasks are completed, let's check the vibe, if the colors are ok. The rest of the tasks below is just to launch the app and extend it.
 
 ---
 

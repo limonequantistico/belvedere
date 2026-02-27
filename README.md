@@ -319,9 +319,13 @@ In development (`__DEV__`), a 🐛 bug button appears in the bottom-right corner
 Since Mapbox (`@rnmapbox/maps`) requires native code, you cannot use the standard Expo Go app to run this project. You must build and run a custom development client.
 
 To build and launch the app securely on the iOS Simulator, always use:
-
 ```bash
 npx expo run:ios
+```
+
+To build and launch the app securely on your iPhone use:
+```bash
+npx expo run:ios --device
 ```
 
 *(Do not use `npm start` or just `npx expo start` to run the app for the first time, as Expo Go will crash when it encounters the Mapbox native modules).*

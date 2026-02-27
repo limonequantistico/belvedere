@@ -141,7 +141,7 @@ export default function MapScreen() {
         pitchEnabled={true}
         rotateEnabled={false}
         onMapIdle={handleRegionDidChange}
-        onRegionIsChanging={handleRegionIsChanging}
+        onCameraChanged={handleRegionIsChanging}
         onDidFinishLoadingMap={handleRegionDidChange}
       >
         <MapboxGL.Camera

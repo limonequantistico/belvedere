@@ -103,7 +103,7 @@ export function CustomMapMarker({ id, coordinate, title, category }: CustomMapMa
               elevation: 4,
             }}
           >
-            <Heart size={12} color={isActive ? "$background" : "$primary"} fill={isActive ? "$background" : "$primary"} />
+            <Heart size={12} color={isActive ? "$background" : "$primary"} fill={isActive ? (theme.background?.get() as string) : (theme.primary?.get() as string)} />
           </View>
         )}
       </View>
