@@ -78,14 +78,14 @@ const lightColors = {
     borderColorPress: lightPalette[5],
     borderColorFocus: "#E07A5F",       // Primary on focus
 
-    placeholderColor: lightPalette[7], // #8D93AB Muted navy
+    placeholderColor: "#545772", // #545772 Strong text for accessibility
 
     // Primary — Sunset Orange/Terracotta
-    // #E07A5F on #F4F1DE = 3.7:1 (AA Large ✓, used mainly for buttons with white text)
-    primary: "#E07A5F",
-    primaryHover: "#D56A4F",
-    primaryPress: "#C85A3F",
-    primaryFocus: "#E07A5F",
+    // #B94735 on white = 4.5:1 (AA ✓)
+    primary: "#B94735",
+    primaryHover: "#A53D2E",
+    primaryPress: "#913328",
+    primaryFocus: "#B94735",
     primaryForeground: "#FFFFFF",
 
     // Secondary — Warm light panel
@@ -96,38 +96,41 @@ const lightColors = {
     secondaryForeground: lightPalette[10],
 
     // Accent — Forest Green / Nature
-    // #81B29A on #F4F1DE = 3.1:1 (used for badges/icons, not small text)
-    accent: "#81B29A",
-    accentHover: "#6FA58C",
-    accentPress: "#5D987E",
-    accentFocus: "#81B29A",
+    // #4A7C66 on #F4F1DE = 4.23:1 (AA Large ✓)
+    accent: "#4A7C66",
+    accentHover: "#3E6957",
+    accentPress: "#325648",
+    accentFocus: "#4A7C66",
     accentForeground: "#FFFFFF",
 
     // Muted
     muted: "#E8E4D2",
     mutedHover: "#DDD9C8",
     mutedPress: "#D0CCBC",
-    mutedForeground: lightPalette[7], // #8D93AB
+    mutedForeground: "#545772", // #545772 (AA ✓)
 
     // Success — Warm green
-    success: "#4A9A6A",
-    successHover: "#3A8A5A",
-    successPress: "#2A7A4A",
-    successFocus: "#4A9A6A",
+    // #2D6A4F on #F4F1DE = 5.62:1 (AA ✓)
+    success: "#2D6A4F",
+    successHover: "#255A42",
+    successPress: "#1D4A35",
+    successFocus: "#2D6A4F",
     successForeground: "#FFFFFF",
 
     // Warning — Warm amber
-    warning: "#C49050",
-    warningHover: "#B48040",
-    warningPress: "#A47030",
-    warningFocus: "#C49050",
+    // #8B5E34 on #F4F1DE = 4.93:1 (AA ✓)
+    warning: "#8B5E34",
+    warningHover: "#7A522D",
+    warningPress: "#694626",
+    warningFocus: "#8B5E34",
     warningForeground: "#FFFFFF",
 
     // Error — Use primary warm accent for destructive (per design system)
-    error: "#E07A5F",
-    errorHover: "#D56A4F",
-    errorPress: "#C85A3F",
-    errorFocus: "#E07A5F",
+    // #B94735 on white = 4.5:1 (AA ✓)
+    error: "#B94735",
+    errorHover: "#A53D2E",
+    errorPress: "#913328",
+    errorFocus: "#B94735",
     errorForeground: "#FFFFFF",
 
     // Info — Deep navy-blue

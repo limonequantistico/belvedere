@@ -167,6 +167,7 @@ export function POIDetail({ viewpoint, onClose }: POIDetailProps) {
         <Button 
           circular
           size="$4" 
+          accessibilityLabel="Go back"
           icon={<ArrowLeft size={20} color={iconColor} />}
           position="absolute"
           top="$4"
@@ -180,6 +181,7 @@ export function POIDetail({ viewpoint, onClose }: POIDetailProps) {
         <Button 
           circular
           size="$4" 
+          accessibilityLabel={isFavorite ? "Remove from favorites" : "Add to favorites"}
           icon={<Heart size={20} color={isFavorite ? primaryColor : iconColor} fill={isFavorite ? primaryColor : "none"} />}
           position="absolute"
           top="$4"
@@ -193,6 +195,7 @@ export function POIDetail({ viewpoint, onClose }: POIDetailProps) {
         <Button 
           circular
           size="$4" 
+          accessibilityLabel="Share this viewpoint"
           icon={<ShareIcon size={20} color={iconColor} />}
           position="absolute"
           top="$4"
@@ -210,6 +213,7 @@ export function POIDetail({ viewpoint, onClose }: POIDetailProps) {
              <Button 
                circular
                size="$4" 
+               accessibilityLabel="Go back"
                icon={<ArrowLeft size={20} color={iconColor} />}
                backgroundColor="$secondary"
                onPress={onClose}
@@ -219,6 +223,7 @@ export function POIDetail({ viewpoint, onClose }: POIDetailProps) {
                <Button 
                  circular
                  size="$4" 
+                 accessibilityLabel="Share this viewpoint"
                  icon={<ShareIcon size={20} color={iconColor} />}
                  backgroundColor="$secondary"
                  onPress={handleShare}
@@ -227,6 +232,7 @@ export function POIDetail({ viewpoint, onClose }: POIDetailProps) {
                <Button 
                  circular
                  size="$4" 
+                 accessibilityLabel={isFavorite ? "Remove from favorites" : "Add to favorites"}
                  icon={<Heart size={20} color={isFavorite ? primaryColor : iconColor} fill={isFavorite ? primaryColor : "none"} />}
                  backgroundColor="$secondary"
                  onPress={handleToggleFavorite}
@@ -275,6 +281,8 @@ export function POIDetail({ viewpoint, onClose }: POIDetailProps) {
 
         <Button 
           size="$5"
+          accessibilityLabel="Navigate here"
+          accessibilityHint="Opens the map application to navigate to this location."
           backgroundColor="$primary" 
           color="$primaryForeground" 
           icon={<Navigation size={20} color="$primaryForeground" />}

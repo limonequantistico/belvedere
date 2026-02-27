@@ -15,7 +15,7 @@ export function RichContentSheet() {
   const theme = useTheme();
   const sheetRef = useRef<BottomSheet>(null);
   const snapPoints = useMemo(() => ['20%', '50%', '85%'], []);
-  const { data: viewpoints = [] } = useViewpointsSync();
+  const { data: viewpoints = [], isLoading } = useViewpointsSync();
   const { selectedViewpointId, setSelectedViewpoint, setCameraPosition } = useMapStore();
   const { location } = useLocationStore();
 
@@ -109,6 +109,7 @@ export function RichContentSheet() {
           {/* We use Gorhom's internal scrollable to prevent gesture conflicts */}
           <FeaturedList 
             viewpoints={featuredViewpoints}
+            isLoading={isLoading}
             onViewpointPress={(vp) => {
               setSelectedViewpoint(vp.id);
               setCameraPosition({

@@ -1,7 +1,7 @@
 import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { YStack, XStack, ScrollView, Separator, Text, Button, H2, H4 } from 'tamagui';
-import { ChevronLeft, LogOut, Moon, Sun, Monitor } from '@tamagui/lucide-icons';
+import { ChevronLeft, LogOut, Moon, Sun, Monitor, Heart } from '@tamagui/lucide-icons';
 import { useRouter } from 'expo-router';
 import ProfileAvatar from '@/components/pages/settings/ProfileAvatar';
 import { useAuth } from '@/context/supabase-provider';
@@ -11,6 +11,7 @@ import { useViewpointsSync } from '@/hooks/useViewpointsSync';
 import { ViewpointCard } from '@/components/sheet/ViewpointCard';
 import { useStyledToast } from '@/hooks/useStyledToast';
 import { useMapStore } from '@/store/useMapStore';
+import { EmptyState } from '@/components/reusable-ui/EmptyState';
 
 export default function ProfileScreen() {
     const router = useRouter();
@@ -138,9 +139,11 @@ export default function ProfileScreen() {
                                         </XStack>
                                     </ScrollView>
                                 ) : (
-                                    <YStack padding="$4" alignItems="center" justifyContent="center" backgroundColor="$backgroundHover" marginHorizontal="$4" borderRadius="$4">
-                                        <Text color="$color" textAlign="center">You haven't saved any viewpoints yet.</Text>
-                                    </YStack>
+                                    <EmptyState 
+                                        icon={Heart}
+                                        title="No favorites yet"
+                                        description="Viewpoints you save will appear here for easy access."
+                                    />
                                 )}
                             </YStack>
                         )}

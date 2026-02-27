@@ -56,13 +56,17 @@ export function CustomMapMarker({ id, coordinate, title, category }: CustomMapMa
     <MapboxGL.MarkerView id={id} coordinate={coordinate}>
       <View
         onTouchEnd={handlePress}
+        accessible={true}
+        accessibilityLabel={`${title}, category: ${category}${isActive ? ', selected' : ''}`}
+        accessibilityRole="button"
+        accessibilityHint="Tap to view details for this spot on the map."
         style={{
           alignItems: 'center',
           justifyContent: 'center',
           backgroundColor: markerBg,
           borderRadius: 24,
-          width: isActive ? 48 : 40,
-          height: isActive ? 48 : 40,
+          width: isActive ? 48 : 44, // Increased from 40 to 44 for touch target
+          height: isActive ? 48 : 44, // Increased from 40 to 44
           borderColor: markerBorder,
           borderWidth: 3,
           shadowColor: '#000',

@@ -2,19 +2,35 @@ import React from 'react';
 import { BottomSheetFlatList } from '@gorhom/bottom-sheet';
 import { ViewpointLite } from '../../hooks/useViewpointsSync';
 import { ViewpointCard } from './ViewpointCard';
-import { YStack, Text } from 'tamagui';
+import { YStack } from 'tamagui';
+import { SkeletonViewpointCard } from '../reusable-ui/SkeletonViewpointCard';
+import { EmptyState } from '../reusable-ui/EmptyState';
+import { Search } from '@tamagui/lucide-icons';
 
 type FeaturedListProps = {
   viewpoints: ViewpointLite[];
+  isLoading?: boolean;
   onViewpointPress: (viewpoint: ViewpointLite) => void;
 };
 
-export function FeaturedList({ viewpoints, onViewpointPress }: FeaturedListProps) {
+export function FeaturedList({ viewpoints, isLoading, onViewpointPress }: FeaturedListProps) {
+  if (isLoading) {
+    return (
+      <YStack paddingHorizontal="$4" gap="$1">
+        {[1, 2, 3].map((i) => (
+          <SkeletonViewpointCard key={i} />
+        ))}
+      </YStack>
+    );
+  }
+
   if (viewpoints.length === 0) {
     return (
-      <YStack padding="$4" alignItems="center" justifyContent="center" opacity={0.5}>
-        <Text color="$color">No viewpoints found.</Text>
-      </YStack>
+      <EmptyState 
+        icon={Search}
+        title="No viewpoints found"
+        description="Try adjusting your filters or exploring a different area."
+      />
     );
   }
 

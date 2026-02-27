@@ -173,12 +173,12 @@ This is the heart of the app — a single-screen, map-first layout inspired by t
 
 ## Phase 8 · Accessibility & QA
 
-- [ ] **Contrast ratios** — Verify WCAG compliance for text/background combinations
-- [ ] **Touch targets** — Ensure all interactive elements meet 44×44pt minimum
-- [ ] **Screen reader labels** — Descriptive accessibility labels on map markers, videos, interactive elements
-- [ ] **Error handling** — Graceful fallbacks for denied location permissions, network failures, empty states
-- [ ] **Loading states** — Skeleton screens and shimmer effects for content loading
-- [ ] **Empty states** — Friendly illustrations/messages when no viewpoints found, no favorites, etc.
+- [x] **Contrast ratios** — Verify WCAG compliance for text/background combinations
+- [x] **Touch targets** — Ensure all interactive elements meet 44×44pt minimum
+- [x] **Screen reader labels** — Descriptive accessibility labels on map markers, videos, interactive elements
+- [x] **Error handling** — Graceful fallbacks for denied location permissions, network failures, empty states
+- [x] **Loading states** — Skeleton screens and shimmer effects for content loading
+- [x] **Empty states** — Friendly illustrations/messages when no viewpoints found, no favorites, etc.
 - [x] **Design Consistency** — Make sure the design is consistent with the brand guidelines, and that there are no elements that look out of place.
 - [ ] Show small heart icon on the top right of POIs that are favorited
 

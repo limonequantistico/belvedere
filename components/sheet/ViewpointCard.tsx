@@ -39,7 +39,13 @@ export function ViewpointCard({ viewpoint, onPress }: ViewpointCardProps) {
     : require('../../assets/images/favicon.png'); // Fallback to an existing local asset
 
   return (
-    <Pressable onPress={onPress}>
+    <Pressable 
+      onPress={onPress}
+      accessible={true}
+      accessibilityRole="button"
+      accessibilityLabel={`${viewpoint.name}, ${viewpoint.category_name || 'Spot'}`}
+      accessibilityHint="Tap to view details for this viewpoint."
+    >
       {({ pressed }) => (
         <View
           borderRadius="$6"
@@ -103,6 +109,7 @@ export function ViewpointCard({ viewpoint, onPress }: ViewpointCardProps) {
               <Button
                 circular
                 size="$3"
+                accessibilityLabel={isFavorite ? "Remove from favorites" : "Add to favorites"}
                 icon={<Heart size={18} color={isFavorite ? "#E65100" : "white"} fill={isFavorite ? "#E65100" : "none"} />}
                 backgroundColor="rgba(0,0,0,0.5)"
                 onPress={handleToggleFavorite}
