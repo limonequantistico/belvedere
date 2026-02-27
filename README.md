@@ -378,3 +378,5 @@ Once the app is running on your device, start the Expo development server in you
 npx expo start
 ```
 
+From this moment on the app is available on your device, you can make it work without XCode, just by running `npx expo start`.
+
