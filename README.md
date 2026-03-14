@@ -380,3 +380,16 @@ npx expo start
 
 From this moment on the app is available on your device, you can make it work without XCode, just by running `npx expo start`.
 
+
+
+1. Create OAuth credentials at [Google Cloud Console](https://console.cloud.google.com/apis/credentials)
+2. Fill in the `EXPO_PUBLIC_GOOGLE_*` variables in your `.env`
+3. Uncomment the code in `lib/googleSignIn.ts`
+4. Uncomment the Google button in `components/pages/auth/AuthButtons.tsx`
+5. Build for iOS:
+    ```bash
+    npx expo prebuild --clean
+    npx expo run:ios
+    ```
+
+npx expo run:ios

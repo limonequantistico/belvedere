@@ -29,7 +29,7 @@ export function ManualThemeProvider({ children }: ManualThemeProviderProps) {
 
     return (
         <ThemeContext.Provider value={themeData}>
-            <TamaguiProvider config={tamaguiConfig}>
+            <TamaguiProvider config={tamaguiConfig} defaultTheme="light">
                 <Theme name={themeData.currentTheme}>{children}</Theme>
             </TamaguiProvider>
         </ThemeContext.Provider>
